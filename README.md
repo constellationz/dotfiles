@@ -1,6 +1,6 @@
 # My dotfiles
 
-I'm tired of configuring my system! I just want to clone everything and be done with it. Here are my configs and scripts.
+I'm tired of configuring my system! I want to clone everything and be done with it. Here are my configs and scripts.
 
 ## The star of the show: awesomewm
 
