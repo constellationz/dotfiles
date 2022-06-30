@@ -103,7 +103,6 @@ _private.context_menu_theme = {
 _private.no_titlebar_maximized = true
 _private.mb_move = MB_LEFT
 _private.mb_contextmenu = MB_RIGHT
-_private.mb_resize = nil
 
 -- Titlebar Items
 _private.button_size = 16
@@ -623,12 +622,6 @@ function _private.add_window_decorations(c)
         layout = wibox.layout.align.horizontal,
     }
 
-    -- Make the left and right edges.
-    local resize_button = {
-        awful.button({}, 1, function()
-            c:activate{context = "mouse_click", action = "mouse_resize"}
-        end),
-    }
     local left_edge = create_edge_left({
         client_color = client_color,
         height = _private.max_height,
@@ -648,7 +641,6 @@ function _private.add_window_decorations(c)
         widget = wcontainer_background,
     })
     left_side_border:setup({
-        buttons = resize_button,
         widget = wcontainer_background,
         bgimage = left_edge,
     })
@@ -661,7 +653,6 @@ function _private.add_window_decorations(c)
     right_side_border:setup({
         widget = wcontainer_background,
         bgimage = right_edge,
-        buttons = resize_button,
     })
 
     -- Make bottom left and right images.
@@ -702,7 +693,6 @@ function _private.add_window_decorations(c)
         imagebox(bottom_edge, false),
         imagebox(corner_bottom_right_img, false),
         layout = wibox.layout.align.horizontal,
-        buttons = resize_button,
     })
 
     -- Don't use the titlebar when maximized.
@@ -750,7 +740,6 @@ local function validate_mb_bindings()
     local action_mbs = {
         "mb_move",
         "mb_contextmenu",
-        "mb_resize",
     }
     local mb_specified = {false, false, false, false, false}
     local mb, mb_conflict_test

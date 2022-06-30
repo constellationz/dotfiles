@@ -6,6 +6,7 @@ local awesome = awesome
 local gears = require("gears")
 local awful = require("awful")
 local mouse = require("mouse")
+local resize = require("widgets.resize")
 local layout = require("widgets.layout")
 local finder = require("widgets.finder")
 
@@ -353,7 +354,7 @@ shortcuts.client_buttons = {
     end),
     awful.button({meta}, mouse.rmb, function(c)
         raise(c, "mouse_click")
-        awful.mouse.client.resize(c)
+        resize.resize_client(c)
     end)
 }
 
