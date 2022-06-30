@@ -10,6 +10,6 @@
 # - Management programs
 paru -S --noconfirm fish man \
     git github-cli \
-    helix neovim \
+    helix neovim vi \
     ranger fzf \
     rsync
