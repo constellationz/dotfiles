@@ -2,7 +2,6 @@
 -- Stolen from https://awesomewm.org/doc/api/classes/awful.widget.layoutlist.html
 
 local tbl = require("tbl")
-local naughty = require("naughty")
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")

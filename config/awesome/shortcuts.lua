@@ -65,29 +65,29 @@ end
 
 -- Keys that are always registered
 shortcuts.global_keys = {
-    -- switch layout
-    awful.key({meta}, space, function()
-        layout.next()
-    end,
-    {description = "next layout", group = "awesome"}),
-
-    -- cascade windows
-    awful.key({meta}, "g", function()
+    -- c(a)scade windows
+    awful.key({meta}, "a", function()
         layout.cascade()
     end,
     {description = "cascade windows", group = "awesome"}),
 
-    -- hide all clients
+    -- hi(d)e all clients
     awful.key({meta}, "d", function()
         layout.hide_all_clients()
     end,
     {description = "unminimize everything", group = "awesome"}),
 
-    -- show all clients
+    -- (s)how all clients
     awful.key({meta}, "s", function()
         layout.show_all_clients()
     end,
     {description = "unminimize everything", group = "awesome"}),
+
+    -- switch layout
+    awful.key({meta}, space, function()
+        layout.next()
+    end,
+    {description = "next layout", group = "awesome"}),
 
     -- switch layout back
     awful.key({meta, shift}, space, function()
@@ -95,58 +95,58 @@ shortcuts.global_keys = {
     end,
     {description = "next layout", group = "awesome"}),
 
-    -- go to primary layout
-    awful.key({meta, shift}, "l", function()
+    -- (r)estore layout
+    awful.key({meta}, "r", function()
         layout.set(primary_layout)
         layout.restore_remembered_geometries()
     end,
-
     {description = "next layout", group = "awesome"}),
+
     -- show audio application
     awful.key({meta}, "p", function()
         awful.spawn(programs.audio)
     end,
     {description = "audio", group = "awesome"}),
 
-    -- show browser
+    -- show (w)eb browser
     awful.key({meta}, "w", function()
         awful.spawn(programs.browser)
     end,
     {description = "browser", group = "awesome"}),
 
-    -- show screenshot
+    -- show (s)creenshot
     awful.key({meta, shift}, "s", function()
         awful.spawn(programs.screenshot)
     end,
     {description = "screenshot", group = "awesome"}),
 
-    -- spawn a terminal
+    -- (enter) a command
     awful.key({meta}, "Return", function()
         awful.spawn(programs.terminal)
     end,
     {description = "open a terminal", group = "awesome"}),
 
-    -- show files
+    -- (e)xplore files
     awful.key({meta}, "e", function()
         awful.spawn(programs.files)
     end,
     {description = "show files", group = "awesome"}),
 
-    -- Go left one workspace
+    -- Go (left) one workspace
     awful.key({meta}, "Left", awful.tag.viewprev,
     {description = "view previous", group = "tag"}),
 
-    -- Go right one workspace
+    -- Go (right) one workspace
     awful.key({meta}, "Right", awful.tag.viewnext,
     {description = "view next", group = "tag"}),
 
-    -- Switch window focus down
+    -- Switch window focus down (vim-like)
     awful.key({meta}, "j", function()
         awful.client.focus.byidx(1)
     end,
     {description = "focus next by index", group = "client"}),
 
-    -- Switch window focus up
+    -- Switch window focus up (vim-like)
     awful.key({meta}, "k", function()
         awful.client.focus.byidx(-1)
     end,
@@ -158,13 +158,13 @@ shortcuts.global_keys = {
     end,
     {description = "show main menu", group = "awesome"}),
 
-    -- swap with next client
+    -- swap with next client (vim-like)
     awful.key({meta, shift}, "j", function()
         awful.client.swap.byidx(1)
     end,
     {description = "swap with next client by index", group = "client"}),
 
-    -- swap with previous client
+    -- swap with previous client (vim-like)
     awful.key({meta, shift}, "k", function()
         awful.client.swap.byidx(-1)
     end,
@@ -183,21 +183,21 @@ shortcuts.global_keys = {
     end,
     {description = "go back", group = "client"}),
 
-    -- Reload awesome
+    -- (r)eload awesome
     awful.key({meta, ctrl}, "r", awesome.restart,
     {description = "reload awesome", group = "awesome"}),
 
-    -- Resize bigger
+    -- make primary client bigger (vim-like)
     awful.key({meta}, "l", function()
         awful.tag.incmwfact(0.05)
     end, {description = "increase master width factor", group = "layout"}),
 
-    -- Resize smaller
+    -- make primary client smaller (vim-like)
     awful.key({meta}, "h", function()
         awful.tag.incmwfact(-0.05)
     end, {description = "decrease master width factor", group = "layout"}),
 
-    -- Focus restored client
+    --u(n)minimize and focus
     awful.key({meta, ctrl}, "n", function()
         local c = awful.client.restore()
         if c then
@@ -205,13 +205,13 @@ shortcuts.global_keys = {
         end
     end, {description = "restore minimized", group = "client"}),
 
-    -- Run a program.
+    -- run a program.
     awful.key({alt}, space, function()
         finder.launch("run", "programs", awful.spawn)
     end,
     {description = "run prompt", group = "launcher"}),
 
-    -- Open a crate
+    -- open a (c)rate
     awful.key({alt}, "c", function()
         finder.launch("search crates.io", "crates", function(text)
             local extra = (" %s crates.io/search?q=%s"):format(open_link_mode, text)
@@ -219,7 +219,7 @@ shortcuts.global_keys = {
         end)
     end, {description = "open crate", group = "launcher"}),
 
-    -- Find npm package
+    -- find (n)pm package
     awful.key({alt}, "n", function()
         finder.launch("search npm", "crates", function(text)
             local extra = (" %s npmjs.com/search?q=%s"):format(open_link_mode, text)
@@ -227,7 +227,7 @@ shortcuts.global_keys = {
         end)
     end, {description = "open npm", group = "launcher"}),
 
-    -- Run lua code
+    -- e(x)ecute lua code
     awful.key({alt}, "x", function()
         finder.launch("execute", "execute", awful.util.eval)
     end, {description = "lua execute prompt", group = "launcer"}),
