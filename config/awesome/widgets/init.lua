@@ -1,7 +1,7 @@
 -- Some simple widgets--[[  ]].
 
+local awesome = awesome
 local awful = require("awful")
-local wibox = require("wibox")
 local programs = require("programs")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi

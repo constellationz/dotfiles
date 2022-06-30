@@ -16,6 +16,11 @@ local MB_LEFT = 1
 local MB_MIDDLE = 2
 local MB_RIGHT = 3
 
+-- To silence linter warnings
+local client = client
+local screen = screen
+local mousegrabber = mousegrabber
+
 -- Require awesome libraries
 local awful = require("awful")
 local beautiful = require("beautiful")
@@ -732,7 +737,7 @@ end
 -- Update the global screen dimensions.
 local function update_max_screen_dims()
     local max_height, max_width = 0, 0
-    for s in _G.screen do
+    for s in screen do
         max_height = math.max(max_height, s.geometry.height)
         max_width = math.max(max_width, s.geometry.width)
     end
@@ -768,7 +773,7 @@ end
 -- Initialize this module.
 local function initialize(args)
     -- Update the screen dimensions.
-    _G.screen.connect_signal("list", update_max_screen_dims)
+    screen.connect_signal("list", update_max_screen_dims)
     update_max_screen_dims()
 
     -- Set up private parameters.
@@ -795,7 +800,7 @@ local function initialize(args)
     validate_mb_bindings()
 
     -- When titlebars are requested, add them.
-    _G.client.connect_signal("request::titlebars", function(c)
+    client.connect_signal("request::titlebars", function(c)
         c._cb_add_window_decorations = function()
             gtimer.weak_start_new(0.25, function()
                 c._cool_base_color = auto_set_dominant_color(c)

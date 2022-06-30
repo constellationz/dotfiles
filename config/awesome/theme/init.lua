@@ -13,7 +13,8 @@ local colors = require("cool.colors")
 
 local theme = {
     use_dark_text = false,
-    wallpaper = config_path .. "theme/gruvbox_wallpaper.png"
+    use_wallpaper_colors = true,
+    wallpaper = config_path .. "theme/starmap.png"
 }
 
 -- Use these to theme the statusbar.
@@ -52,6 +53,13 @@ local function generate_awesome_icon()
     theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_normal)
 end
 
+-- Set the wallpaper.
+---@param s any The screen to set the wallpaper of.
+function theme.set_wallpaper(s)
+    gears.wallpaper.prepare_context(s)
+    gears.wallpaper.maximized(theme.wallpaper, s)
+end
+
 -- Initialize colors from the wallpaper.
 function theme.get_colors_from_wallpaper()
     -- Try reading the wallpaper.
@@ -65,7 +73,7 @@ function theme.get_colors_from_wallpaper()
     end
 
     -- If the wallpaper can be turned into a surface, load it.
-    if wallpaper_surface then
+    if wallpaper_surface and theme.use_wallpaper_colors then
         local width, _ = gears.surface.get_size(wallpaper_surface)
         local primary = colors.get_dominant_color(wallpaper_surface, width)
         local focus = colors.lighten(primary, 10)
@@ -78,7 +86,7 @@ function theme.get_colors_from_wallpaper()
     end
 
     -- Invert foreground colors if needed.
-    if wallpaper_surface and theme.use_dark_text then
+    if wallpaper_surface and theme.use_dark_text and theme.use_wallpaper_colors then
         theme.fg_normal = theme.fg_normal_dark
         theme.fg_focus = theme.fg_focus_dark
         theme.fg_urgent = theme.fg_urgent_dark

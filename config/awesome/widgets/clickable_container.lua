@@ -1,5 +1,6 @@
 -- A container that can be clicked.
 
+local mouse = mouse
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 

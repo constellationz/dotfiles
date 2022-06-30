@@ -4,9 +4,14 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+-- To silence most linter warnings
+local root = root
+local client = client
+local screen = screen
+local awesome = awesome
+
 -- Load awesome libraries
 local tbl = require("tbl")
-local gears = require("gears")
 local awful = require("awful")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
@@ -44,7 +49,7 @@ end
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(require("theme"))
-beautiful.get_colors_from_wallpaper(i)
+beautiful.get_colors_from_wallpaper()
 
 -- User-defined libraries
 -- Load these after awesome initialization to catch errors.
@@ -99,23 +104,12 @@ awful.layout.layouts = {
 awful.mouse.snap.edge_enabled = false
 awful.mouse.snap.client_enabled = false
 
--- Set the wallpaper of a screen.
-local function set_wallpaper(s)
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
-
 -- When screen geometry changes, set the wallpaper.
-screen.connect_signal("property::geometry", set_wallpaper)
+screen.connect_signal("property::geometry", beautiful.set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    beautiful.set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag(shortcuts.get_workspace_tags(), s, awful.layout.layouts[1])

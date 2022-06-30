@@ -1,7 +1,8 @@
 -- User shortcut configuration.
 
 -- Awesome libraries
-local tbl = require("tbl")
+local client = client
+local awesome = awesome
 local gears = require("gears")
 local awful = require("awful")
 local mouse = require("mouse")
@@ -62,29 +63,6 @@ function shortcuts.export_repeat_rate()
     ))
 end
 
--- Iterator for everything
-local function everything(_)
-    return true
-end
-
--- Only iterate over clients whose tags are visible
----@param c any The client we are iterating over
-local function this_workspace(c)
-    for _, tag in pairs (awful.tag.selectedlist()) do
-        if tbl.has(c, tag:clients()) then
-            return true
-        end
-    end
-    return false
-end
-
--- Show every client.
-local function show_all_clients()
-    for c in awful.client.iterate(this_workspace) do
-        c.minimized = false
-    end
-end
-
 -- Keys that are always registered
 shortcuts.global_keys = {
     -- switch layout
@@ -93,9 +71,21 @@ shortcuts.global_keys = {
     end,
     {description = "next layout", group = "awesome"}),
 
+    -- cascade windows
+    awful.key({meta}, "g", function()
+        layout.cascade()
+    end,
+    {description = "cascade windows", group = "awesome"}),
+
+    -- hide all clients
+    awful.key({meta}, "d", function()
+        layout.hide_all_clients()
+    end,
+    {description = "unminimize everything", group = "awesome"}),
+
     -- show all clients
     awful.key({meta}, "s", function()
-        show_all_clients()
+        layout.show_all_clients()
     end,
     {description = "unminimize everything", group = "awesome"}),
 
@@ -108,6 +98,7 @@ shortcuts.global_keys = {
     -- go to primary layout
     awful.key({meta, shift}, "l", function()
         layout.set(primary_layout)
+        layout.restore_remembered_geometries()
     end,
 
     {description = "next layout", group = "awesome"}),
@@ -302,26 +293,22 @@ shortcuts.client_keys = {
 
     -- Maximize
     awful.key({meta}, "f", function(c)
-        c.maximized = not c.maximized
-        c:raise()
-    end, {description = "(un)maximize", group = "client"}),
+        layout.toggle_maximize(c)
+    end, {description = "toggle maximize", group = "client"}),
 
     -- Maximize vertically
     awful.key({meta}, "v", function(c)
-        c.maximized_vertical = not c.maximized_vertical
-        c:raise()
-    end, {description = "(un)maximize vertically", group = "client"}),
+        layout.toggle_vertical_maximize(c)
+    end, {description = "toggle vertical maximize", group = "client"}),
 
     -- Go fullscreen
     awful.key({ meta, shift }, "f", function(c)
-        c.fullscreen = not c.fullscreen
-        c:raise()
+        layout.toggle_fullscreen(c)
     end, {description = "toggle fullscreen", group = "client"}),
 
     -- Move this window to the center.
-    -- Maximize vertically
     awful.key({meta}, "c", function(c)
-        awful.placement.centered(c)
+        layout.focus(c)
     end, {description = "center", group = "client"})
 }
 
