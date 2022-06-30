@@ -4,7 +4,7 @@ I'm tired of configuring my system! I want to clone everything and be done with 
 
 ## The star of the show: awesomewm
 
- - Auto titlebar color in awesomewm with a fork of [mut-ex's nice module.](https://github.com/mut-ex/awesome-wm-nice) (thanks, mut-ex!)
+ - Auto titlebar coloring with a fork of [mut-ex's nice module.](https://github.com/mut-ex/awesome-wm-nice) (thanks, mut-ex!)
  - Awesome themes that automatically color match the wallpaper.
  - An all-in-one workflow with tiling, floating, built-in launchers.
 
