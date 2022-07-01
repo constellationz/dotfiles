@@ -9,7 +9,7 @@
 # - Install my code editor of choice
 paru -S --noconfirm awesome-git picom ly alacritty neovim  \
     pavucontrol gucharmap firefox lxappearance mupdf mpv \
-    arc-gtk-theme adwaita-icon-theme \
+    adwaita-icon-theme \
     ttf-fira-code nerd-fonts-dejavu-complete noto-fonts-emoji-apple \
     ttf-victor-mono gnu-free-fonts \
     vscodium-bin
