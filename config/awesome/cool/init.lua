@@ -26,6 +26,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gtimer = require("gears.timer")
 local wibox = require("wibox")
+local gears = require("gears")
 local get_font_height = require("beautiful").get_font_height
 
 -- Gears timer
@@ -174,9 +175,11 @@ end
 
 -- Set the dominant color of a client.
 ---@param c any The client to set the dominant color of.
+---@return any dominant_color The dominant color.
 local function auto_set_dominant_color(c)
-    local dominant_color = color.get_dominant_color(c, c:geometry().width)
+    local dominant_color = colors.get_dominant_color(gears.surface(c.content), c:geometry().width)
     set_color_rule(c, dominant_color)
+    return dominant_color
 end
 
 -- Returns a color that is analogous to the last color returned
@@ -346,7 +349,6 @@ end
 ---@param c any The client to get mouse bindings for
 ---@return table buttons
 local function get_titlebar_mouse_bindings(c)
-
     -- Automatically recolor the client.
     local function autocolor()
         c._cool_base_color = auto_set_dominant_color(c)
