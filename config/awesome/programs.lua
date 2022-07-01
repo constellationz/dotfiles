@@ -1,6 +1,10 @@
 -- User configuration for programs.
 
-local startup = { "picom" }
+local startup = {
+    "picom", -- Compositor
+    "xset s off -dpms", -- Inhibit screen from turning off
+}
+
 local browser = "firefox"
 local terminal = "alacritty"
 local editor = "nvim"

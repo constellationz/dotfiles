@@ -37,8 +37,8 @@ local workspace_count = 10
 
 -- What mode should links be opened in?
 -- Used for searchers.
--- local open_link_mode == "--new-tab"
-local open_link_mode = "--new-window"
+-- local open_link_mode = "--new-window"
+local open_link_mode = "--new-tab"
 
 local shortcuts = {
     workspace_count = workspace_count,
@@ -231,7 +231,7 @@ shortcuts.global_keys = {
     -- e(x)ecute lua code
     awful.key({alt}, "x", function()
         finder.launch("execute", "execute", awful.util.eval)
-    end, {description = "lua execute prompt", group = "launcer"}),
+    end, {description = "lua execute prompt", group = "launcher"})
 }
 
 -- Generate awful.keys for a workspace.
@@ -309,6 +309,9 @@ shortcuts.client_keys = {
 
     -- Move this window to the center.
     awful.key({meta}, "c", function(c)
+        if awful.layout.get() ~= awful.layout.suit.floating then
+            layout.cascade()
+        end
         layout.focus(c)
     end, {description = "center", group = "client"})
 }
