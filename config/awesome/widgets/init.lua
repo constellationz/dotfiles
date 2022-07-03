@@ -13,7 +13,9 @@ widgets.awesome_menu = {
     {"manual", programs.terminal .. " -e man awesome"},
     {"edit config", programs.editor_cmd .. " " .. awesome.conffile},
     {"restart", awesome.restart},
-    {"quit", awesome.quit},
+    {"quit", function()
+        awesome.quit()
+    end}
 }
 
 -- The main menu that results from clicking on the launcher.
