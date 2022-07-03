@@ -11,5 +11,5 @@
 paru -S --noconfirm fish man \
     git github-cli \
     helix neovim vi \
-    ranger fzf \
+    ranger fzf tree \
     rsync
