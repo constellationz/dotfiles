@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 # Save dotfiles to the dotfiles repository.
 
+SCRIPT_DIR=$(dirname "$0")
+CONFIG_DIR=$SCRIPT_DIR../config/
+
 dotConfigs=(
     "awesome/"
     "alacritty/"
@@ -15,12 +18,13 @@ dotConfigs=(
 # Copy configs
 for config in ${dotConfigs[@]}; do
     echo "Saving $config"
-    rsync -a -r ~/.config/$config ~/dotfiles/config/$config
+    rsync -a -r ~/.config/$config $CONFIG_DIR/$config
 done
 
-# Remove stupid alacritty autogens
+# Remove stupid alacritty-themes autogens
 if [ -d "~/dotfiles/config/alacritty" ];
 then
     echo "Removing alacritty .bak files"
-    rm ~/dotfiles/config/alacritty/*.bak
+    rm $CONFIG_DIR/alacritty/*.bak
 fi
+
