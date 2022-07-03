@@ -2,19 +2,20 @@
 # Save dotfiles to the dotfiles repository.
 
 dotConfigs=(
-    "awesome"
-    "alacritty"
-    "helix"
-    "picom"
-    "paru"
-    "nvim"
-    "fish"
+    "awesome/"
+    "alacritty/"
+    "helix/"
+    "picom/"
+    "paru/"
+    "nvim/"
+    "fish/"
+    "VSCodium/User/settings.json"
 )
 
 # Copy configs
 for config in ${dotConfigs[@]}; do
     echo "Saving $config"
-    rsync -a -r ~/.config/$config/ ~/dotfiles/config/$config/
+    rsync -a -r ~/.config/$config ~/dotfiles/config/$config
 done
 
 # Remove stupid alacritty autogens
