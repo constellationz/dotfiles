@@ -7,7 +7,7 @@ local shortcuts = require("shortcuts")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
-local TOP_MARGIN = dpi(9)
+local TOP_MARGIN = dpi(8)
 local SIDE_MARGIN = dpi(10)
 local STATUSBAR_TAG_DOT = beautiful.statusbar_tag_dot or dpi(4)
 
@@ -51,7 +51,7 @@ local function create_tag_list(s)
 						left = SIDE_MARGIN,
 						right = SIDE_MARGIN,
 						top = TOP_MARGIN,
-						bottom = 0,
+						bottom = TOP_MARGIN,
 						widget = wibox.container.margin,
 					},
 				},

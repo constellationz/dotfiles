@@ -28,7 +28,6 @@ local function create_statusbar(s)
             widget = wibox.widget.systray,
         },
         visible = false,
-        top = dpi(0),
         widget = wibox.container.margin,
     })
 

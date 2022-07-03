@@ -14,7 +14,7 @@ local colors = require("cool.colors")
 local theme = {
     use_dark_text = false,
     use_wallpaper_colors = true,
-    wallpaper = config_path .. "theme/starmap.png"
+    wallpaper = config_path .. "theme/planets.jpg"
 }
 
 -- Use these to theme the statusbar.

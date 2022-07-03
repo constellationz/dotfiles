@@ -276,6 +276,12 @@ shortcuts.client_keys = {
     end,
     {description = "close", group = "client"}),
 
+    -- automatically ch(o)ose the current client's color
+    awful.key({meta}, "o", function(c)
+        c:emit_signal("autocolor")
+    end,
+    {description = "cascade windows", group = "awesome"}),
+
     -- Toggle floating
     awful.key({meta}, space, awful.client.floating.toggle,
     {description = "toggle floating", group = "client"}),

@@ -87,12 +87,12 @@ end
 
 -- Load a table from a file.
 ---@param file string The file to load
----@return string? err Returns an error if one happens
+---@return table The table that was loaded, if any.
 local function load(file)
 	-- Try loading the file
 	local ftables, err = loadfile(file)
 	if err then
-		return err
+		return nil
 	end
 
 	-- Read from the file

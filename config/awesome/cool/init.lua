@@ -349,13 +349,6 @@ end
 ---@param c any The client to get mouse bindings for
 ---@return table buttons
 local function get_titlebar_mouse_bindings(c)
-    -- Automatically recolor the client.
-    local function autocolor()
-        c._cool_base_color = auto_set_dominant_color(c)
-        set_color_rule(c, c._cool_base_color)
-        _private.add_window_decorations(c)
-    end
-
     -- Pick a color manually.
     local function pick_color()
         mousegrabber.run(function(m)
@@ -790,13 +783,18 @@ local function initialize(args)
     -- Make sure the mouse bindings are valid.
     validate_mb_bindings()
 
+    -- Automatically recolor the client.
+    client.connect_signal("autocolor", function(c)
+        c._cool_base_color = auto_set_dominant_color(c)
+        set_color_rule(c, c._cool_base_color)
+        _private.add_window_decorations(c)
+    end)
+
     -- When titlebars are requested, add them.
     client.connect_signal("request::titlebars", function(c)
         c._cb_add_window_decorations = function()
             gtimer.weak_start_new(0.25, function()
-                c._cool_base_color = auto_set_dominant_color(c)
-                set_color_rule(c, c._cool_base_color)
-                _private.add_window_decorations(c)
+                c:emit_signal("autocolor")
                 c:disconnect_signal("request::activate", c._cb_add_window_decorations)
             end)
         end
