@@ -2,7 +2,7 @@
 # Save dotfiles to the dotfiles repository.
 
 SCRIPT_DIR=$(dirname "$0")
-CONFIG_DIR=$SCRIPT_DIR../config/
+CONFIG_DIR=$SCRIPT_DIR/../config/
 
 dotConfigs=(
     "awesome/"
@@ -18,7 +18,7 @@ dotConfigs=(
 # Copy configs
 for config in ${dotConfigs[@]}; do
     echo "Saving $config"
-    rsync -a -r ~/.config/$config $CONFIG_DIR/$config
+    rsync -a -r ~/.config/$config $CONFIG_DIR$config
 done
 
 # Remove stupid alacritty-themes autogens

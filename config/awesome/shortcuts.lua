@@ -72,6 +72,12 @@ shortcuts.global_keys = {
     end,
     {description = "cascade windows", group = "awesome"}),
 
+    -- Edit (n)etwork connections
+    awful.key({meta}, "n", function(c)
+        awful.spawn(programs.network)
+    end,
+    {description = "edit network connections", group = "awesome"}),
+
     -- hi(d)e all clients
     awful.key({meta}, "d", function()
         layout.hide_all_clients()
