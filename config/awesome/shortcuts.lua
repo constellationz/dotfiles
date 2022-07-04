@@ -50,6 +50,17 @@ local shortcuts = {
     space = space
 }
 
+-- Query a duckduckgo bang search
+---@param text string The text to query
+local function bang(text)
+    if not text then
+        return
+    end
+    local url_text = text:gsub(" ", "\\ ")
+    local query = (" %s duckduckgo.com/?q=%s"):format(open_link_mode, url_text)
+    awful.spawn(programs.browser .. query)
+end
+
 -- Raise a client.
 ---@param c table The clientto raise
 ---@param signal string The signal that raised the window
@@ -218,13 +229,10 @@ shortcuts.global_keys = {
     end,
     {description = "run prompt", group = "launcher"}),
 
+
     -- duckduckgo b(a)ng!
     awful.key({alt}, "a", function()
-        finder.launch("search", "search", function(text)
-            local url_text = text:gsub(" ", "\\ ")
-            local extra = (" %s duckduckgo.com/?q=%s"):format(open_link_mode, url_text)
-            awful.spawn(programs.browser .. extra)
-        end)
+        finder.launch("search", "search", bang)
     end, {description = "open duckduckgo", group = "launcher"}),
 
     -- e(x)ecute lua code
