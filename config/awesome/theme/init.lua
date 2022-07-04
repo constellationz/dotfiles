@@ -7,7 +7,6 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local config_path = gfs.get_configuration_dir()
 local theme_assets = require("beautiful.theme_assets")
-local cool_table require("cool.table")
 
 -- Used for auto generating colors.
 local colors = require("cool.colors")
