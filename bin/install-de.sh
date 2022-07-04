@@ -14,7 +14,7 @@ paru -S --noconfirm awesome-git picom ly alacritty neovim  \
 	networkmanager nm-connection-editor \
     ttf-fira-code nerd-fonts-dejavu-complete noto-fonts-emoji-apple \
     ttf-victor-mono gnu-free-fonts \
-    vscodium-bin
+    vscodium-bin xed
 
 # Enable the login manager
 sudo systemctl enable ly.service
