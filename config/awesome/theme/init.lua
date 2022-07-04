@@ -14,7 +14,7 @@ local colors = require("cool.colors")
 
 -- TODO: Save theme to .gitignore file
 local default_wallpaper = config_path .. "theme/wallpaper.png"
-local my_wallpaper = config_path .. "theme/planets.jpg"
+local my_wallpaper = config_path .. "theme/starmap.png"
 
 local theme = {
     use_dark_text = false,

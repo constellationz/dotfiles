@@ -1,11 +1,11 @@
 {
-    "workbench.colorTheme": "Gruvbox Material Dark",
+    "workbench.colorTheme": "Palenight Italic",
     "window.menuBarVisibility": "toggle",
-    "window.zoomLevel": 1,
     "editor.fontFamily": "Victor Mono",
     "editor.fontWeight": 600,
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     "terminal.integrated.fontFamily": "Victor Mono",
     "terminal.integrated.fontWeight": 600,
-    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontSize": 14,
+    "window.zoomLevel": 1,
 }
