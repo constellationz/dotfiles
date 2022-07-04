@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Palenight Italic",
     "window.menuBarVisibility": "toggle",
     "editor.fontFamily": "Victor Mono",
     "editor.fontWeight": 600,
@@ -8,4 +7,5 @@
     "terminal.integrated.fontWeight": 600,
     "terminal.integrated.fontSize": 14,
     "window.zoomLevel": 1,
+    "workbench.colorTheme": "Gruvbox Material Dark",
 }
