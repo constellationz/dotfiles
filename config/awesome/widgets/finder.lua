@@ -2,6 +2,7 @@
 
 local awful = require("awful")
 local wibox = require("wibox")
+local naughty = require("naughty")
 local beautiful = require("beautiful")
 local popup = require("widgets.popup")
 local gfs = require("gears.filesystem")
@@ -60,7 +61,14 @@ local function launch(prompt, history_dir, callback)
         bg_cursor = beautiful.bg_focus,
         textbox = finder.widget,
         history_path = history_path,
-        exe_callback = callback,
+        exe_callback = function(...)
+            local success, err = pcall(callback, ...)
+            if not success then
+                naughty.notify({
+                    text = "Finder error: " .. err
+                })
+            end
+        end,
         done_callback = function()
             finder_popup:close()
         end

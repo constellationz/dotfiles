@@ -7,14 +7,13 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local config_path = gfs.get_configuration_dir()
 local theme_assets = require("beautiful.theme_assets")
-local cool_table require("cool.table")
 
 -- Used for auto generating colors.
 local colors = require("cool.colors")
 
 -- TODO: Save theme to .gitignore file
 local default_wallpaper = config_path .. "theme/wallpaper.png"
-local my_wallpaper = config_path .. "theme/planets.jpg"
+local my_wallpaper = config_path .. "theme/starmap_north.jpg"
 
 local theme = {
     use_dark_text = false,
