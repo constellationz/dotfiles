@@ -13,3 +13,4 @@ paru -S --noconfirm fish man \
     helix neovim vi \
     ranger fzf tree \
     rsync
+
