@@ -22,22 +22,22 @@ local function create_statusbar(s)
     -- Systray widget to use
     s.systray = wibox.widget({
         {
-            base_size = dpi(20),
+            base_size = dpi(16),
+            forced_height = 20,
             horizontal = true,
             screen = "primary",
             widget = wibox.widget.systray,
         },
-        visible = true,
-        widget = wibox.container.margin,
+        spacing = 10,
+        valign = "center",
+        halign = "center",
+        widget = wibox.container.place,
     })
 
     -- Custom widgets for the statusbar
     s.clock = require("widgets.clock").create(s)
     s.tag_list = require("widgets.tag_list").create(s)
     s.task_list = require("widgets.task_list").create(s)
-
-    -- Keyboard layout
-    s.keyboard_layout = awful.widget.keyboardlayout({})
 
     -- Add widgets to the wibox
     s.mywibox:setup({
@@ -57,14 +57,9 @@ local function create_statusbar(s)
         -- Right widgets
         {
             layout = wibox.layout.fixed.horizontal,
-            {
-                s.systray,
-                margins = beautiful.statusbar_margins,
-                widget = wibox.container.margin,
-            },
-            s.keyboard_layout,
+            spacing = beautiful.systray_spacing,
+            s.systray,
             s.clock,
-            s.network,
         }
     })
 

@@ -15,7 +15,7 @@ local colors = require("cool.colors")
 local my_theme = {
     wallpaper = config_path .. "theme/starmap_north.jpg",
     use_wallpaper_colors = true,
-    use_dark_text = true,
+    use_dark_text = false,
     fg_override = "#ebdbb2", -- Gruvbox foreground
     -- bg_override = "#282828", -- Gruvbox background
 }
@@ -35,6 +35,10 @@ theme.statusbar_tag_dot         = dpi(4)
 -- Some modules use font_face instead of font.
 theme.font_face     = "sans"
 theme.font          = theme.font_face .. " 8"
+
+-- Space icons apart in the systray.
+theme.systray_icon_spacing = dpi(5)
+theme.systray_spacing = dpi(5)
 
 -- Default background colors.
 theme.bg_normal     = "#222222"

@@ -73,11 +73,18 @@ local function inc_size(c, inc)
         return
     end
 
+    -- Get old sizes
+    local geometry = c:geometry()
+
+    -- Calculate new size
+    -- Resize using an aspect ratio for consistency
+    local height = geometry.height + inc
+    local width = height * 4 / 3
+    local x = geometry.x + (geometry.width - width) / 2
+    local y = geometry.y + (geometry.height - height) / 2
+
     -- Don't resize if the window will be too big.
     local screen = c.screen
-    local geometry = c:geometry()
-    local width = geometry.width + inc
-    local height = geometry.height + inc
     if inc > 0 and (width > screen.geometry.width or height > screen.geometry.height) then
         return
     end
@@ -88,8 +95,8 @@ local function inc_size(c, inc)
     end
 
     c:geometry({
-        x = geometry.x - inc / 2,
-        y = geometry.y - inc / 2,
+        x = x,
+        y = y,
         width = width,
         height = height,
     })
@@ -175,10 +182,16 @@ shortcuts.global_keys = {
     {description = "cascade windows", group = "awesome"}),
 
     -- Edit (n)etwork connections
-    awful.key({meta}, "n", function(c)
+    awful.key({meta}, "n", function()
         awful.spawn(programs.network)
     end,
     {description = "edit network connections", group = "awesome"}),
+
+    -- Open (b)lueman
+    awful.key({meta}, "b", function()
+        awful.spawn(programs.blueman)
+    end,
+    {description = "open blueman", group = "awesome"}),
 
     -- hi(d)e all clients
     awful.key({meta}, "d", function()
@@ -368,7 +381,6 @@ shortcuts.client_keys = {
     -- (s)cooch this window to the side
     awful.key({meta}, "s", function(c)
         scooch(c)
-        focus_previous()
     end,
     {description = "close", group = "client"}),
 
