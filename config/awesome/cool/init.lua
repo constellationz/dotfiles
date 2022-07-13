@@ -78,10 +78,10 @@ _private.max_height = 0
 -- Titlebar
 _private.titlebar_height = 38
 _private.titlebar_radius = 8
-_private.titlebar_color = "#1E1E24"
+_private.titlebar_color = beautiful.bg_normal -- "#1E1E24"
 _private.titlebar_margin_left = 0
 _private.titlebar_margin_right = 0
-_private.titlebar_font = "Sans 11"
+_private.titlebar_font = beautiful.font_face .. " 11" -- "Sans 11"
 _private.color_rules = cool_table.load(color_rules_filepath) or {}
 _private.titlebar_items = {
     left = {"close", "minimize", "maximize"},
@@ -349,19 +349,6 @@ end
 ---@param c any The client to get mouse bindings for
 ---@return table buttons
 local function get_titlebar_mouse_bindings(c)
-    -- Pick a color manually.
-    local function pick_color()
-        mousegrabber.run(function(m)
-            if m.buttons[1] then
-                c._cool_base_color = get_pixel_at(m.x, m.y)
-                set_color_rule(c, c._cool_base_color)
-                _private.add_window_decorations(c)
-                return false
-            end
-            return true
-        end, "crosshair")
-    end
-
     -- Add functionality for double click to (un)maximize, and single click and hold to move
     local buttons = {
         -- move
@@ -371,7 +358,7 @@ local function get_titlebar_mouse_bindings(c)
 
         -- Autocolor when middle clicked.
         awful.button({}, MB_MIDDLE, function()
-            pick_color()
+            c:emit_signal("pickcolor")
         end),
 
         -- reset colors
@@ -383,10 +370,13 @@ local function get_titlebar_mouse_bindings(c)
                         c:kill()
                     end, beautiful.awesome_icon},
                     {"automatically choose window color", function()
-                        autocolor()
+                        c:emit_signal("autocolor")
                     end},
                     {"manually choose window color", function()
-                        pick_color()
+                        c:emit_signal("pickcolor")
+                    end},
+                    {"reset window color", function()
+                        c:emit_signal("resetcolor")
                     end},
                     {"minimize", function()
                         c.minimized = true
@@ -788,6 +778,26 @@ local function initialize(args)
         c._cool_base_color = auto_set_dominant_color(c)
         set_color_rule(c, c._cool_base_color)
         _private.add_window_decorations(c)
+    end)
+
+    -- Reset the titlebar color.
+    client.connect_signal("resetcolor", function(c)
+        c._cool_base_color = _private.titlebar_color
+        set_color_rule(c, c._cool_base_color)
+        _private.add_window_decorations(c)
+    end)
+
+    -- Pick a color manually.
+    client.connect_signal("pickcolor", function(c)
+        mousegrabber.run(function(m)
+            if m.buttons[1] then
+                c._cool_base_color = get_pixel_at(m.x, m.y)
+                set_color_rule(c, c._cool_base_color)
+                _private.add_window_decorations(c)
+                return false
+            end
+            return true
+        end, "crosshair")
     end)
 
     -- When titlebars are requested, add them.

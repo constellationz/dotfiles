@@ -388,7 +388,13 @@ shortcuts.client_keys = {
     awful.key({meta}, "o", function(c)
         c:emit_signal("autocolor")
     end,
-    {description = "cascade windows", group = "awesome"}),
+    {description = "automatically color titlebar", group = "awesome"}),
+
+    -- reset window c(O)lor
+    awful.key({meta, shift}, "o", function(c)
+        c:emit_signal("resetcolor")
+    end,
+    {description = "reset titlebar color", group = "awesome"}),
 
     -- Toggle floating
     awful.key({meta}, space, awful.client.floating.toggle,

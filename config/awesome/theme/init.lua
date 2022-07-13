@@ -13,17 +13,17 @@ local colors = require("cool.colors")
 
 -- TODO: Save theme to .gitignore file
 local my_theme = {
-    wallpaper = config_path .. "theme/starmap_north.jpg",
+    wallpaper = config_path .. "theme/starmap.png",
     use_wallpaper_colors = true,
     use_dark_text = false,
-    fg_override = "#ebdbb2", -- Gruvbox foreground
+    -- fg_override = "#ebdbb2", -- Gruvbox foreground
     -- bg_override = "#282828", -- Gruvbox background
 }
 
 local theme = {}
 
 -- Set the wallpaper internally.
-theme.wallpaper = my_theme.wallpaper or themes_path .. "default/background.png" 
+theme.wallpaper = my_theme.wallpaper or themes_path .. "default/background.png"
 
 -- Use these to theme the statusbar.
 theme.statusbar_height          = dpi(26)
