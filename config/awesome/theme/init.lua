@@ -13,7 +13,7 @@ local colors = require("cool.colors")
 
 -- TODO: Save theme to .gitignore file
 local my_theme = {
-    wallpaper = config_path .. "theme/starmap.png",
+    wallpaper = config_path .. "theme/starmap_north.jpg",
     use_wallpaper_colors = true,
     use_dark_text = false,
     -- fg_override = "#ebdbb2", -- Gruvbox foreground

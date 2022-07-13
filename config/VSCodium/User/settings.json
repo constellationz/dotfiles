@@ -7,7 +7,7 @@
     "terminal.integrated.fontWeight": 600,
     "terminal.integrated.fontSize": 14,
     "window.zoomLevel": 1,
-    "workbench.colorTheme": "Palenight Theme",
+    "workbench.colorTheme": "Gruvbox Material Dark",
     "terminal.external.linuxExec": "alacritty",
     "explorer.confirmDelete": false,
 }
