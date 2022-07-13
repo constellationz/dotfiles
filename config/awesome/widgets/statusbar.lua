@@ -27,7 +27,7 @@ local function create_statusbar(s)
             screen = "primary",
             widget = wibox.widget.systray,
         },
-        visible = false,
+        visible = true,
         widget = wibox.container.margin,
     })
 

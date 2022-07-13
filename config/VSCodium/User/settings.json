@@ -1,11 +1,12 @@
 {
     "window.menuBarVisibility": "toggle",
-    "editor.fontFamily": "Victor Mono",
+    "editor.fontFamily": "VictorMono Nerd Font",
     "editor.fontWeight": 600,
     "editor.fontSize": 14,
-    "terminal.integrated.fontFamily": "Victor Mono",
+    "terminal.integrated.fontFamily": "VictorMono Nerd Font",
     "terminal.integrated.fontWeight": 600,
     "terminal.integrated.fontSize": 14,
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Gruvbox Material Dark",
+    "terminal.external.linuxExec": "alacritty",
 }

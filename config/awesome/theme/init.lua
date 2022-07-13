@@ -12,14 +12,18 @@ local theme_assets = require("beautiful.theme_assets")
 local colors = require("cool.colors")
 
 -- TODO: Save theme to .gitignore file
-local default_wallpaper = config_path .. "theme/wallpaper.png"
-local my_wallpaper = config_path .. "theme/starmap_north.jpg"
-
-local theme = {
-    use_dark_text = false,
+local my_theme = {
+    wallpaper = config_path .. "theme/starmap_north.jpg",
     use_wallpaper_colors = true,
-    wallpaper = my_wallpaper or default_wallpaper
+    use_dark_text = true,
+    fg_override = "#ebdbb2", -- Gruvbox foreground
+    bg_override = nil, -- "#282828" -- Gruvbox background
 }
+
+local theme = {}
+
+-- Set the wallpaper internally.
+theme.wallpaper = my_theme.wallpaper or themes_path .. "default/background.png" 
 
 -- Use these to theme the statusbar.
 theme.statusbar_height          = dpi(26)
@@ -64,6 +68,29 @@ function theme.set_wallpaper(s)
     gears.wallpaper.maximized(theme.wallpaper, s)
 end
 
+-- Use a certain foreground color
+-- Generates other colors from the foreground color.
+---@param fg color The color to use.
+local function use_fg(fg)
+    theme.fg_normal = fg
+    theme.fg_focus = fg
+    theme.fg_urgent = fg
+    theme.fg_minimize = fg
+end
+
+-- Use a certain foreground color
+-- Generates other colors from the foreground color.
+---@param bg color The color to use.
+local function use_bg(bg)
+    local focus = colors.lighten(bg, 10)
+    local minimize = colors.lighten(bg, 20)
+    theme.bg_normal = bg
+    theme.bg_systray = bg
+    theme.bg_focus  = focus
+    theme.bg_urgent = minimize
+    theme.bg_minimize = minimize
+end
+
 -- Initialize colors from the wallpaper.
 function theme.get_colors_from_wallpaper()
     -- Try reading the wallpaper.
@@ -77,24 +104,23 @@ function theme.get_colors_from_wallpaper()
     end
 
     -- If the wallpaper can be turned into a surface, load it.
-    if wallpaper_surface and theme.use_wallpaper_colors then
+    if wallpaper_surface and my_theme.use_wallpaper_colors then
         local width, _ = gears.surface.get_size(wallpaper_surface)
-        local primary = colors.get_dominant_color(wallpaper_surface, width)
-        local focus = colors.lighten(primary, 10)
-        local minimize = colors.lighten(primary, 20)
-        theme.bg_normal = primary
-        theme.bg_systray = primary
-        theme.bg_focus  = focus
-        theme.bg_urgent = minimize
-        theme.bg_minimize = minimize
+        local dominant_color = colors.get_dominant_color(wallpaper_surface, width)
+        use_bg(dominant_color)
     end
 
     -- Invert foreground colors if needed.
-    if wallpaper_surface and theme.use_dark_text and theme.use_wallpaper_colors then
-        theme.fg_normal = theme.fg_normal_dark
-        theme.fg_focus = theme.fg_focus_dark
-        theme.fg_urgent = theme.fg_urgent_dark
-        theme.fg_minimize = theme.fg_minimize_dark
+    if wallpaper_surface and my_theme.use_dark_text and my_theme.use_wallpaper_colors then
+        use_fg(theme.fg_normal_dark)
+    end
+
+    -- If overrides exist, use them
+    if my_theme.bg_override then
+        use_bg(my_theme.bg_override)
+    end
+    if my_theme.fg_override then
+        use_fg(my_theme.fg_override)
     end
 
     generate_awesome_icon()
@@ -187,7 +213,7 @@ generate_awesome_icon()
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+theme.icon_theme = "/usr/share/icons/Mint-Y-Dark-Aqua"
 
 return theme
 

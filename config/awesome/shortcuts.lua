@@ -50,6 +50,97 @@ local shortcuts = {
     space = space
 }
 
+-- Is the current layout floating?
+---@return boolean is_floating
+local function is_floating()
+    return awful.layout.get() == awful.layout.suit.floating
+end
+
+-- Focus the previous window.
+local function focus_previous()
+    awful.client.focus.history.previous()
+    if client.focus then
+        client.focus:raise()
+    end
+end
+
+-- Increment the size of a floating window.
+---@param c table The client to resize
+---@param inc number The increment to use for the size.
+local function inc_size(c, inc)
+    -- Do nothing for nil clients.
+    if c == nil then
+        return
+    end
+
+    -- Don't resize if the window will be too big.
+    local screen = c.screen
+    local geometry = c:geometry()
+    local width = geometry.width + inc
+    local height = geometry.height + inc
+    if inc > 0 and (width > screen.geometry.width or height > screen.geometry.height) then
+        return
+    end
+
+    -- Don't resize if the window will be too small.
+    if inc < 0 and (width < 500 or height < 500) then
+        return
+    end
+
+    c:geometry({
+        x = geometry.x - inc / 2,
+        y = geometry.y - inc / 2,
+        width = width,
+        height = height,
+    })
+end
+
+-- Move a client to the side.
+---@param c table The client to move.
+local function scooch(c)
+    if c == nil then
+        return
+    end
+
+    -- Get geometry information.
+    local screen_geometry = c.screen.geometry
+    local geometry = c:geometry()
+    local width = geometry.width
+    local height = geometry.height
+
+    -- Pick a height to place the window at.
+    local y = math.random(0, screen_geometry.height - geometry.height)
+
+    -- Randomly pick a side to move the window to.
+    local is_left = math.random(1, 2) == 1
+
+    c:geometry({
+        width = width,
+        height = height,
+        x = is_left and 0 or screen_geometry.width - width,
+        y = y
+    })
+end
+
+-- Make the focus bigger.
+local function make_focus_bigger()
+    if not is_floating() then
+        awful.tag.incmwfact(0.05)
+    else
+        inc_size(client.focus, 50)
+    end
+end
+
+-- Make the focus smaller.
+local function make_focus_smaller()
+    if not is_floating() then
+        awful.tag.incmwfact(-0.05)
+    else
+        inc_size(client.focus, -50)
+    end
+end
+
+
 -- Query a duckduckgo bang search
 ---@param text string The text to query
 local function bang(text)
@@ -91,13 +182,7 @@ shortcuts.global_keys = {
 
     -- hi(d)e all clients
     awful.key({meta}, "d", function()
-        layout.hide_all_clients()
-    end,
-    {description = "unminimize everything", group = "awesome"}),
-
-    -- (s)how all clients
-    awful.key({meta}, "s", function()
-        layout.show_all_clients()
+        layout.toggle_clients_hidden()
     end,
     {description = "unminimize everything", group = "awesome"}),
 
@@ -194,10 +279,7 @@ shortcuts.global_keys = {
 
     -- like alt tab, go back
     awful.key({meta}, tab, function()
-        awful.client.focus.history.previous()
-        if client.focus then
-            client.focus:raise()
-        end
+        focus_previous()
     end,
     {description = "go back", group = "client"}),
 
@@ -207,12 +289,12 @@ shortcuts.global_keys = {
 
     -- make primary client bigger (vim-like)
     awful.key({meta}, "l", function()
-        awful.tag.incmwfact(0.05)
+        make_focus_bigger()
     end, {description = "increase master width factor", group = "layout"}),
 
     -- make primary client smaller (vim-like)
     awful.key({meta}, "h", function()
-        awful.tag.incmwfact(-0.05)
+        make_focus_smaller()
     end, {description = "decrease master width factor", group = "layout"}),
 
     --u(n)minimize and focus
@@ -283,6 +365,13 @@ shortcuts.client_keys = {
     end,
     {description = "close", group = "client"}),
 
+    -- (s)cooch this window to the side
+    awful.key({meta}, "s", function(c)
+        scooch(c)
+        focus_previous()
+    end,
+    {description = "close", group = "client"}),
+
     -- automatically ch(o)ose the current client's color
     awful.key({meta}, "o", function(c)
         c:emit_signal("autocolor")
@@ -322,7 +411,7 @@ shortcuts.client_keys = {
 
     -- Move this window to the center.
     awful.key({meta}, "c", function(c)
-        if awful.layout.get() ~= awful.layout.suit.floating then
+        if not is_floating() then
             layout.cascade()
         end
         layout.focus(c)

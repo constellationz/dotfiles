@@ -5,7 +5,7 @@ local startup = {
     "xset s off -dpms", -- Inhibit screen from turning off
 }
 
-local browser = "firefox"
+local browser = "chromium"
 local terminal = "alacritty"
 local editor = "nvim"
 local audio = "pavucontrol"

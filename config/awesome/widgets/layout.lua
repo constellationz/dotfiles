@@ -94,6 +94,17 @@ function layout.hide_all_clients()
     end
 end
 
+-- Hide every client.
+local is_hidden = false
+function layout.toggle_clients_hidden()
+    if is_hidden then
+        layout.show_all_clients()
+    else
+        layout.hide_all_clients()
+    end
+    is_hidden = not is_hidden
+end
+
 -- Unmaximize a window.
 ---@param c any The client to unmaximize.
 function layout.unmaximize(c)
