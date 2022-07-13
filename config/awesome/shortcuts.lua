@@ -109,7 +109,7 @@ local function scooch(c)
     local height = geometry.height
 
     -- Pick a height to place the window at.
-    local y = math.random(0, screen_geometry.height - geometry.height)
+    local y = math.random(0, math.max(1, screen_geometry.height - geometry.height))
 
     -- Randomly pick a side to move the window to.
     local is_left = math.random(1, 2) == 1

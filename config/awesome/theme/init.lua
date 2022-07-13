@@ -17,7 +17,7 @@ local my_theme = {
     use_wallpaper_colors = true,
     use_dark_text = true,
     fg_override = "#ebdbb2", -- Gruvbox foreground
-    bg_override = nil, -- "#282828" -- Gruvbox background
+    -- bg_override = "#282828", -- Gruvbox background
 }
 
 local theme = {}
@@ -213,7 +213,7 @@ generate_awesome_icon()
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "/usr/share/icons/Mint-Y-Dark-Aqua"
+theme.icon_theme = nil
 
 return theme
 
