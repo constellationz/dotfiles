@@ -9,4 +9,5 @@
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Gruvbox Material Dark",
     "terminal.external.linuxExec": "alacritty",
+    "explorer.confirmDelete": false,
 }
