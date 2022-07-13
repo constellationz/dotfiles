@@ -3,5 +3,5 @@
 
 # Install light and dark gtk themes.
 # Install icon theme.
-paru -S --noconfirm  materia-gtk-theme \ 
+paru -S --noconfirm materia-gtk-theme \ 
     arc-icon-theme

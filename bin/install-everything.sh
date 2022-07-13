@@ -11,6 +11,7 @@ $SCRIPT_DIR/install-cli-programs.sh
 $SCRIPT_DIR/install-mesa.sh
 $SCRIPT_DIR/install-awesome.sh
 $SCRIPT_DIR/install-gtk-themes.sh
+$SCRIPT_DIR/install-qt-themes.sh
 
 # Finally, install user programs.
 $SCRIPT_DIR/install-user-programs.sh

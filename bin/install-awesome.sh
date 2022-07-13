@@ -2,7 +2,7 @@
 # Install awesomewm.
 
 # Install awesomewm, compositor, and login manager.
-# Install theme manager and an icon theme.
+# Install theme managers and an icon theme.
 # Install fonts. 
 # - Monospace font
 # - Unicode font, 
@@ -17,7 +17,7 @@
 # Install battery manager programs.
 # Install brightness manager programs.
 paru -S --noconfirm awesome-git picom ly \
-    lxappearance adwaita-icon-theme \
+    lxappearance qt5ct adwaita-icon-theme \
     ttf-fira-code nerd-fonts-dejavu-complete noto-fonts-emoji-apple nerd-fonts-victor-mono gnu-free-fonts \
     alacritty \
     gucharmap mupdf mpv feh \
