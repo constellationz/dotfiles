@@ -14,6 +14,7 @@
 # Install a graphical file manager.
 # Install volume programs.
 # Install network manager programs.
+# Install bluetooth manager programs.
 # Install battery manager programs.
 # Install brightness manager programs.
 paru -S --noconfirm awesome-git picom ly \
@@ -22,13 +23,17 @@ paru -S --noconfirm awesome-git picom ly \
     alacritty \
     gucharmap mupdf mpv feh \
     nemo \
-    pavucontrol \
-	networkmanager nm-connection-editor \
+    pavucontrol mictray volumeicon-gtk2 \
+	networkmanager nm-connection-editor network-manager-applet \
+    bluez bluez-utils blueman \
     powerkit \
-    backlight_control 
+    backlight_control \
 
 # Enable the login manager
 sudo systemctl enable ly.service
 
 # Enable the network manager
 sudo systemctl enable NetworkManager.service
+
+# Enable bluetooth
+sudo systemctl enable bluetooth.service
