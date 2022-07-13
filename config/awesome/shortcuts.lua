@@ -181,6 +181,18 @@ shortcuts.global_keys = {
     end,
     {description = "cascade windows", group = "awesome"}),
 
+    -- raise brightness
+    awful.key({}, "XF86MonBrightnessUp", function()
+        awful.spawn("backlight_control +10")
+    end,
+    {description = "lower brightness", group = "awesome"}),
+
+    -- lower brightness
+    awful.key({}, "XF86MonBrightnessDown", function()
+        awful.spawn("backlight_control -10")
+    end,
+    {description = "lower brightness", group = "awesome"}),
+
     -- Edit (n)etwork connections
     awful.key({meta}, "n", function()
         awful.spawn(programs.network)
