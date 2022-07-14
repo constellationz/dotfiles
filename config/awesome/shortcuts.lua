@@ -104,6 +104,7 @@ end
 
 -- Move a client to the side.
 ---@param c table The client to move.
+local scooch_left = true
 local function scooch(c)
     if c == nil then
         return
@@ -116,17 +117,16 @@ local function scooch(c)
     local height = geometry.height
 
     -- Pick a height to place the window at.
-    local y = math.random(0, math.max(1, screen_geometry.height - geometry.height))
-
-    -- Randomly pick a side to move the window to.
-    local is_left = math.random(1, 2) == 1
+    local y = (screen_geometry.height - geometry.height) / 2
 
     c:geometry({
         width = width,
         height = height,
-        x = is_left and 0 or screen_geometry.width - width,
+        x = scooch_left and 0 or screen_geometry.width - width,
         y = y
     })
+
+    scooch_left = not scooch_left
 end
 
 -- Make the focus bigger.
