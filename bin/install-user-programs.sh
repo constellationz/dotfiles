@@ -6,6 +6,6 @@
 # - Browser
 # - Text viewer
 # - Code editor
-paru -S --noconfirm chromium \
+paru -S --noconfirm firefox \
     xed \
     vscodium-bin

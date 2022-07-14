@@ -10,7 +10,7 @@ local startup = {
     "bash -c \"! pgrep -x \"volumeicon\" > /dev/null && volumeicon\"", -- Volume icon
 }
 
-local browser = "chromium"
+local browser = "firefox"
 local terminal = "alacritty"
 local editor = "nvim"
 local audio = "pavucontrol"
