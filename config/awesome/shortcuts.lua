@@ -193,6 +193,30 @@ shortcuts.global_keys = {
     end,
     {description = "lower brightness", group = "awesome"}),
 
+    -- raise volume
+    awful.key({}, "XF86AudioRaiseVolume", function()
+        awful.spawn("amixer set Master 10%+")
+    end,
+    {description = "raise volume", group = "awesome"}),
+
+    -- toggle volume mute
+    awful.key({}, "XF86AudioMute", function()
+        awful.spawn("amixer set Master toggle")
+    end,
+    {description = "toggle volume mute", group = "awesome"}),
+
+    -- toggle microphone mute
+    awful.key({}, "XF86AudioMicMute", function()
+        awful.spawn("amixer set Capture toggle")
+    end,
+    {description = "toggle microphone mute", group = "awesome"}),
+
+    -- lower volume
+    awful.key({}, "XF86AudioLowerVolume", function()
+        awful.spawn("amixer set Master 10%-")
+    end,
+    {description = "lower volume", group = "awesome"}),
+
     -- Edit (n)etwork connections
     awful.key({meta}, "n", function()
         awful.spawn(programs.network)

@@ -23,7 +23,7 @@ paru -S --noconfirm awesome-git picom ly \
     alacritty \
     gucharmap mupdf mpv feh \
     nemo \
-    pavucontrol mictray volumeicon-gtk2 \
+    pavucontrol mictray volumeicon-gtk2 alsa-utils \
 	networkmanager nm-connection-editor network-manager-applet \
     bluez bluez-utils blueman \
     powerkit \
