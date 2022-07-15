@@ -1,5 +1,7 @@
 -- A better resize handler
 
+local layout = require("widgets.layout")
+
 local mouse = mouse
 local mousegrabber = mousegrabber
 
@@ -9,6 +11,10 @@ local function resize_client(c)
     -- Snap the mouse to the corner of the window to start.
     local geometry = c:geometry()
     local start_pos = mouse.coords()
+
+    -- Make sure the client is not maximized
+    layout.unmaximize(c)
+    c:geometry(geometry)
 
     -- Allow the mouse to move around, recalculating the window size.
     mousegrabber.run(function(coords)
