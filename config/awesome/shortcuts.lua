@@ -24,6 +24,9 @@ local tab = "Tab"
 local space = "space"
 local alt = "Mod1"
 
+-- The increment for resize_inc (in pixels)
+local resize_inc_amount = 25
+
 -- Repeat and delay rates (in ms)
 local repeat_delay = 200
 local repeat_rate = 40
@@ -67,7 +70,7 @@ end
 -- Increment the size of a floating window.
 ---@param c table The client to resize
 ---@param inc number The increment to use for the size.
-local function inc_size(c, inc)
+local function resize_inc(c, inc)
     -- Do nothing for nil clients.
     if c == nil then
         return
@@ -134,7 +137,7 @@ local function make_focus_bigger()
     if not is_floating() then
         awful.tag.incmwfact(0.05)
     else
-        inc_size(client.focus, 50)
+        resize_inc(client.focus, resize_inc_amount)
     end
 end
 
@@ -143,7 +146,7 @@ local function make_focus_smaller()
     if not is_floating() then
         awful.tag.incmwfact(-0.05)
     else
-        inc_size(client.focus, -50)
+        resize_inc(client.focus, -resize_inc_amount)
     end
 end
 

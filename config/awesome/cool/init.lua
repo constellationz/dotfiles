@@ -10,6 +10,8 @@ local BOTTOM_EDGE_HEIGHT = 5
 local STROKE_WIDTH_OUTER = 2
 local STROKE_WIDTH_INNER = 2
 local TITLE_UNFOCUSED_OPACITY = 0.7
+local OUTER_TRANSPARENCY = "FF"
+local INNER_TRANSPARENCY = "00"
 
 -- Mouse buttons
 local MB_LEFT = 1
@@ -526,8 +528,6 @@ function _private.add_window_decorations(c)
     local edge_width = stroke_width_outer + stroke_width_inner
     local titlebar_height = _private.titlebar_height
     local titlebar_radius = _private.titlebar_radius
-    local outer_transparency = "FF"
-    local inner_transparency = "00"
 
     -- Color computations
     local luminance = relative_luminance(client_color)
@@ -536,16 +536,16 @@ function _private.add_window_decorations(c)
     local background_fill = color(client_color)
 
     -- Calculate inner color
-    local stroke_color_inner = "#FFFFFF" .. inner_transparency
+    local stroke_color_inner = "#FFFFFF" .. INNER_TRANSPARENCY
 
     -- Calculate outer color
     local stroke_color_outer
     if relative_luminance(client_color) > 0.5 then
         stroke_color_outer = darken(client_color, darken_amount)
-            .. outer_transparency
+            .. OUTER_TRANSPARENCY
     else
         stroke_color_outer = lighten(client_color, lighten_amount)
-            .. outer_transparency
+            .. OUTER_TRANSPARENCY
     end
 
     -- The top left corner of the titlebar
