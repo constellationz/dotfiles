@@ -120,11 +120,10 @@ local function create_corner_top_left(args)
 	local surface = cairo.ImageSurface.create("ARGB32", radius, height)
 	local cr = cairo.Context.create(surface)
 
-	-- Create the corner shape and fill it with a gradient
-	local radius_offset = 1 -- To soften the corner
+	-- Create the corner shape and fill it
 	cr:move_to(0, height)
-	cr:line_to(0, radius - radius_offset)
-	cr:arc(radius + radius_offset, radius + radius_offset, radius, rad(180), rad(270))
+	cr:line_to(0, radius)
+	cr:arc(radius, radius, radius, rad(180), rad(270))
 	cr:line_to(radius, height)
 	cr:close_path()
 	cr.source = args.background_source
@@ -135,34 +134,23 @@ local function create_corner_top_left(args)
 	---@param nargs {radius: number, offset_x: number, offset_y: number, source: table, width: number}
 	local function add_stroke(nargs)
 		local arc_radius = nargs.radius
-		local offset_x = nargs.offset_x
-		local offset_y = nargs.offset_y
+		local offset = nargs.offset
 		cr:new_sub_path()
-		cr:move_to(offset_x, height)
-		cr:line_to(offset_x, arc_radius + offset_y)
-		cr:arc(arc_radius + offset_x, arc_radius + offset_y, arc_radius, rad(180), rad(270))
+		cr:move_to(offset, height)
+		cr:line_to(offset, arc_radius + offset)
+		cr:arc(arc_radius + offset, arc_radius + offset, arc_radius, rad(180), rad(270))
 		cr.source = nargs.source
 		cr.line_width = nargs.width
 		cr.antialias = cairo.Antialias.BEST
 		cr:stroke()
 	end
 
-	-- Outer dark stroke
+	-- stroke
 	add_stroke({
-		offset_x = args.stroke_offset_outer,
-		offset_y = args.stroke_offset_outer,
-		radius = radius + 0.5,
-		source = args.stroke_source_outer,
-		width = args.stroke_width_outer,
-	})
-
-	-- Inner light stroke
-	add_stroke({
-		offset_x = args.stroke_offset_inner,
-		offset_y = args.stroke_offset_inner,
+		offset = args.stroke_offset,
 		radius = radius,
-		width = args.stroke_width_inner,
-		source = args.stroke_source_inner,
+		source = args.stroke_source,
+		width = args.stroke_width,
 	})
 
 	return surface
@@ -193,11 +181,8 @@ local function create_edge_top_middle(args)
 		cr:stroke()
 	end
 
-	-- Outer dark stroke
-	add_stroke(args.stroke_width_outer, args.stroke_offset_outer, args.stroke_color_outer)
-
-	-- Inner light stroke
-	add_stroke(args.stroke_width_inner, args.stroke_offset_inner, args.stroke_color_inner)
+	-- stroke
+	add_stroke(args.stroke_width, args.stroke_offset, args.stroke_color)
 
 	return surface
 end
@@ -226,11 +211,8 @@ local function create_edge_left(args)
 		cr:stroke()
 	end
 
-	-- Outer stroke
-	add_stroke(args.stroke_width_outer, args.stroke_offset_outer, args.stroke_color_outer)
-
-	-- Inner stroke
-	add_stroke(args.stroke_width_inner, args.stroke_offset_inner, args.stroke_color_inner)
+	-- stroke
+	add_stroke(args.stroke_width, args.stroke_offset, args.stroke_color)
 
 	return surface
 end

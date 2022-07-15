@@ -4,14 +4,11 @@
 
 -- Some constants
 local MAX_TITLE_LEN = 90
+local STROKE_WIDTH = 3
+local STROKE_TRANSPARENCY = "FF"
 local TITLE_COLOR_DARK = "#242424"
 local TITLE_COLOR_LIGHT = "#fefefa"
-local BOTTOM_EDGE_HEIGHT = 5
-local STROKE_WIDTH_OUTER = 2
-local STROKE_WIDTH_INNER = 2
 local TITLE_UNFOCUSED_OPACITY = 0.7
-local OUTER_TRANSPARENCY = "FF"
-local INNER_TRANSPARENCY = "00"
 
 -- Mouse buttons
 local MB_LEFT = 1
@@ -521,13 +518,12 @@ end
 function _private.add_window_decorations(c)
     -- Get information to use for this client.
     local client_color = c._cool_base_color
-    local stroke_width_inner = _private.stroke_width_inner or STROKE_WIDTH_INNER
-    local stroke_width_outer = _private.stroke_width_outer or STROKE_WIDTH_OUTER
-    local stroke_offset_outer = stroke_width_outer / 2
-    local stroke_offset_inner = stroke_width_inner + stroke_offset_outer
-    local edge_width = stroke_width_outer + stroke_width_inner
+    local stroke_width = _private.stroke_width or STROKE_WIDTH
+    local stroke_offset = math.floor(stroke_width / 2) - 1
     local titlebar_height = _private.titlebar_height
     local titlebar_radius = _private.titlebar_radius
+    local edge_width = stroke_width
+    local bottom_edge_height = stroke_width
 
     -- Color computations
     local luminance = relative_luminance(client_color)
@@ -535,17 +531,14 @@ function _private.add_window_decorations(c)
     local darken_amount = rel_darken(luminance)
     local background_fill = color(client_color)
 
-    -- Calculate inner color
-    local stroke_color_inner = "#FFFFFF" .. INNER_TRANSPARENCY
-
-    -- Calculate outer color
-    local stroke_color_outer
+    -- Calculate stroke color
+    local stroke_color
     if relative_luminance(client_color) > 0.5 then
-        stroke_color_outer = darken(client_color, darken_amount)
-            .. OUTER_TRANSPARENCY
+        stroke_color = darken(client_color, darken_amount)
+            .. STROKE_TRANSPARENCY
     else
-        stroke_color_outer = lighten(client_color, lighten_amount)
-            .. OUTER_TRANSPARENCY
+        stroke_color = lighten(client_color, lighten_amount)
+            .. STROKE_TRANSPARENCY
     end
 
     -- The top left corner of the titlebar
@@ -554,24 +547,18 @@ function _private.add_window_decorations(c)
         color = client_color,
         height = titlebar_height,
         radius = titlebar_radius,
-        stroke_offset_inner = stroke_offset_inner,
-        stroke_offset_outer = stroke_offset_outer,
-        stroke_width_inner = stroke_width_inner,
-        stroke_width_outer = stroke_width_outer,
-        stroke_source_inner = color(stroke_color_inner),
-        stroke_source_outer = color(stroke_color_outer),
+        stroke_offset = stroke_offset,
+        stroke_width = stroke_width,
+        stroke_source = color(stroke_color),
     })
     local corner_top_right_img = shapes.flip(corner_top_left_img, "horizontal")
     local top_edge = create_edge_top_middle({
         background_source = background_fill,
         color = client_color,
         height = titlebar_height,
-        stroke_color_inner = stroke_color_inner,
-        stroke_color_outer = stroke_color_outer,
-        stroke_offset_inner = stroke_offset_inner,
-        stroke_offset_outer = stroke_offset_outer,
-        stroke_width_inner = stroke_width_inner,
-        stroke_width_outer = stroke_width_outer,
+        stroke_color = stroke_color,
+        stroke_offset = stroke_offset,
+        stroke_width = stroke_width,
         width = _private.max_width,
     })
 
@@ -611,12 +598,9 @@ function _private.add_window_decorations(c)
         client_color = client_color,
         height = _private.max_height,
         width = edge_width,
-        stroke_width_inner = stroke_width_inner,
-        stroke_offset_inner = stroke_offset_inner,
-        stroke_width_outer = stroke_width_outer,
-        stroke_offset_outer = stroke_offset_outer,
-        stroke_color_inner = stroke_color_inner,
-        stroke_color_outer = stroke_color_outer,
+        stroke_width = stroke_width,
+        stroke_offset = stroke_offset,
+        stroke_color = stroke_color,
     })
     local right_edge = shapes.flip(left_edge, "horizontal")
     local left_side_border = awful.titlebar(c, {
@@ -643,33 +627,27 @@ function _private.add_window_decorations(c)
     -- Make bottom left and right images.
     local corner_bottom_left_img = shapes.flip(create_corner_top_left({
         color = client_color,
-        radius = BOTTOM_EDGE_HEIGHT,
-        height = BOTTOM_EDGE_HEIGHT,
+        radius = bottom_edge_height,
+        height = bottom_edge_height,
         background_source = background_fill,
-        stroke_offset_inner = stroke_offset_inner,
-        stroke_offset_outer = stroke_offset_outer,
-        stroke_width_inner = stroke_width_inner,
-        stroke_width_outer = stroke_width_outer,
-        stroke_source_outer = color(stroke_color_outer),
-        stroke_source_inner = color(stroke_color_inner),
+        stroke_offset = stroke_offset,
+        stroke_width = stroke_width,
+        stroke_source = color(stroke_color),
     }), "vertical")
     local corner_bottom_right_img = shapes.flip(corner_bottom_left_img, "horizontal")
 
     -- Make the bottom edge.
     local bottom_edge = shapes.flip(create_edge_top_middle({
         color = client_color,
-        height = BOTTOM_EDGE_HEIGHT,
+        height = bottom_edge_height,
         background_source = background_fill,
-        stroke_offset_inner = stroke_offset_inner,
-        stroke_offset_outer = stroke_offset_outer,
-        stroke_width_inner = stroke_width_inner,
-        stroke_width_outer = stroke_width_outer,
-        stroke_color_inner = stroke_color_inner,
-        stroke_color_outer = stroke_color_outer,
+        stroke_offset = stroke_offset,
+        stroke_width = stroke_width,
+        stroke_color = stroke_color,
         width = _private.max_width,
     }), "vertical")
     local bottom = awful.titlebar(c, {
-        size = BOTTOM_EDGE_HEIGHT,
+        size = bottom_edge_height,
         bg = "transparent",
         position = "bottom",
     })
@@ -698,8 +676,8 @@ function _private.add_window_decorations(c)
                 c.shape = shapes.rounded_rect({
                     tl = titlebar_radius,
                     tr = titlebar_radius,
-                    bl = BOTTOM_EDGE_HEIGHT,
-                    br = BOTTOM_EDGE_HEIGHT,
+                    bl = bottom_edge_height,
+                    br = bottom_edge_height,
                 })
             end
         end)
