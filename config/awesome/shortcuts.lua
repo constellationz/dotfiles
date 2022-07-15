@@ -195,13 +195,13 @@ shortcuts.global_keys = {
 
     -- raise volume
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn("amixer set Master 5%+")
+        awful.spawn("amixer set Master 2.5%+")
     end,
     {description = "raise volume", group = "awesome"}),
 
     -- lower volume
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn("amixer set Master 5%-")
+        awful.spawn("amixer set Master 2.5%-")
     end,
     {description = "lower volume", group = "awesome"}),
 
