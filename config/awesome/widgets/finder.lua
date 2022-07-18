@@ -53,7 +53,6 @@ local function launch(prompt, history_dir, callback)
 
     -- show the prompt, center it and run it
     finder_popup:open()
-    awful.placement.centered(finder_popup.wibox, { parent = awful.screen.focused() })
     awful.prompt.run({
         font = font_face .. " 24",
         prompt = ("%s: "):format(prompt),

@@ -1,5 +1,6 @@
 -- A basic popup. Uses theming.
 
+local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
@@ -53,6 +54,7 @@ end
 -- Open this popup
 function popup:open()
     self.wibox.visible = true
+    awful.placement.centered(self.wibox, { parent = awful.screen.focused() })
 end
 
 -- Close this popup

@@ -10,6 +10,7 @@ dotConfigs=(
     "helix/"
     "picom/"
     "paru/"
+	"kak/"
     "nvim/"
     "fish/"
     "VSCodium/User/settings.json"
