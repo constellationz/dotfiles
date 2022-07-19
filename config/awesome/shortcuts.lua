@@ -198,13 +198,13 @@ shortcuts.global_keys = {
 
     -- raise volume
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn("amixer set Master 2.5%+", true)
+        awful.spawn("amixer set Master 2.5%+")
     end,
     {description = "raise volume", group = "awesome"}),
 
     -- lower volume
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn("amixer set Master 2.5%-", true)
+        awful.spawn("amixer set Master 2.5%-")
     end,
     {description = "lower volume", group = "awesome"}),
 
@@ -466,13 +466,18 @@ shortcuts.client_keys = {
         layout.toggle_fullscreen(c)
     end, {description = "toggle fullscreen", group = "client"}),
 
-    -- Move this window to the center.
+    -- Move this window to the (c)enter.
     awful.key({meta}, "c", function(c)
+        awful.placement.centered(c)
+    end, {description = "center", group = "client"}),
+
+    -- Focus this window
+    awful.key({meta}, "x", function(c)
         if not is_floating() then
             layout.cascade()
         end
         layout.focus(c)
-    end, {description = "center", group = "client"})
+    end, {description = "focus", group = "client"})
 }
 
 -- Buttons when clicking on each tasklist button
