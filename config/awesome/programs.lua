@@ -18,11 +18,14 @@ local editor = "nvim"
 local audio = "pavucontrol"
 local network = "nm-connection-editor"
 local files = terminal .. " -e ranger"
-local screenshot = ""
+local shell = "fish"
+local find_folder = terminal .. " -e " .. shell .. " -c \"ranger $(find . -type d -print | fzf)\""
+local screenshot = "ksnip"
 local blueman = "blueman-manager"
 local editor_cmd = terminal .. " -e " .. editor
 
 local programs = {
+    shell = shell,
     startup = startup,
     blueman = blueman,
     browser = browser,
@@ -31,6 +34,7 @@ local programs = {
     network = network,
     editor_cmd = editor_cmd,
     files = files,
+    find_folder = find_folder,
     audio = audio,
     screenshot = screenshot,
 }

@@ -25,7 +25,7 @@ local space = "space"
 local alt = "Mod1"
 
 -- The increment for resize_inc (in pixels)
-local resize_inc_amount = 25
+local resize_inc_amount = 100
 
 -- Repeat and delay rates (in ms)
 local repeat_delay = 200
@@ -281,6 +281,12 @@ shortcuts.global_keys = {
         awful.spawn(programs.files)
     end,
     {description = "show files", group = "awesome"}),
+
+    -- (f)xplore files
+    awful.key({meta, shift}, "e", function()
+        awful.spawn(programs.find_folder)
+    end,
+    {description = "open folder", group = "awesome"}),
 
     -- Go (left) one workspace
     awful.key({meta}, "Left", awful.tag.viewprev,
