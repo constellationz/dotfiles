@@ -38,11 +38,6 @@ local primary_layout = awful.layout.suit.floating
 -- Generates tags [1..workspace_count]
 local workspace_count = 10
 
--- What mode should links be opened in?
--- Used for searchers.
--- local open_link_mode = "--new-window"
-local open_link_mode = "--new-tab"
-
 local shortcuts = {
     workspace_count = workspace_count,
     meta = meta,
@@ -158,8 +153,8 @@ local function bang(text)
         return
     end
     local url_text = text:gsub(" ", "\\ ")
-    local query = (" %s duckduckgo.com/?q=%s"):format(open_link_mode, url_text)
-    awful.spawn(programs.browser .. query)
+    local query = ("duckduckgo.com/?q=%s"):format(url_text)
+    programs.open_link(query)
 end
 
 -- Raise a client.

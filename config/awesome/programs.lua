@@ -1,5 +1,7 @@
 -- User configuration for programs.
 
+local awful = require("awful")
+
 local startup = {
     "picom", -- Compositor
     "xset s off -dpms", -- Inhibit screen from turning off
@@ -10,7 +12,7 @@ local startup = {
     "bash -c \"! pgrep -x \"volumeicon\" > /dev/null && volumeicon\"", -- Volume icon
 }
 
-local browser = "firefox"
+local browser = "qutebrowser"
 local terminal = "alacritty"
 local editor = "nvim"
 local audio = "pavucontrol"
@@ -32,6 +34,12 @@ local programs = {
     audio = audio,
     screenshot = screenshot,
 }
+
+-- Open a link
+---@param query string The link to open.
+function programs.open_link(query)
+    awful.spawn(programs.browser .. " " .. query)
+end
 
 return programs
 

@@ -16,8 +16,8 @@ local my_theme = {
     wallpaper = config_path .. "theme/starmap_north.jpg",
     use_wallpaper_colors = true,
     use_dark_text = false,
-    -- fg_override = "#ebdbb2", -- Gruvbox foreground
-    -- bg_override = "#282828", -- Gruvbox background
+    fg_override = "#ebdbb2", -- Gruvbox foreground
+    bg_override = "#282828", -- Gruvbox background
 }
 
 local theme = {}
