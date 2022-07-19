@@ -12,6 +12,7 @@ dotConfigs=(
     "paru/"
 	"kak/"
     "nvim/"
+	"qutebrowser/"
     "fish/"
     "VSCodium/User/settings.json"
 )
