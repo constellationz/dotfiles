@@ -62,77 +62,12 @@ local function focus_previous()
     end
 end
 
--- Increment the size of a floating window.
----@param c table The client to resize
----@param inc number The increment to use for the size.
-local function resize_inc(c, inc)
-    -- Do nothing for nil clients.
-    if c == nil then
-        return
-    end
-
-    -- Get old sizes
-    local geometry = c:geometry()
-
-    -- Calculate new size
-    -- Resize using an aspect ratio for consistency
-    local height = geometry.height + inc
-    local width = height * 4 / 3
-    local x = geometry.x + (geometry.width - width) / 2
-    local y = geometry.y + (geometry.height - height) / 2
-
-    -- Don't resize if the window will be too big.
-    local screen = c.screen
-    if inc > 0 and (width > screen.geometry.width or height > screen.geometry.height) then
-        return
-    end
-
-    -- Don't resize if the window will be too small.
-    if inc < 0 and (width < 500 or height < 500) then
-        return
-    end
-
-    c:geometry({
-        x = x,
-        y = y,
-        width = width,
-        height = height,
-    })
-end
-
--- Move a client to the side.
----@param c table The client to move.
-local scooch_left = true
-local function scooch(c)
-    if c == nil then
-        return
-    end
-
-    -- Get geometry information.
-    local screen_geometry = c.screen.geometry
-    local geometry = c:geometry()
-    local width = geometry.width
-    local height = geometry.height
-
-    -- Pick a height to place the window at.
-    local y = (screen_geometry.height - geometry.height) / 2
-
-    c:geometry({
-        width = width,
-        height = height,
-        x = scooch_left and 0 or screen_geometry.width - width,
-        y = y
-    })
-
-    scooch_left = not scooch_left
-end
-
 -- Make the focus bigger.
 local function make_focus_bigger()
     if not is_floating() then
         awful.tag.incmwfact(0.05)
     else
-        resize_inc(client.focus, resize_inc_amount)
+        layout.resize_inc(client.focus, resize_inc_amount)
     end
 end
 
@@ -141,7 +76,7 @@ local function make_focus_smaller()
     if not is_floating() then
         awful.tag.incmwfact(-0.05)
     else
-        resize_inc(client.focus, -resize_inc_amount)
+        layout.resize_inc(client.focus, -resize_inc_amount)
     end
 end
 
@@ -264,8 +199,8 @@ shortcuts.global_keys = {
     end,
     {description = "browser", group = "awesome"}),
 
-    -- show (s)creenshot
-    awful.key({meta, shift}, "s", function()
+    -- take a screensho(t)
+    awful.key({meta}, "t", function()
         awful.spawn(programs.screenshot)
     end,
     {description = "screenshot", group = "awesome"}),
@@ -418,11 +353,17 @@ shortcuts.client_keys = {
     end,
     {description = "close", group = "client"}),
 
-    -- (s)cooch this window to the side
+    -- (s)cooch this window to the left
     awful.key({meta}, "s", function(c)
-        scooch(c)
+        layout.scooch(c, true)
     end,
-    {description = "close", group = "client"}),
+    {description = "scooch left", group = "client"}),
+
+    -- (s)cooch this window to the right
+    awful.key({meta, shift}, "s", function(c)
+        layout.scooch(c, false)
+    end,
+    {description = "scooch left", group = "client"}),
 
     -- automatically ch(o)ose the current client's color
     awful.key({meta}, "o", function(c)

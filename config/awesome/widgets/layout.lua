@@ -18,9 +18,13 @@ local CASCADE_OFFSET = dpi(50) -- Distance to next window
 local MAX_CASCADE_WIDTH = dpi(1200) -- Distance from corner
 local MAX_CASCADE_HEIGHT = dpi(800) -- Distance to next window
 
+-- Minimum client size
+local MIN_CLIENT_SIZE = 500
+local RESIZE_PADDING = 50
+
 -- Options for center maximizing
-local FOCUS_WIDTH = dpi(1500)
-local FOCUS_HEIGHT = dpi(950)
+local FOCUS_WIDTH = dpi(1300)
+local FOCUS_HEIGHT = dpi(900)
 
 -- Sizing for layout widget
 local NUM_COLS = 5
@@ -28,6 +32,15 @@ local MARGINS = dpi(4)
 local ICON_SPACING = dpi(5)
 local ICON_WIDTH = dpi(22)
 local ICON_BUTTON_WIDTH = dpi(24)
+
+-- Clamp a value between a min and max.
+---@param value number The value to clamp.
+---@param min number The minimum value to clamp to.
+---@param max number The maximim value to clamp to.
+---@return number clamped_value
+local function clamp(value, min, max)
+    return math.max(math.min(value, max), min)
+end
 
 -- Is this client visible?
 ---@param c table A client.
@@ -223,6 +236,99 @@ function layout.cascade()
         c:raise()
         current_offset = current_offset + CASCADE_OFFSET
     end
+end
+
+-- Make sure the client is within the bounds of its screen.
+---@param c table The client to confine
+function layout.confine(c)
+    local geometry = c:geometry()
+    local screen_geometry = c.screen.geometry
+
+    -- New bounds
+    local new_x = geometry.x
+    local new_y = geometry.y
+
+    -- Confine x
+    if geometry.x < 0 then
+        new_x = 0
+    elseif geometry.x + geometry.width > screen_geometry.width then
+        new_x = screen_geometry.width - geometry.width
+    end
+
+    -- Confine y
+    if geometry.y < 0 then
+        new_y = 0
+    elseif geometry.y + geometry.height > screen_geometry.height then
+        new_y = screen_geometry.height - geometry.height
+    end
+
+    c:geometry({
+        x = new_x,
+        y = new_y,
+        width = geometry.width,
+        height = geometry.height,
+    })
+end
+
+-- Increment the size of a floating window.
+---@param c table The client to resize
+---@param inc number The increment to use for the size.
+function layout.resize_inc(c, inc)
+    -- Do nothing for nil clients.
+    if c == nil then
+        return
+    end
+
+    -- Get old sizes
+    local geometry = c:geometry()
+
+    -- Calculate new size
+    -- Resize using an aspect ratio for consistency
+    local height = clamp(geometry.height + inc,
+        MIN_CLIENT_SIZE,
+        c.screen.geometry.height - RESIZE_PADDING)
+    local width = clamp(height * 4 / 3,
+        MIN_CLIENT_SIZE,
+        c.screen.geometry.width - RESIZE_PADDING)
+
+    -- Get the new x and y positions
+    local x = geometry.x - (width - geometry.width) / 2
+    local y = geometry.y - (height - geometry.height) / 2
+
+    -- Set the width and height
+    -- Windows with strange resize rules may move the position slightly.
+    c:geometry({
+        x = x,
+        y = y,
+        width = width,
+        height = height,
+    })
+    layout.confine(c)
+end
+
+-- Move a client to the side.
+---@param c table The client to move.
+---@param scooch_left boolean Should the window scooch right?
+function layout.scooch(c, scooch_left)
+    if c == nil then
+        return
+    end
+
+    -- Get geometry information.
+    local screen_geometry = c.screen.geometry
+    local geometry = c:geometry()
+    local width = geometry.width
+    local height = geometry.height
+
+    -- Pick a height to place the window at.
+    local y = (screen_geometry.height - geometry.height) / 2
+
+    c:geometry({
+        width = width,
+        height = height,
+        x = scooch_left and 0 or screen_geometry.width - width,
+        y = y
+    })
 end
 
 -- Make the layoutlist
