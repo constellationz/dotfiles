@@ -6,6 +6,6 @@
 # - Browser
 # - Text viewer
 # - Code editor
-paru -S --noconfirm qutebrowser \
+paru -S --noconfirm qutebrowser chromium \
     xed \
     vscodium-bin
