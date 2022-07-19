@@ -15,6 +15,7 @@ dotConfigs=(
 	"qutebrowser/"
     "fish/"
     "VSCodium/User/settings.json"
+    "VSCodium/User/snippets/"
 )
 
 # Copy configs
