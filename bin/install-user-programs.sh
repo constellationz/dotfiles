@@ -3,9 +3,11 @@
 # Requires paru.
 
 # Install programs
-# - Browser
-# - Text viewer
-# - Code editor
+# - Browsers
+# - Text viewers
+# - Music players
+# - Code editors
 paru -S --noconfirm qutebrowser chromium \
     xed \
+	ncspot-bin \
     vscodium-bin
