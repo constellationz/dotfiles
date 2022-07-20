@@ -1,4 +1,6 @@
 -- My awesome theme
+-- See website for the default theme.lua
+-- https://awesomewm.org/doc/api/sample%20files/theme.lua.html
 
 local gears = require("gears")
 local naughty = require("naughty")
@@ -17,7 +19,7 @@ local my_theme = {
     use_wallpaper_colors = true,
     use_dark_text = false,
     fg_override = "#ebdbb2", -- Gruvbox foreground
-    bg_override = "#282828", -- Gruvbox background
+    -- bg_override = "#282828", -- Gruvbox background
 }
 
 local theme = {}
@@ -130,25 +132,13 @@ function theme.get_colors_from_wallpaper()
     generate_awesome_icon()
 end
 
--- theme.border_normal = "#222222"
--- theme.border_focus  = "#535d6c"
 theme.useless_gap   = dpi(4)
 theme.border_width  = dpi(0)
 theme.border_normal = theme.bg_normal
 theme.border_focus  = theme.bg_focus
 theme.border_marked = "#91231c"
-
--- There are other variable sets
--- overriding the default one when
--- defined, the sets are:
--- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
--- tasklist_[bg|fg]_[focus|urgent]
--- titlebar_[bg|fg]_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- mouse_finder_[color|timeout|animate_timeout|radius|factor]
--- prompt_[fg|bg|fg_cursor|bg_cursor|font]
--- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
--- theme.taglist_bg_focus = "#ff0000"
+-- theme.border_normal = "#222222"
+-- theme.border_focus  = "#535d6c"
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
@@ -156,18 +146,10 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(taglist_square_size
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(taglist_square_size, theme.fg_normal)
 
 -- Variables set for theming notifications:
--- notification_font
--- notification_[bg|fg]
--- notification_[width|height|margin]
--- notification_[border_color|border_width|shape|opacity]
--- theme.notification_height = 40
--- theme.notification_width  = 200
 theme.notification_border_width = dpi(0)
 theme.notification_icon_size = dpi(32)
 
 -- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(20)
 theme.menu_width  = dpi(128)

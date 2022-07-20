@@ -16,7 +16,7 @@ local awful = require("awful")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 
--- Use autofocus
+-- Makes sure a window is always focused.
 require("awful.autofocus")
 
 -- Check if awesome encountered an error during startup and fell back to
@@ -47,17 +47,6 @@ do
     end)
 end
 
--- Themes define colours, icons, font and wallpapers.
-beautiful.init(require("theme"))
-beautiful.get_colors_from_wallpaper()
-
--- User-defined libraries
--- Load these after awesome initialization to catch errors.
-local mouse = require("mouse")
-local programs = require("programs")
-local shortcuts = require("shortcuts")
-local statusbar = require("widgets.statusbar")
-
 -- Printing for the execute panel
 Print = function(...)
     tbl.map({...}, tostring)
@@ -65,6 +54,20 @@ Print = function(...)
         text = table.concat({...}, " ")
     })
 end
+
+-- Define colors, icons and wallpapers.
+beautiful.init(require("theme"))
+beautiful.get_colors_from_wallpaper()
+
+-- Load user-defined libraries.
+local mouse = require("mouse")
+local programs = require("programs")
+local shortcuts = require("shortcuts")
+local statusbar = require("widgets.statusbar")
+-- local cascading = require("layouts.cascading")
+
+-- Load user widgets
+require("widgets.layout_switcher")
 
 -- Run startup programs.
 tbl.foreach(programs.startup, awful.spawn.once)
@@ -87,17 +90,15 @@ require("cool").initialize({
     }
 })
 
--- Table of layouts to cover with awful.layout.inc, order matters.
+-- Table of layouts to cover with awful.layout.inc
 awful.layout.layouts = {
     awful.layout.suit.floating,
+    -- cascading,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw
+    awful.layout.suit.corner.nw,
 }
 
 -- Disable edge snapping
@@ -107,21 +108,17 @@ awful.mouse.snap.client_enabled = false
 -- When screen geometry changes, set the wallpaper.
 screen.connect_signal("property::geometry", beautiful.set_wallpaper)
 
+-- Add wallpaper, tags, and statusbar to each screen.
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
     beautiful.set_wallpaper(s)
-
-    -- Each screen has its own tag table.
     awful.tag(shortcuts.get_workspace_tags(), s, awful.layout.layouts[1])
-
-    -- Each screen gets its own statusbat
     s.statusbar = statusbar.create(s)
 end)
 
--- Set keys
+-- Set keys for the root.
 root.keys(shortcuts.get_global_keys())
 
--- Toggle menu when right clicking on desktop
+-- Toggle menu when right clicking on desktop.
 root.buttons(shortcuts.root_buttons)
 
 -- Rules to apply to new clients (through the "manage" signal).

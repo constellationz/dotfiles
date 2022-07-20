@@ -5,7 +5,7 @@ local awful = require("awful")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local clickable_container = require("widgets.clickable_container")
+local container = require("widgets.container")
 
 local FONT = beautiful.font or "sans 8"
 local MILITARY_MODE = false
@@ -20,7 +20,7 @@ local CLOCK_MARGINS = beautiful.statusbar_margins or dpi(5)
 ---@return any clock
 local create_clock = function(s)
     -- Get the clock format.
-    local clock_format = nil
+    local clock_format
     if not MILITARY_MODE then
         clock_format = "<span font=\"" .. FONT .. "\">%I:%M %p</span>"
     else
@@ -35,7 +35,7 @@ local create_clock = function(s)
             margins = CLOCK_MARGINS,
             widget = wibox.container.margin,
         },
-        widget = clickable_container,
+        widget = container,
     })
 
     -- Make a tooltip when hovering over the clock.
@@ -58,7 +58,7 @@ local create_clock = function(s)
                 day = last_digit
             end
 
-            local ordinal = nil
+            local ordinal
             if last_digit == "1" and day ~= "11" then
                 ordinal = "st"
             elseif last_digit == "2" and day ~= "12" then
@@ -84,7 +84,7 @@ local create_clock = function(s)
     })
 
     -- Hide the tooltip when you press the clock widget
-    s.clock_widget:connect_signal("button::press", function(self, lx, ly, button)
+    s.clock_widget:connect_signal("button::press", function(_, _, _, button)
         if s.clock_tooltip.visible and button == 1 then
             s.clock_tooltip.visible = false
         end

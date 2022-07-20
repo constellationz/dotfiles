@@ -1,10 +1,8 @@
 -- Some simple widgets--[[  ]].
 
-local awesome = awesome
 local awful = require("awful")
 local programs = require("programs")
 local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
 
 local widgets = {}
 
@@ -19,7 +17,7 @@ widgets.awesome_menu = {
 }
 
 -- The main menu that results from clicking on the launcher.
-widgets.main_menu = awful.menu({
+widgets.main_menu = awful.menu {
     items = {
         {"awesome", widgets.awesome_menu, beautiful.awesome_icon},
         {"open terminal", programs.terminal},
@@ -27,15 +25,9 @@ widgets.main_menu = awful.menu({
 
         end}
     }
-})
+}
 
 -- A launcher for the main menu.
-widgets.launcher = awful.widget.launcher({
-    image = beautiful.awesome_icon,
-    menu = widgets.main_menu,
-    margins = dpi(5)
-})
-
 return widgets
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

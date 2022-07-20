@@ -6,21 +6,24 @@ local widgets = require("widgets")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
-local DEFAULT_HEIGHT = dpi(20)
-
 -- Create a new statusbar on screen s.
 local function create_statusbar(s)
-    local statusbar_height = beautiful.statusbar_height or DEFAULT_HEIGHT
-
     -- Create the wibox
-    s.mywibox = awful.wibar({
-        height = statusbar_height,
+    s.mywibox = awful.wibar {
+        height = beautiful.statusbar_height,
         position = "top",
         screen = s
-    })
+    }
+
+    -- Launcher widget
+    s.launcher = awful.widget.launcher {
+        image = beautiful.awesome_icon,
+        menu = widgets.main_menu,
+        margins = dpi(5)
+    }
 
     -- Systray widget to use
-    s.systray = wibox.widget({
+    s.systray = wibox.widget {
         {
             base_size = dpi(16),
             forced_height = 20,
@@ -32,23 +35,23 @@ local function create_statusbar(s)
         valign = "center",
         halign = "center",
         widget = wibox.container.place,
-    })
+    }
 
     -- Custom widgets for the statusbar
     s.clock = require("widgets.clock").create(s)
-    s.tag_list = require("widgets.tag_list").create(s)
-    s.task_list = require("widgets.task_list").create(s)
+    s.taglist = require("widgets.taglist").create(s)
+    s.tasklist = require("widgets.tasklist").create(s)
 
     -- Add widgets to the wibox
-    s.mywibox:setup({
+    s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
 
         -- Left widgets
         {
             layout = wibox.layout.fixed.horizontal,
-            widgets.launcher,
-            s.tag_list,
-            s.task_list,
+            s.launcher,
+            s.taglist,
+            s.tasklist,
         },
 
         -- Middle widget
@@ -61,7 +64,7 @@ local function create_statusbar(s)
             s.systray,
             s.clock,
         }
-    })
+    }
 
     return s
 end

@@ -6,8 +6,8 @@ local awesome = awesome
 local gears = require("gears")
 local awful = require("awful")
 local mouse = require("mouse")
-local resize = require("widgets.resize")
-local layout = require("widgets.layout")
+local layout = require("layout")
+local resize = require("resize")
 local finder = require("widgets.finder")
 
 -- User libraries
@@ -16,13 +16,12 @@ local programs = require("programs")
 
 -- Keys that are used in combination for other keys.
 -- These can be changed for different keyboard layouts.
-local meta = "Mod4"
+local meta = "Mod4" -- Used for window management
 local ctrl = "Control"
-local shift = "Shift"
-local esc = "Escape"
+local shift = "Shift" -- Used to modify window management
 local tab = "Tab"
-local space = "space"
-local alt = "Mod1"
+local space = "space" -- Search
+local alt = "Mod1" -- Modifier for some functions
 
 -- The increment for resize_inc (in pixels)
 local resize_inc_amount = 100
@@ -38,49 +37,6 @@ local primary_layout = awful.layout.suit.floating
 -- Generates tags [1..workspace_count]
 local workspace_count = 10
 
-local shortcuts = {
-    workspace_count = workspace_count,
-    meta = meta,
-    ctrl = ctrl,
-    shift = shift,
-    esc = esc,
-    tab = tab,
-    space = space
-}
-
--- Is the current layout floating?
----@return boolean is_floating
-local function is_floating()
-    return awful.layout.get() == awful.layout.suit.floating
-end
-
--- Focus the previous window.
-local function focus_previous()
-    awful.client.focus.history.previous()
-    if client.focus then
-        client.focus:raise()
-    end
-end
-
--- Make the focus bigger.
-local function make_focus_bigger()
-    if not is_floating() then
-        awful.tag.incmwfact(0.05)
-    else
-        layout.resize_inc(client.focus, resize_inc_amount)
-    end
-end
-
--- Make the focus smaller.
-local function make_focus_smaller()
-    if not is_floating() then
-        awful.tag.incmwfact(-0.05)
-    else
-        layout.resize_inc(client.focus, -resize_inc_amount)
-    end
-end
-
-
 -- Query a duckduckgo bang search
 ---@param text string The text to query
 local function bang(text)
@@ -92,22 +48,15 @@ local function bang(text)
     programs.open_link(query)
 end
 
--- Raise a client.
----@param c table The clientto raise
----@param signal string The signal that raised the window
-local function raise(c, signal)
-    c:emit_signal("request::activate", signal, {raise = true})
-end
-
 -- Export the repeat rate.
-function shortcuts.export_repeat_rate()
+local function export_repeat_rate()
     awful.spawn(string.format(
         "xset r rate %s %s", repeat_delay, repeat_rate
     ))
 end
 
 -- Keys that are always registered
-shortcuts.global_keys = {
+local global_keys = {
     -- c(a)scade windows
     awful.key({meta}, "a", function()
         layout.cascade()
@@ -164,25 +113,31 @@ shortcuts.global_keys = {
 
     -- hi(d)e all clients
     awful.key({meta}, "d", function()
-        layout.toggle_clients_hidden()
+        layout.hide_all_clients()
     end,
-    {description = "unminimize everything", group = "awesome"}),
+    {description = "hide all clients", group = "awesome"}),
+
+    -- (s)how all clients
+    awful.key({meta}, "s", function()
+        layout.show_all_clients()
+    end,
+    {description = "show all clients", group = "awesome"}),
 
     -- switch layout
     awful.key({meta}, space, function()
-        layout.next()
+        layout.next_layout()
     end,
     {description = "next layout", group = "awesome"}),
 
     -- switch layout back
     awful.key({meta, shift}, space, function()
-        layout.prev()
+        layout.prev_layout()
     end,
     {description = "next layout", group = "awesome"}),
 
     -- (r)estore layout
     awful.key({meta}, "r", function()
-        layout.set(primary_layout)
+        layout.set_layout(primary_layout)
         layout.restore_remembered_geometries()
     end,
     {description = "next layout", group = "awesome"}),
@@ -267,7 +222,7 @@ shortcuts.global_keys = {
 
     -- like alt tab, go back
     awful.key({meta}, tab, function()
-        focus_previous()
+        layout.focus_previous()
     end,
     {description = "go back", group = "client"}),
 
@@ -277,12 +232,20 @@ shortcuts.global_keys = {
 
     -- make primary client bigger (vim-like)
     awful.key({meta}, "l", function()
-        make_focus_bigger()
+        if not layout.is_floating() then
+            awful.tag.incmwfact(0.05)
+        else
+            layout.resize_inc(client.focus, resize_inc_amount)
+        end
     end, {description = "increase master width factor", group = "layout"}),
 
     -- make primary client smaller (vim-like)
     awful.key({meta}, "h", function()
-        make_focus_smaller()
+        if not layout.is_floating() then
+            awful.tag.incmwfact(-0.05)
+        else
+            layout.resize_inc(client.focus, -resize_inc_amount)
+        end
     end, {description = "decrease master width factor", group = "layout"}),
 
     --u(n)minimize and focus
@@ -313,7 +276,7 @@ shortcuts.global_keys = {
 
 -- Generate awful.keys for a workspace.
 ---@param i number The number of this workspace
-shortcuts.workspace_keys = function(i)
+local function get_workspace_keys(i)
     return {
         -- View a certain workspace
         awful.key({meta}, "#" .. i + 9, function()
@@ -346,24 +309,12 @@ shortcuts.workspace_keys = function(i)
 end
 
 -- Keys for each focused client
-shortcuts.client_keys = {
+local client_keys = {
     -- Close window
     awful.key({meta}, "q", function(c)
         c:kill()
     end,
     {description = "close", group = "client"}),
-
-    -- (s)cooch this window to the left
-    awful.key({meta}, "s", function(c)
-        layout.scooch(c, true)
-    end,
-    {description = "scooch left", group = "client"}),
-
-    -- (s)cooch this window to the right
-    awful.key({meta, shift}, "s", function(c)
-        layout.scooch(c, false)
-    end,
-    {description = "scooch left", group = "client"}),
 
     -- automatically ch(o)ose the current client's color
     awful.key({meta}, "o", function(c)
@@ -413,17 +364,17 @@ shortcuts.client_keys = {
         awful.placement.centered(c)
     end, {description = "center", group = "client"}),
 
-    -- Focus this window
+    -- Bring this window to the front and center
     awful.key({meta}, "x", function(c)
-        if not is_floating() then
+        if not layout.is_floating() then
             layout.cascade()
         end
-        layout.focus(c)
+        layout.front_and_center(c)
     end, {description = "focus", group = "client"})
 }
 
 -- Buttons when clicking on each tasklist button
-shortcuts.taglist_buttons = {
+local taglist_buttons = {
     -- View only this desktop
     awful.button({}, mouse.lmb, function(t)
         t:view_only()
@@ -441,7 +392,7 @@ shortcuts.taglist_buttons = {
 }
 
 -- When clicking on the taskbar
-shortcuts.tasklist_buttons = {
+local tasklist_buttons = {
     -- always focus when clicking on something
     awful.button({}, mouse.lmb, function(c)
         if client.focus ~= c then
@@ -453,22 +404,22 @@ shortcuts.tasklist_buttons = {
 }
 
 -- Buttons for clicking on the client.
-shortcuts.client_buttons = {
+local client_buttons = {
     awful.button({}, mouse.lmb, function(c)
-        raise(c, "mouse_click")
+        layout.activate(c, "mouse_click")
     end),
     awful.button({meta}, mouse.lmb, function(c)
-        raise(c, "mouse_click")
+        layout.activate(c, "mouse_click")
         awful.mouse.client.move(c)
     end),
     awful.button({meta}, mouse.rmb, function(c)
-        raise(c, "mouse_click")
+        layout.activate(c, "mouse_click")
         resize.resize_client(c)
     end)
 }
 
 -- Buttons for clicking on the desktop.
-shortcuts.root_buttons = {
+local root_buttons = {
     awful.button({}, mouse.rmb, function()
         widgets.main_menu:show()
     end)
@@ -476,17 +427,17 @@ shortcuts.root_buttons = {
 
 -- Get the global_keys, generated from shortcuts and workspaces.
 ---@return table globalkeys
-function shortcuts.get_global_keys()
-    local globalkeys = gears.table.join(table.unpack(shortcuts.global_keys))
-    for i = 1, shortcuts.workspace_count do
-        globalkeys = gears.table.join(globalkeys, table.unpack(shortcuts.workspace_keys(i)))
+local function get_global_keys()
+    local globalkeys = gears.table.join(table.unpack(global_keys))
+    for i = 1, workspace_count do
+        globalkeys = gears.table.join(globalkeys, table.unpack(get_workspace_keys(i)))
     end
     return globalkeys
 end
 
 -- Get tags from workspaces, generated from shortcuts.workspace_count
 ---@return table tags
-function shortcuts.get_workspace_tags()
+local function get_workspace_tags()
     local tags = {}
     for i = 1, workspace_count do
         tags[i] = tostring(i)
@@ -494,6 +445,15 @@ function shortcuts.get_workspace_tags()
     return tags
 end
 
-return shortcuts
+return {
+    get_global_keys = get_global_keys,
+    get_workspace_tags = get_workspace_tags,
+    export_repeat_rate = export_repeat_rate,
+    client_keys = client_keys,
+    taglist_buttons = taglist_buttons,
+    tasklist_buttons = tasklist_buttons,
+    root_buttons = root_buttons,
+    client_buttons = client_buttons,
+}
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

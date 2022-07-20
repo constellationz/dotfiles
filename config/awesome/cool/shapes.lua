@@ -129,7 +129,7 @@ local function create_corner_top_left(args)
 	cr.source = args.background_source
 	cr.antialias = cairo.Antialias.BEST
 	cr:fill()
-	
+
 	-- Next add the subtle 3D look
 	---@param nargs {radius: number, offset_x: number, offset_y: number, source: table, width: number}
 	local function add_stroke(nargs)
