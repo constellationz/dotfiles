@@ -4,7 +4,7 @@ if status is-interactive
 end
 
 # Add bin to home dir
-fish_add_path $HOME_DIR/.local/bin
+fish_add_path ~/.local/bin ~/.rep/dotfiles/bin
 
 # Repeat last command as sudo
 function pls
@@ -13,4 +13,7 @@ end
 
 # Open fishrc
 alias fishrc="nvim ~/.config/fish/config.fish"
+
+# Open dotfiles
+alias dotfiles="cd ~/.rep/dotfiles/"
 
