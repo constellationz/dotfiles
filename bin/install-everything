@@ -4,14 +4,14 @@
 SCRIPT_DIR=$(dirname "$0")
 
 # First, install paru and command line programs.
-$SCRIPT_DIR/install-paru.sh
-$SCRIPT_DIR/install-cli-programs.sh
+$SCRIPT_DIR/install-paru
+$SCRIPT_DIR/install-cli-programs
 
 # Then install mesa and everything involving my desktop environment.
-$SCRIPT_DIR/install-mesa.sh
-$SCRIPT_DIR/install-awesome.sh
-$SCRIPT_DIR/install-gtk-themes.sh
-$SCRIPT_DIR/install-qt-themes.sh
+$SCRIPT_DIR/install-mesa
+$SCRIPT_DIR/install-awesome
+$SCRIPT_DIR/install-gtk-themes
+$SCRIPT_DIR/install-qt-themes
 
 # Finally, install user programs.
-$SCRIPT_DIR/install-user-programs.sh
+$SCRIPT_DIR/install-user-programs

@@ -32,7 +32,9 @@ paru -S --noconfirm awesome-git picom ly \
 # Enable the login manager
 sudo systemctl enable ly.service
 
-# Enable the network manager
+# Enable the network services
+sudo systemctl enable iwd.service
+sudo systemctl enable systemd-resolved.service
 sudo systemctl enable NetworkManager.service
 
 # Enable bluetooth
