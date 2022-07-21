@@ -3,8 +3,8 @@
 # Requires elevated privileges.
 
 sudo pacman -S --noconfirm git
-mkdir -p ~/.git
-cd ~/.git
+mkdir -p ~/.rep
+cd ~/.rep
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si --noconfirm
