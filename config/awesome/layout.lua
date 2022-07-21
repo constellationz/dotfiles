@@ -351,7 +351,7 @@ return {
     hide_all_clients = hide_all_clients,
     activate = activate,
     restore = restore,
-    focus_previous,
+    focus_previous = focus_previous,
     fullscreen = fullscreen,
     maximize = maximize,
     maximize_vertically = maximize_vertically,
