@@ -69,6 +69,9 @@ local statusbar = require("widgets.statusbar")
 -- Load user widgets
 require("widgets.layout_switcher")
 
+-- Use default icons
+require("widgets.default_icons")
+
 -- Run startup programs.
 tbl.foreach(programs.startup, awful.spawn.once)
 
