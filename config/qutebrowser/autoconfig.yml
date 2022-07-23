@@ -9,4 +9,4 @@ settings:
   content.notifications.enabled:
     https://www.reddit.com: false
   messages.timeout:
-    global: 500
+    global: 1000
