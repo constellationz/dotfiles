@@ -1,30 +1,26 @@
 -- A better resize handler
 
-local layout = require("widgets.layout")
-
-local mouse = mouse
-local mousegrabber = mousegrabber
+local layout = require("layout")
 
 -- Resize a client
 ---@param c any The client to resize.
 local function resize_client(c)
-    -- Snap the mouse to the corner of the window to start.
-    local geometry = c:geometry()
-    local start_pos = mouse.coords()
-
     -- Make sure the client is not maximized
-    layout.unmaximize(c)
+    -- Restore the size of the window from when the resize started.
+    local geometry = c:geometry()
+    layout.restore(c)
     c:geometry(geometry)
 
     -- Allow the mouse to move around, recalculating the window size.
+    local start_pos = mouse.coords()
     mousegrabber.run(function(coords)
         local keep_resizing = mouse.is_right_mouse_button_pressed
-            c:geometry({
+            c:geometry {
                 x = geometry.x,
                 y = geometry.y,
                 width = geometry.width + coords.x - start_pos.x,
                 height = geometry.height + coords.y - start_pos.y,
-            })
+            }
         return keep_resizing
     end, "bottom_right_corner")
 end

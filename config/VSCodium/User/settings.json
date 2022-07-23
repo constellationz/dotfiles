@@ -11,4 +11,5 @@
     "terminal.external.linuxExec": "alacritty",
     "explorer.confirmDelete": false,
     "editor.minimap.enabled": false,
+    "explorer.confirmDragAndDrop": false,
 }

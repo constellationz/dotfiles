@@ -1,4 +1,4 @@
--- -- A finder shell
+-- A finder shell
 
 local awful = require("awful")
 local wibox = require("wibox")
@@ -10,7 +10,7 @@ local dpi = beautiful.xresources.apply_dpi
 
 local PADDING = dpi(10)
 
--- make the finder widgee
+-- make the finder widget
 local finder = awful.widget.prompt({
     fg = popup.fg,
     bg = popup.bg

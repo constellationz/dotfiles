@@ -11,7 +11,7 @@ local screen = screen
 local awesome = awesome
 
 -- Load awesome libraries
-local tbl = require("tbl")
+local tbl = require("util.tbl")
 local awful = require("awful")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
@@ -64,7 +64,7 @@ local mouse = require("mouse")
 local programs = require("programs")
 local shortcuts = require("shortcuts")
 local statusbar = require("widgets.statusbar")
--- local cascading = require("layouts.cascading")
+local reveal = require("widgets.reveal")
 
 -- Load user widgets
 require("widgets.layout_switcher")
@@ -81,6 +81,9 @@ mouse.export_sens()
 -- Export repeat rate
 shortcuts.export_repeat_rate()
 
+-- Initialize the reveal module
+reveal.initialize()
+
 -- Use cool titlebars
 require("cool").initialize({
     tooltips_enabled = false,
@@ -96,7 +99,6 @@ require("cool").initialize({
 -- Table of layouts to cover with awful.layout.inc
 awful.layout.layouts = {
     awful.layout.suit.floating,
-    -- cascading,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.fair,

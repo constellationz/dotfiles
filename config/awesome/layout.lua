@@ -1,18 +1,18 @@
 -- Functions that deal with layouts.
 
-local tbl = require("tbl")
+local beautiful = require("beautiful")
+local tbl = require("util.tbl")
 local awful = require("awful")
 local dpi = require("beautiful").xresources.apply_dpi
 
--- Cascade options
-local CASCADE_START = dpi(50) -- Distance from corner
-local CASCADE_OFFSET = dpi(50) -- Distance to next window
-local MAX_CASCADE_WIDTH = dpi(1200) -- Distance from corner
-local MAX_CASCADE_HEIGHT = dpi(800) -- Distance to next window
-
 -- Resize options
 local MIN_CLIENT_SIZE = 500 -- Minimum client size
-local RESIZE_ASPECT_RATIO = 4 / 3 -- The aspect ratio of resized clients
+local SIZE_ASPECT_RATIO = 4 / 3 -- The aspect ratio of resized clients
+
+-- Cascade options
+local CASCADE_START = dpi(50)
+local CASCADE_OFFSET  = dpi(50)
+local MAX_CASCADE_WIDTH = dpi(1200)
 
 -- Options for center maximizing
 local FOCUS_WIDTH = dpi(1500) -- Width of focused window
@@ -31,6 +31,15 @@ end
 ---@return boolean is_visible
 local function visible(c)
     return c:isvisible()
+end
+
+local function visible_in_this_workspace(c)
+    for _, tag in pairs (awful.tag.selectedlist()) do
+        if tbl.has(c, tag:clients()) then
+            return c:isvisible()
+        end
+    end
+    return false
 end
 
 -- Only iterate over clients whose tags are visible
@@ -53,18 +62,28 @@ local function get_screen_geometry(screen)
     }
 end
 
--- Remember the window positions.
+-- Remember the window positions and maximized state.
 ---@param c table A client.
 local function remember_geometry(c)
     c.remembered_geometry = c:geometry()
+    c.remembered_fullscreen = c.fullscreen
+    c.remembered_maximized = c.maximized
+    c.remembered_maximized_vertical = c.maximized_vertical
+    c.remembered_maximized_horizontal = c.maximized_horizontal
 end
 
--- Revert all the windows to the last remembered position.
+-- Revert all the windows to the last remembered position and maximized state.
 ---@param c table A client.
 local function restore_remembered_geometry(c)
-    if c.remembered_geometry then
-        c:geometry(c.remembered_geometry)
+    if c.remembered_geometry == nil then
+        return
     end
+
+    c:geometry(c.remembered_geometry)
+    c.fullscreen = c.remembered_fullscreen
+    c.maximized = c.remembered_maximized
+    c.maximized_vertical = c.remembered_maximized_vertical
+    c.maximized_horizontal = c.remembered_maximized_horizontal
 end
 
 -- Remember window positions
@@ -241,14 +260,14 @@ local function cascade()
 
     -- Cascade the windows.
     local current_offset = CASCADE_START
-    for _, c in by_size(awful.client.iterate(this_workspace)) do
+    for _, c in by_size(awful.client.iterate(visible_in_this_workspace)) do
         restore(c)
-        local geometry = c:geometry()
+        local width = math.min(c:geometry().width, MAX_CASCADE_WIDTH)
         c:geometry {
             x = current_offset,
             y = current_offset,
-            width = math.min(geometry.width, MAX_CASCADE_WIDTH),
-            height = math.min(geometry.height, MAX_CASCADE_HEIGHT),
+            width = width,
+            height = width / SIZE_ASPECT_RATIO,
         }
         confine(c)
         c:raise()
@@ -275,7 +294,7 @@ local function resize_inc(c, inc)
         MIN_CLIENT_SIZE,
         screen_geometry.height
     )
-    local width = clamp(height * RESIZE_ASPECT_RATIO,
+    local width = clamp(height * SIZE_ASPECT_RATIO,
         MIN_CLIENT_SIZE,
         screen_geometry.width
     )
@@ -312,37 +331,38 @@ local function is_floating()
     return awful.layout.get() == awful.layout.suit.floating
 end
 
--- Set a layout.
----@param this_layout any The layout to use
-local function set_layout(this_layout)
-    awful.layout.set(this_layout)
-end
-
--- Increment the layout.
----@param number number The number to increment by.
-local function inc_layout(number)
-    -- If switching from floating, remember window positions.
-    if is_floating() then
-        remember_window_geometries()
-    end
-
-    awful.layout.inc(number)
-
-    -- If switched to floating, restore remembered positions.
-    if is_floating() then
-        restore_remembered_geometries()
-    end
-end
-
 -- Go to the next layout.
 local function next_layout()
-    inc_layout(1)
+    awful.layout.inc(1)
 end
 
 -- Go to the previous layout.
 local function prev_layout()
-    inc_layout(-1)
+    awful.layout.inc(-1)
 end
+
+-- Show the layout switcher when the layout changes.
+local was_floating = is_floating()
+tag.connect_signal("property::layout", function(_)
+    -- If switching from floating, remember geometries.
+    -- Make sure nothing is maximized.
+    if not is_floating() and was_floating then
+        remember_window_geometries()
+
+        -- Make sure nothing stays maximized
+        for c in awful.client.iterate(this_workspace) do
+            restore(c)
+        end
+    end
+
+    -- If switching to floating, restore geometries
+    if is_floating() and not was_floating then
+        restore_remembered_geometries()
+    end
+
+    -- Remember whether the window was floating.
+    was_floating = is_floating()
+end)
 
 return {
     restore_remembered_geometries = restore_remembered_geometries,
@@ -359,13 +379,11 @@ return {
     toggle_maximize = toggle_maximize,
     toggle_vertical_maximize = toggle_vertical_maximize,
     front_and_center = front_and_center,
-    cascade = cascade,
     confine = confine,
     scooch = scooch,
+    cascade = cascade,
     resize_inc = resize_inc,
     is_floating = is_floating,
-    set_layout = set_layout,
-    inc_layout = inc_layout,
     next_layout = next_layout,
     prev_layout = prev_layout,
 }

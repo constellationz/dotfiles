@@ -7,8 +7,17 @@ local gears = require("gears")
 local awful = require("awful")
 local mouse = require("mouse")
 local layout = require("layout")
-local resize = require("resize")
+local resize = require("widgets.resize")
 local finder = require("widgets.finder")
+local fuzzy_switcher = require("widgets.fuzzy_switcher")
+local hotkeys_popup = require("awful.hotkeys_popup")
+
+-- Don't show tmux keys!
+package.loaded["awful.hotkeys_popup.keys.tmux"] = {}
+
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
+require("awful.hotkeys_popup.keys")
 
 -- User libraries
 local widgets = require("widgets")
@@ -57,7 +66,11 @@ end
 
 -- Keys that are always registered
 local global_keys = {
-    -- c(a)scade windows
+    -- show hotke(y)s
+    awful.key({meta}, "y", hotkeys_popup.show_help,
+    {description = "show hotkeys", group = "awesome"}),
+
+    -- casc(a)de windows
     awful.key({meta}, "a", function()
         layout.cascade()
     end,
@@ -67,7 +80,7 @@ local global_keys = {
     awful.key({}, "XF86MonBrightnessUp", function()
         awful.spawn("backlight_control +10")
     end,
-    {description = "lower brightness", group = "awesome"}),
+    {description = "raise brightness", group = "awesome"}),
 
     -- lower brightness
     awful.key({}, "XF86MonBrightnessDown", function()
@@ -99,17 +112,17 @@ local global_keys = {
     end,
     {description = "toggle microphone mute", group = "awesome"}),
 
-    -- Edit (n)etwork connections
+    -- edit (n)etwork connections
     awful.key({meta}, "n", function()
         awful.spawn(programs.network)
     end,
-    {description = "edit network connections", group = "awesome"}),
+    {description = "edit network connections", group = "programs"}),
 
-    -- Open (b)lueman
+    -- open (b)lueman
     awful.key({meta}, "b", function()
         awful.spawn(programs.blueman)
     end,
-    {description = "open blueman", group = "awesome"}),
+    {description = "open blueman", group = "programs"}),
 
     -- hi(d)e all clients
     awful.key({meta}, "d", function()
@@ -123,108 +136,106 @@ local global_keys = {
     end,
     {description = "show all clients", group = "awesome"}),
 
-    -- switch layout
+    -- switch to next layout
     awful.key({meta}, space, function()
         layout.next_layout()
     end,
-    {description = "next layout", group = "awesome"}),
+    {description = "switch to next layout", group = "awesome"}),
 
-    -- switch layout back
+    -- switch to previous layout
     awful.key({meta, shift}, space, function()
         layout.prev_layout()
     end,
-    {description = "next layout", group = "awesome"}),
+    {description = "switch to previous layout", group = "awesome"}),
 
-    -- (r)estore layout
+    -- (r)estore remembered layout
     awful.key({meta}, "r", function()
-        layout.set_layout(primary_layout)
+        awful.layout.set(primary_layout)
         layout.restore_remembered_geometries()
     end,
-    {description = "next layout", group = "awesome"}),
+    {description = "restore remembered layout", group = "awesome"}),
 
-    -- show audio application
+    -- open (p)avucontrol
     awful.key({meta}, "p", function()
         awful.spawn(programs.audio)
     end,
-    {description = "audio", group = "awesome"}),
+    {description = "open pavucontrol", group = "programs"}),
 
-    -- show (w)eb browser
+    -- open (w)eb browser
     awful.key({meta}, "w", function()
         awful.spawn(programs.browser)
     end,
-    {description = "browser", group = "awesome"}),
+    {description = "open web browser", group = "programs"}),
 
-    -- take a screensho(t)
+    -- take screensho(t)
     awful.key({meta}, "t", function()
         awful.spawn(programs.screenshot)
     end,
-    {description = "screenshot", group = "awesome"}),
+    {description = "take screenshot", group = "programs"}),
 
-    -- (enter) a command
+    -- open a terminal
     awful.key({meta}, "Return", function()
         awful.spawn(programs.terminal)
     end,
-    {description = "open a terminal", group = "awesome"}),
+    {description = "open a terminal", group = "programs"}),
 
     -- (e)xplore files
     awful.key({meta}, "e", function()
         awful.spawn(programs.files)
     end,
-    {description = "show files", group = "awesome"}),
+    {description = "explore files", group = "programs"}),
 
-    -- (f)xplore files
+    -- open fold(e)r
     awful.key({meta, shift}, "e", function()
         awful.spawn(programs.find_folder)
     end,
-    {description = "open folder", group = "awesome"}),
+    {description = "open folder", group = "programs"}),
 
-    -- Go (left) one workspace
+    -- go (left) one workspace
     awful.key({meta}, "Left", awful.tag.viewprev,
-    {description = "view previous", group = "tag"}),
+    {description = "go left one workspace", group = "tag"}),
 
-    -- Go (right) one workspace
+    -- go (right) one workspace
     awful.key({meta}, "Right", awful.tag.viewnext,
-    {description = "view next", group = "tag"}),
+    {description = "go right one workspace", group = "tag"}),
 
-    -- Switch window focus down (vim-like)
+    -- go (down) a window
     awful.key({meta}, "j", function()
         awful.client.focus.byidx(1)
     end,
-    {description = "focus next by index", group = "client"}),
+    {description = "go down a window", group = "awesome"}),
 
-    -- Switch window focus up (vim-like)
+    -- go (up) a window
     awful.key({meta}, "k", function()
         awful.client.focus.byidx(-1)
     end,
-    {description = "focus previous by index", group = "client"}),
+    {description = "go up a window", group = "awesome"}),
 
     -- show (a)wesome menu
     awful.key({meta, shift}, "a", function()
         widgets.main_menu:show()
     end,
-    {description = "show main menu", group = "awesome"}),
+    {description = "show awesome menu", group = "awesome"}),
 
-    -- swap with next client (vim-like)
+    -- swap with (next) client
     awful.key({meta, shift}, "j", function()
         awful.client.swap.byidx(1)
     end,
-    {description = "swap with next client by index", group = "client"}),
+    {description = "swap with next client", group = "client"}),
 
-    -- swap with previous client (vim-like)
+    -- swap with (previous) client
     awful.key({meta, shift}, "k", function()
         awful.client.swap.byidx(-1)
     end,
-    {description = "swap with previous client by index", group = "client"}),
+    {description = "swap with previous client", group = "client"}),
 
     -- go to (u)rgent client
     awful.key({meta}, "u", awful.client.urgent.jumpto,
-    {description = "jump to urgent client", group = "client"}),
+    {description = "jump to urgent client", group = "awesome"}),
 
-    -- like alt tab, go back
-    awful.key({meta}, tab, function()
-        layout.focus_previous()
-    end,
-    {description = "go back", group = "client"}),
+    -- quick switch windows
+    awful.key({meta}, tab, fuzzy_switcher.launch,
+    {description = "quick switch", group = "awesome"}),
 
     -- (r)eload awesome
     awful.key({meta, ctrl}, "r", awesome.restart,
@@ -237,7 +248,7 @@ local global_keys = {
         else
             layout.resize_inc(client.focus, resize_inc_amount)
         end
-    end, {description = "increase master width factor", group = "layout"}),
+    end, {description = "increase master width factor", group = "awesome"}),
 
     -- make primary client smaller (vim-like)
     awful.key({meta}, "h", function()
@@ -246,15 +257,7 @@ local global_keys = {
         else
             layout.resize_inc(client.focus, -resize_inc_amount)
         end
-    end, {description = "decrease master width factor", group = "layout"}),
-
-    --u(n)minimize and focus
-    awful.key({meta, ctrl}, "n", function()
-        local c = awful.client.restore()
-        if c then
-            c:emit_signal("request::activate", "key.unminimize", {raise = true})
-        end
-    end, {description = "restore minimized", group = "client"}),
+    end, {description = "decrease master width factor", group = "awesome"}),
 
     -- run a program.
     awful.key({alt}, space, function()
@@ -271,7 +274,7 @@ local global_keys = {
     -- e(x)ecute lua code
     awful.key({alt}, "x", function()
         finder.launch("execute", "execute", awful.util.eval)
-    end, {description = "lua execute prompt", group = "launcher"})
+    end, {description = "execute lua", group = "launcher"})
 }
 
 -- Generate awful.keys for a workspace.
