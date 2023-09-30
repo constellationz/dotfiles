@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# Sync now
+
+~/.rep/osync/osync.sh ~/.config/osync/sync.conf --summary

@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+# Add a program to local bin
+
+BIN_DIR="$HOME/.local/bin"
+
+if [ ! -f $FILE ]; then
+  echo "error: file $FILE not found"
+  exit 1
+fi
+
+mkdir -p "$BIN_DIR"
+mv "$@" "$BIN_DIR"

@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+# Runs sway with environment variables set
+
+cd "$HOME"
+
+export TERMINAL="alacritty"
+export XDG_CURRENT_DESKTOP=sway
+export MOZ_ENABLE_WAYLAND=1
+
+sway || echo "Sway not installed "; exit 1

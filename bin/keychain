@@ -1,0 +1,41 @@
+#!/usr/bin/bash
+# Simple OTP script
+
+export GPG_TTY=$(tty)
+
+PICKER="bmenu"
+KEY_DIR="$(xdg-user-dir DOCUMENTS)/Vault/Keys"
+
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] [--open | --list] [--file=<filename>]"
+  echo "Simple OTP script"
+  echo ""
+  echo "Options:"
+  echo "  --help | -h        Lists help"
+  echo "  --open             Open directory with keychain file"
+  echo "  --file <filename>  The key file to use"
+  exit
+fi
+
+if [[ "$@" =~ .*"--file=".* ]]; then
+  KEY_FILE="$(echo "$@" | sed -n "s/.*--file=\(.*\)/\1/p")"
+fi
+
+if [ -f "$KEY_DIR" ]; then
+  echo "Key directory is a file, aborting"
+  exit 1
+elif [ ! -d "$KEY_DIR" ]; then
+  echo "Key file doesn't exist, aborting"
+  exit 2
+fi
+
+if [[ "$@" =~ .*"--list".* ]]; then
+  wtype $(ls "$KEY_DIR/"*."2fa.gpg" \
+    | cat $($PICKER -p "Pick key") \
+    | gpg -d --passphrase $(echo "password" | $PICKER -x -p "Unlock" ) \
+    | oathtool -b -)
+elif [[ "$@" =~ .*"--open".* ]]; then 
+  xdg-open $(dirname "$KEY_DIR") &
+else
+  echo "No mode selected"
+fi

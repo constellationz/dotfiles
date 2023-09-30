@@ -1,0 +1,206 @@
+#!/usr/bin/bash
+# Install packages and copy configs
+
+SCRIPT_DIR="$(dirname $0)"
+
+# Should core packages be auto-installed?
+AUTO=0
+if [[ "$@" == *"--auto"* ]]; then
+	AUTO=1
+fi
+
+function yes_or_no {
+	while true; do
+		read -p "$* [y/n]: " yn
+		case $yn in
+			[Yy]*) return 0 ;;
+			[Nn]*) return 1 ;;
+		esac
+	done
+}
+
+# Ensure sudo is installed
+if ! command -v sudo &> /dev/null; then
+	echo "sudo must be installed for this script to work"
+	echo "You may want to edit user groups with usermod -aG sudo <user>"
+	echo "After modifying groups, log out and log back in for changes to take effect"
+	exit 1
+fi
+
+# Perform full system upgrade and install programs
+if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt install -y \
+		neovim \
+		kakoune \
+		curl \
+		gcc \
+		bc \
+		lua5.4 \
+		entr \
+		man-db \
+		git \
+		gh \
+		nnn \
+		tmux \
+		fzf \
+		tree \
+		zip \
+		unzip \
+		rsync \
+		ntfs-3g \
+		jmtpfs \
+		htop \
+		jq \
+		tar \
+		gzip \
+		gnupg \
+		oathtool \
+		openresolv \
+		wireguard-tools \
+		xdg-user-dirs
+
+	# If a battery is found, install and enable TLP
+	if upower -e | grep "BAT"; then
+		echo "Battery detected, installing TLP"
+		sudo apt install -y tlp
+		sudo systemctl enable tlp.service --now
+	fi
+fi
+
+# Copy configs now
+if [[ AUTO -eq 1 ]] || yes_or_no "Synchronize configs now?"; then
+	bash "$SCRIPT_DIR/putdots"	
+fi
+
+# Optionally configure neovim
+if [[ AUTO -eq 0 ]] && yes_or_no "Add packer for neovim?"; then
+	# Install ripgrep for telescope package
+	sudo apt install ripgrip -y
+
+	# Only copy packer if it hasn't been initialized yet
+	if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+			~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	fi
+
+	# Run neovim with packersync command
+	nvim -c "PackerSync"
+fi
+
+# Install desktop environment
+if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
+	if yes_or_no "Install desktop packages?"; then
+		sudo apt install -y \
+			iwd \
+			sway \
+			swaybg \
+			swayidle \
+			swaylock \
+			gammastep \
+			bemenu \
+			wl-clipboard \
+			wtype \
+			light \
+			grim \
+			slurp \
+			waybar \
+			upower \
+			dunst \
+			libnotify-bin \
+			pipewire-audio \
+			alsa-utils \
+			xdg-utils \
+			xdg-desktop-portal-wlr \
+			xdg-desktop-portal-gtk \
+			alacritty \
+			ffmpeg \
+			cmus \
+			mpv \
+			imv \
+			zathura \
+			zathura-pdf-poppler \
+			gtk2-engines \
+			libglib2.0-bin \
+			fonts-hack \
+			fonts-freefont-ttf \
+			fonts-noto \
+			fonts-noto-color-emoji \
+			fonts-noto-cjk
+		systemctl --user --now enable pipewire pipewire-pulse
+	fi
+
+	# Install graphical desktop packages
+	if yes_or_no "Install graphical desktop packages?"; then
+		sudo apt install -y \
+			nemo \
+			l3afpad \
+			pavucontrol
+	fi
+
+	# Set default programs with xdg-mime
+	# * doesn't work for mimetype so I give extensions as well
+	if yes_or_no "Set default programs?"; then
+		xdg-mime default org.pwmt.zathura.desktop \
+			application/pdf applicaiton/epub application/epub+zip
+		xdg-mime default l3afpad.desktop \
+			application/octet-stream text/plain text/*
+		xdg-mime default imv.desktop \
+			image/png image/jpg image/jpeg image/webp image/bmp image/*
+		xdg-mime default mpv.desktop \
+			video/mkv video/mp4 video/avi video/webm video/* audio/mp3 audio/flac audio/*
+		xdg-mime default nemo.desktop \
+			inode/directory
+
+		# For nemo "open in terminal" functionality
+		gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
+		gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg "-e"
+	fi
+
+	# Install themes from separate repo
+	if yes_or_no "Install themes?"; then
+		mkdir --parents ~/.icons
+		mkdir --parents ~/.themes
+		
+		# Pull sources
+		if [ ! -d ~/.rep/gruvbox-material-gtk ]; then
+			git clone https://github.com/constellationz/gruvbox-material-gtk ~/.rep/gruvbox-material-gtk
+		fi
+		cd ~/.rep/gruvbox-material-gtk
+		echo "Pulling gruvbox-material-gtk..."
+		git pull
+		if [ ! -d ~/.rep/papirus-icon-theme ]; then
+			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme ~/.rep/papirus-icon-theme
+		fi
+		cd ~/.rep/papirus-icon-theme
+		echo "Pulling papirus-icon-theme..."
+		git pull
+
+		echo "Syncing themes..."
+		rsync --recursive --links ~/.rep/gruvbox-material-gtk/icons/Gruvbox-Material-Dark ~/.icons/
+		rsync --recursive --links ~/.rep/gruvbox-material-gtk/themes/Gruvbox-Material-Dark ~/.themes/
+		rsync --recursive --links ~/.rep/papirus-icon-theme/Papirus* ~/.icons/
+
+		echo "Updating gsettings..."
+		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
+		gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
+		gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
+		gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
+		gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
+	fi
+
+	# Install flatpak
+	if yes_or_no "Install flatpak?"; then
+		sudo apt install -y flatpak
+
+		# Configure flatpak to use correct theming
+		gtk_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")
+		icon_theme=$(gsettings get org.gnome.desktop.interface icon-theme | sed "s/'//g")
+		sudo flatpak override --env=GTK_THEME=$gtk_theme \
+			--env=ICON_THEME=$icon_theme \
+			--filesystem=~/.config \
+			--filesystem=~/.themes \
+			--filesystem=~/.icons
+	fi
+fi

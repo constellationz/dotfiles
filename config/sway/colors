@@ -1,0 +1,8 @@
+# Window colors
+# class                 border  bg      text    indicat border
+client.focused          #504945 #504945 #EBDBB2 #504945 #504945
+client.focused_inactive #3c3836 #3c3836 #D5C4A1 #3c3836 #3c3836
+client.unfocused        #303030 #303030 #D5C4A1 #303030 #303030
+client.urgent           #9D0006 #9D0006 #FB4934 #9D0006 #9D0006
+client.placeholder      #303030 #303030 #303030 #303030 #303030
+client.background       #303030

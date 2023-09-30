@@ -1,0 +1,34 @@
+#!/usr/bin/bash
+# Set up directories with xdg-user-dirs-update
+
+# Name of the directory to sync
+FILEDIR=$HOME/Sync
+
+# Back up or unlink files in $HOME
+cd ~/
+mkdir -p $FILEDIR
+for directory in Pictures Documents Videos Music Templates
+do
+	# If there's a symlink to a directory, unlink it
+	# Don't back up in case we have already linked this
+	# directory to the target.
+	if [ -L ~/$directory ]; then
+		unlink ~/$directory
+	fi
+
+	# Always make directories for user dirs
+	mkdir -p $FILEDIR/$directory
+
+	# Back up files if a regular directory exists.
+	# Afterwards, remove it.
+	if [ -e ~/$directory ]; then
+		mkdir -p $FILEDIR/$directory/Backup
+		mv -v ~/$directory/* $FILEDIR/$directory/Backup/ || \
+			echo "(No files to back up)"
+		rmdir ~/$directory/
+	fi
+
+	# Set user directory to FILEDIR
+	xdg-user-dirs-update --set ${directory^^} $FILEDIR/$directory || \
+		echo "Unable to update xdg-user-dir"
+done

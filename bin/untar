@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+# Tar a directory
+
+FILE="$1"
+
+if [ ! -e "$FILE" ]; then
+  echo "File $FILE does not exist";
+  exit 1;
+fi
+
+echo "Extracting $FILE"
+if tar -xvf "$FILE"; then
+  echo "Done extracting $FILE"
+else
+  echo "Could not extract $FILE"
+fi

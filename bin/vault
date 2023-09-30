@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+# Compress a file to a password protected vault
+
+export GPG_TTY=$(tty)
+
+FILE=$(echo "$1" | sed "s:/*$::")
+VAULTFILE="$FILE.tar.gz.gpg"
+TEMPFILE="$FILE.tar.gz.gpg.tmp"
+
+if [ ! -e "$FILE" ]; then
+  echo "File $FILE does not exist";
+  exit 1;
+fi
+
+if [ -e "$VAULTFILE" ]; then
+  echo "$VAULTFILE already exists, moving to $VAULTFILE.bak"
+  mv "$VAULTFILE" "$VAULTFILE.bak"
+fi
+
+echo "Creating vaultfile"
+if tar -cvzf - "$FILE" | gpg -c > "$TEMPFILE" && mv "$TEMPFILE" "$VAULTFILE"; then
+  echo "Done creating $VAULTFILE"
+else
+  rm "$TEMPFILE"
+  echo "Failed to create $VAULTFILE"
+fi

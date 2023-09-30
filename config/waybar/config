@@ -1,0 +1,58 @@
+{
+    "layer": "bottom",
+    "position": "bottom",
+    "height": 30,
+    "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["idle_inhibitor", "memory", "cpu", "battery", "network", "pulseaudio"],
+    "output": "DP-1",
+    "margin": 0,
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}", 
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "idle",
+            "deactivated": "noidle"
+        }
+    },
+    "sway/window": {
+        "max-length": 30
+    },
+    "sway/mode": {
+        "format": "{}"
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%A, %B %d %I:%M %p}",
+        "format-alt": "{:%Y-%m-%d %H:%M}"
+    },
+    "battery": {
+        "format": "bat {capacity}%"
+    },
+    "cpu": {
+        "format": "cpu {usage}%",
+    },
+    "memory": {
+        "interval": 10,
+        "format": "mem {used:0.1f}/{total:0.1f}G"
+    },
+    "network": {
+        "format-wifi": "net {essid} ({signalStrength}%)",
+        "format-ethernet": "net {ifname}",
+        "format-disconnected": "net disconnected"
+    },
+    "pulseaudio": {
+        "scroll-step": 1,
+        "format": "vol {volume}%",
+        "format-bluetooth": "vol {volume}%",
+        "format-muted": "muted",
+    }
+}
+

@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Run a program
+
+PICKER="bmenu"
+
+find ${PATH//:/ } -maxdepth 1 -executable | sed 's/.*\///' | sed '/\[/d' | sort | uniq | bmenu -p "Run" | bash

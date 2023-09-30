@@ -1,0 +1,41 @@
+#!/usr/bin/bash
+# Tar everything in a directory
+
+i=0
+s=0
+skipped=""
+
+for dir in ./*; do
+  # Skip already compressed files
+  if [[ $dir == *".tar.gz"* ]]; then 
+    continue
+  fi
+
+  # If the compressed version of this already exists, don't override it if files are missing
+  if [ -f "$dir.tar.gz" ]; then
+    if ! tar --compare --file="$dir.tar.gz" -C ./; then
+      echo "Compressed directory $dir has changed files, not overriding...";
+      skipped="$skipped\n$dir"
+      ((s++))
+      continue;
+    fi
+  fi
+
+  # Keep track of file
+  ((i++))
+
+  # Tar this directory
+  echo "Compressing $dir (file $i)"
+  tar -czf "$dir.tar.gz.tmp" "$dir";
+  mv "$dir.tar.gz.tmp" "$dir.tar.gz";
+  echo "Added $dir.tar.gz"
+done
+
+echo "Done compressing $i file(s)"
+echo "Skipped $s file(s)"
+
+# Error code if files are skipped
+if [ ! $i -eq 0 ]; then
+  echo -e "Files skipped:$skipped"
+  exit 1
+fi

@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+# Unlock a password protected vault
+
+export GPG_TTY=$(tty)
+
+FILE="$1"
+
+if [ ! -e "$FILE" ]; then
+  echo "File $FILE does not exist";
+  exit 1;
+fi
+
+echo "Extracting vaultfile $FILE"
+if gpg -d "$FILE" | tar -xvzf -; then
+  echo "Done extracting vaultfile $FILE"
+else
+  echo "Could not extract vaultfile $FILE"
+fi

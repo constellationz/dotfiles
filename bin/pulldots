@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Pull dotfiles to the system
+
+SCRIPT_DIR=$(dirname $0)
+cd $SCRIPT_DIR
+git pull

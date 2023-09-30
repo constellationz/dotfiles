@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+# Back up important files
+
+BAKDIR="$HOME/Sync"
+TARFILE="$HOME/Sync.tar"
+
+tar --exclude="Pictures/Archive" --exclude="Videos" --exclude="Music" --exclude=".osync_workdir" -cvf "$TARFILE" "$BAKDIR"

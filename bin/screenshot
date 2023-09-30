@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+# Screenshot with lock
+
+LOCK="/tmp/screenshot.lock"
+
+if [[ -d "$LOCK" ]]; then
+  exit
+fi
+
+function take_screenshot() {
+  grim -g "$(slurp -b 00000055 -w 0)" - | wl-copy
+}
+
+function lock() {
+  mkdir "$LOCK" 2>/dev/null
+}
+
+function unlock() {
+  rmdir "$LOCK"
+}
+
+lock
+take_screenshot
+trap unlock SIGINT EXIT

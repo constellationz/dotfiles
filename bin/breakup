@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+FILE="$1"
+
+split -b 500m --numeric-suffixes $FILE $FILE.

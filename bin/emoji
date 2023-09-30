@@ -1,0 +1,187 @@
+#!/usr/bin/env bash
+# From https://github.com/marty-oehme/bemoji
+# History, recents, and cache removed
+# Licensed under the MIT license at https://github.com/marty-oehme/bemoji/blob/main/LICENSE
+
+# Setting custom emoji list file location:
+BEMOJI_PICKER_CMD="bmenu"
+
+# Version
+bm_version=0.3.0
+# Location of the emoji database
+bm_db_location=${BEMOJI_DB_LOCATION:-"${XDG_DATA_HOME:-$HOME/.local/share}/bemoji"}
+# Command to run after user chooses an emoji
+bm_default_cmd="$BEMOJI_DEFAULT_CMD"
+# Newline after echo
+bm_echo_newline=${BEMOJI_ECHO_NEWLINE:-true}
+
+# Report usage
+usage() {
+    echo "Usage: $(basename "$0") [-t | -c | -e] [-f <filepath> ] [-p] [-P] [-D <choices>]" 1>&2
+    echo
+    echo "A simple emoji picker. Runs on bemenu/wofi/rofi/dmenu by default."
+    echo "Invoked without arguments sends the picked emoji to the clipboard."
+    echo
+    echo " Command options (can be combined):"
+    echo "   -t             Simulate typing the emoji choice with the keyboard."
+    echo "   -c             Send emoji choice to the clipboard. (default)"
+    echo "   -e             Only echo out the picked emoji."
+    echo ""
+    echo " Other options:"
+    echo "   -n             Do not print a newline after the picked emoji."
+    echo "   -D <choice>    Choose from default lists to download."
+    echo "                  Valid choices: all|none|emoji|math (multiple choices possible)."
+    echo "   -f <filepath>  Use a custom emoji database. Can be a url which will be retrieved."
+    echo "   -v             Display current program version and directory configuration."
+    echo "   -h             Show this help."
+    echo
+    exit "$1"
+}
+
+version() {
+    printf "v%s\ndatabase=%s\nhistory=%s\n" "$bm_version" "$bm_db_location"
+    exit
+}
+
+# Get Options
+while getopts ":f:D:tcenpPhv" o; do
+    case "${o}" in
+    f) BEMOJI_CUSTOM_LIST="${OPTARG}" ;;
+    t) bm_cmds+=(_typer) ;;
+    c) bm_cmds+=(_clipper) ;;
+    e) bm_cmds+=(cat) ;;
+    n) bm_echo_newline=false ;;
+    D) BEMOJI_DOWNLOAD_LIST="${OPTARG}" ;;
+    h) usage 0 ;;
+    v) version ;;
+    *) usage 1 ;;
+    esac
+done
+
+prepare_db() {
+    # Create list directory
+    if [ ! -d "$bm_db_location" ]; then
+        mkdir -p "$bm_db_location"
+    fi
+
+    if [ -n "$BEMOJI_DOWNLOAD_LIST" ]; then
+        # Populate default lists
+        if echo "$BEMOJI_DOWNLOAD_LIST" | grep -q -e 'none'; then
+            printf "Not downloading a default emoji list.\n"
+            return
+        elif echo "$BEMOJI_DOWNLOAD_LIST" | grep -q -e 'all'; then
+            dl_default_emoji
+            dl_math_symbols
+            return
+        else
+            if echo "$BEMOJI_DOWNLOAD_LIST" | grep -q -e 'emoji'; then
+                dl_default_emoji
+            fi
+            if echo "$BEMOJI_DOWNLOAD_LIST" | grep -q -e 'math'; then
+                dl_math_symbols
+            fi
+        fi
+    fi
+    if [ -n "$(find "$bm_db_location" -maxdepth 0 -type d -empty 2>/dev/null)" ]; then
+        dl_default_emoji
+    fi
+}
+
+dl_default_emoji() {
+    local emojis
+    emojis=$(curl -sSL "https://unicode.org/Public/emoji/14.0/emoji-test.txt")
+    printf "%s" "$emojis" | sed -ne 's/^.*; fully-qualified.*# \(\S*\) \S* \(.*$\)/\1 \2/gp' >"$bm_db_location/emojis.txt"
+    printf "Downloaded default emoji set.\n"
+}
+dl_math_symbols() {
+    curl -sSL "https://unicode.org/Public/math/latest/MathClassEx-15.txt" |
+        grep -ve '^#' | cut -d';' -f3,7 | sed -e 's/;/ /' >"$bm_db_location/math.txt"
+    printf "Downloaded math symbols set.\n"
+}
+
+gather_emojis() {
+    if [ -n "$BEMOJI_CUSTOM_LIST" ] && [ -f "$BEMOJI_CUSTOM_LIST" ]; then
+        result=$(cat "$BEMOJI_CUSTOM_LIST")
+    elif [ -n "$BEMOJI_CUSTOM_LIST" ] && curl -fsSI "$BEMOJI_CUSTOM_LIST" >/dev/null 2>&1; then
+        result=$(curl -sSL "$BEMOJI_CUSTOM_LIST")
+    else
+        result=$(cat "$bm_db_location"/*.txt)
+    fi
+
+    printf "%s" "$result"
+}
+
+# Set default clipboard util
+_clipper() {
+    if [ -n "$BEMOJI_CLIP_CMD" ]; then
+        # shellcheck disable=SC2068
+        ${BEMOJI_CLIP_CMD[@]}
+    elif [ -n "$WAYLAND_DISPLAY" ] && command -v wl-copy >/dev/null 2>&1; then
+        wl-copy
+    elif [ -n "$DISPLAY" ] && command -v xclip >/dev/null 2>&1; then
+        xclip -selection clipboard
+    elif [ -n "$DISPLAY" ] && command -v xsel >/dev/null 2>&1; then
+        xsel -b
+    else
+        printf "No suitable clipboard tool found."
+        exit 1
+    fi
+}
+
+# Set default typing uti
+_typer() {
+    totype=$(cat -)
+    if [ -n "$BEMOJI_TYPE_CMD" ]; then
+        # shellcheck disable=SC2068
+        ${BEMOJI_TYPE_CMD[@]}
+    elif [ -n "$WAYLAND_DISPLAY" ] && command -v wtype >/dev/null 2>&1; then
+        wtype -s 30 "$totype"
+    elif [ -n "$DISPLAY" ] && command -v xdotool >/dev/null 2>&1; then
+        xdotool type --delay 30 "$totype"
+    else
+        printf "No suitable typing tool found."
+        exit 1
+    fi
+}
+
+# Set default picker util
+_picker() {
+    if [ -n "$BEMOJI_PICKER_CMD" ]; then
+        ${BEMOJI_PICKER_CMD[@]}
+    else
+        printf "No suitable picker tool found."
+        exit 1
+    fi
+}
+
+[ -n "$BEMOJI_CUSTOM_LIST" ] || prepare_db
+result=$(gather_emojis | _picker)
+exit_value="$?"
+result=$(echo "$result" | grep -o '^\S\+' | tr -d '\n')
+
+case "$exit_value" in
+1)
+    exit
+    ;;
+0)
+    if [ ${#bm_cmds[@]} -eq 0 ]; then
+        if [ -n "$bm_default_cmd" ]; then
+            # shellcheck disable=SC2068
+            echo "$result" | ${bm_default_cmd[@]}
+            exit
+        fi
+        bm_cmds+=(_clipper)
+    fi
+    for cmd in "${bm_cmds[@]}"; do
+        [ "$bm_echo_newline" = true ] && echo_opts= || echo_opts=-n
+        echo $echo_opts "$result" | "$cmd"
+    done
+    ;;
+10)
+    echo "$result" | _clipper
+    ;;
+11)
+    echo "$result" | _typer
+    ;;
+esac
+exit

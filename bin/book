@@ -1,0 +1,58 @@
+#!/usr/bin/bash
+# Simple bookmarks script
+
+PICKER="bmenu"
+BOOKMARK_FILE="$(xdg-user-dir DOCUMENTS)/bookmarks.md"
+
+# Allow file opener to be passed in
+if [ -z "$OPEN_WITH" ]; then
+  OPEN_WITH="xdg-open"
+fi
+
+function extract-link () {
+  sed -n "s/.*: \(.*\)/\1/p"
+}
+
+function list-links() {
+  sed -n "s/.*\[\(.*\)\].*(\(.*\))/\1: \2/p"
+}
+
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] [--list | --quickmark | --open] [--file=<filename>]"
+  echo "Simple bookmarks script"
+  echo ""
+  echo "Options:"
+  echo "  --help | -h        Lists help"
+  echo "  --list             List bookmarks with picker"
+  echo "  --quickmark        Quickly add bookmark"
+  echo "  --open             Open bookmarks file"
+  echo "  --file <filename>  The bookmarks file to use"
+  exit
+fi
+
+if [[ "$@" =~ .*"--file=".* ]]; then
+  BOOKMARK_FILE="$(echo "$@" | sed -n "s/.*--file=\(.*\)/\1/p")"
+fi
+
+if [ -d "$BOOKMARK_FILE" ]; then
+  echo "Bookmark file is a directory, aborting"
+  exit 1
+elif [ ! -f "$BOOKMARK_FILE" ]; then
+  echo "Bookmarks file doesn't exist, aborting"
+  exit 2
+fi
+
+if [[ "$@" =~ .*"--list".* ]]; then
+  wtype $(cat "$BOOKMARK_FILE" \
+    | list-links \
+    | $PICKER -p "Bookmark" \
+    | extract-link)
+elif [[ "$@" =~ .*"--open".* ]]; then 
+  $OPEN_WITH $BOOKMARK_FILE
+elif [[ "$@" =~ .*"--quickadd".* ]]; then
+  CONTENT=$(wl-paste | $PICKER -p "Content") \
+    && TITLE=$(echo "Title" | $PICKER -p "Title") \
+    && echo "- [$TITLE]($CONTENT)" | tee -a $BOOKMARK_FILE
+else
+  echo "No mode selected"
+fi

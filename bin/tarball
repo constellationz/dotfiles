@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+# Tar a file
+
+FILE=$(echo "$1" | sed "s:/*$::")
+TARFILE="$FILE.tar.gz"
+
+if [ ! -e "$FILE" ]; then
+  echo "File $FILE does not exist";
+  exit 1;
+fi
+
+echo "Compressing $FILE to $TARFILE"
+if tar -cvzf "$TARFILE.tmp" "$FILE" && mv "$TARFILE.tmp" "$TARFILE"; then
+  echo "Done compressing $TARFILE"
+else
+  echo "Could not compress $TARFILE"
+fi

@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+# Sync dotfiles to the system
+
+SCRIPT_DIR=$(dirname $0)
+CONFIG_DIR=$SCRIPT_DIR/../config
+HOME_DIR=$SCRIPT_DIR/../home
+
+# Make directories
+mkdir -p $CONFIG_DIR
+
+# $1 - From directory
+# $2 - To directory
+sync () {
+	rsync -ar "$1" "$2"
+}
+
+# Copy configs
+for config in $(ls -A $CONFIG_DIR); do
+    echo "Syncing config/$config"
+	sync $CONFIG_DIR/$config $HOME/.config/
+done
+
+# Copy things in home dir
+for homefile in $(ls -A $HOME_DIR); do
+    echo "Syncing home/$homefile"
+	sync $HOME_DIR/$homefile $HOME/$homefile
+done

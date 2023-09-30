@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+# Set a file to be opened with a certain program by filetype
+
+PROGRAM="$2"
+FILE="$1"
+
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] <file> <program>"
+  echo "Open a file with a program and set the mimetype"
+  exit
+fi
+
+if [ ! -f $FILE ]; then
+  echo "error: file $FILE not found"
+  exit 1
+fi
+
+FILETYPE="$(xdg-mime query filetype $1)"
+
+xdg-mime default "$PROGRAM.desktop" "$FILETYPE"
+xdg-open $FILE

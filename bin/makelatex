@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# Run latexmk and open the viewer
+
+latexmk -pvc -new-viewer- $@
