@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+cp /mnt/Saves /tmp/ -r
+cd /tmp/
+tarball Saves
+cp Saves.tar.gz ~/Sync/Documents/Archive/
+echo Done
