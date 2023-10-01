@@ -1,21 +1,28 @@
 #!/usr/bin/bash
 # Set a file to be opened with a certain program by filetype
 
-PROGRAM="$2"
-FILE="$1"
-
 if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
-  echo "Usage: $(basename $0) [--help | -h] <file> <program>"
+  echo "Usage: $(basename $0) [--help | -h] <program> <file>"
   echo "Open a file with a program and set the mimetype"
   exit
 fi
 
-if [ ! -f $FILE ]; then
-  echo "error: file $FILE not found"
-  exit 1
-fi
+program="$1"
+desktop="$program.desktop"
 
-FILETYPE="$(xdg-mime query filetype $1)"
+for file in "${@:2}"
+do
+  # Make sure file exists
+  if [ ! -f "$file" ]; then
+    echo "skipping, file $file not found"
+    continue
+  fi
 
-xdg-mime default "$PROGRAM.desktop" "$FILETYPE"
-xdg-open $FILE
+  # Get filetype and desktop entry
+  filetype=$(xdg-mime query filetype "$file")
+
+  # Set entry
+  echo "opening $filetype ($file) with $desktop from now on"
+  xdg-mime default $desktop $filetype
+done
+
