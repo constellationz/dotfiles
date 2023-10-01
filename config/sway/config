@@ -65,6 +65,9 @@ gaps outer 0
 # Set title font
 font pango:Hack 10
 
+# Set title format
+for_window [title=".*"] title_format "<b>%title</b> (%app_id)"
+
 # Statusbar
 exec waybar
 
