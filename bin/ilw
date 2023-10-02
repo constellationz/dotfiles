@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Install librewolf
 
 sudo apt update
 sudo apt install -y wget gnupg lsb-release apt-transport-https ca-certificates
