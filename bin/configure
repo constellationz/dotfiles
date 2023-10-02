@@ -60,13 +60,6 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		openresolv \
 		wireguard-tools \
 		xdg-user-dirs
-
-	# If a battery is found, install and enable TLP
-	if upower -e | grep "BAT"; then
-		echo "Battery detected, installing TLP"
-		sudo apt install -y tlp
-		sudo systemctl enable tlp.service --now
-	fi
 fi
 
 # Copy configs now
@@ -87,6 +80,14 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add packer for neovim?"; then
 
 	# Run neovim with packersync command
 	nvim -c "PackerSync"
+fi
+
+# Install battery programs
+if [[ AUTO -eq 0 ]] && yes_or_no "Install battery programs?"; then
+	sudo apt install -y \
+		upower \
+		tlp
+	sudo systemctl enable tlp.service --now
 fi
 
 # Install desktop environment
