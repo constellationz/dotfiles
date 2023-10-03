@@ -68,6 +68,7 @@ alias su='su -l -c "cd $(pwd) && bash"'
 # Wayland clipboard pipes to wl-copy
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
 	alias c='wl-copy'
+	alias imv='imv-wayland'
 fi
 
 # On linux, o is xdg-open
