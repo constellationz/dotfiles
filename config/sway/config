@@ -128,12 +128,12 @@ bindsym $mod+slash exec $copykey
 bindsym Print exec $screenshot
 
 # Brightness
-bindsym XF86MonBrightnessUp exec light -A 1
-bindsym XF86MonBrightnessDown exec light -U 1
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
-# Fast brightness
-bindsym Shift+XF86MonBrightnessUp exec light -A 10
-bindsym Shift+XF86MonBrightnessDown exec light -U 10
+# Slow brightness
+bindsym Shift+XF86MonBrightnessUp exec light -A 1
+bindsym Shift+XF86MonBrightnessDown exec light -U 1
 
 # Keyboard brightness
 bindsym $mod+XF86MonBrightnessUp exec light -s sysfs/leds/kbd_backlight -A 1
