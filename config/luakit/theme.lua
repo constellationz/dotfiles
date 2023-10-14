@@ -120,8 +120,8 @@ theme.warn  = { fg = base00, bg = base0E }
 theme.error = { fg = base08, bg = base00 }
 
 -- Font
-theme.font      = "12px Hack"
-theme.hint_font = "12px Hack, courier, sans-serif"
+theme.font      = '14px "Hack"'
+theme.hint_font = '14px "Hack"'
 
 return theme
 
