@@ -147,7 +147,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		xdg-mime default org.pwmt.zathura.desktop \
 			application/pdf applicaiton/epub application/epub+zip
 		xdg-mime default l3afpad.desktop \
-			application/octet-stream text/plain text/*
+			application/octet-stream application/json text/plain text/*
 		xdg-mime default imv.desktop \
 			image/png image/jpg image/jpeg image/webp image/bmp image/*
 		xdg-mime default mpv.desktop \
