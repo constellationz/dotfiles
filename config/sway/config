@@ -3,13 +3,6 @@
 # References other configuration files
 # See man 5 sway for configuration information
 
-include programs
-include binds
-include inputs
-include themes/theme
-include outputs/current
-include /etc/sway/config.d/*
-
 ## Set wallpaper
 output * bg ~/.config/sway/wallpapers/wallpaper fill
 
@@ -31,3 +24,11 @@ for_window [app_id=".+"] title_format "<b>%title</b> (%app_id)"
 
 ## Disable XWayland
 # xwayland disable
+
+include programs
+include binds
+include inputs
+include themes/theme
+include outputs/current
+include local.d/*
+include /etc/sway/config.d/*
