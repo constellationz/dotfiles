@@ -115,8 +115,8 @@ bindsym $mod+s layout stacking
 ##! Tab windows in container
 bindsym $mod+t layout tabbed
 
-##! Toggle spl(i)t direction
-bindsym $mod+i layout toggle split
+##! Toggle split direction
+bindsym $mod+p layout toggle split
 
 ##! Launch web
 bindsym $mod+w exec $browser
