@@ -174,21 +174,20 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		cd ~/.rep/gruvbox-material-gtk
 		echo "Pulling gruvbox-material-gtk..."
 		git pull
-		if [ ! -d ~/.rep/papirus-icon-theme ]; then
-			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme ~/.rep/papirus-icon-theme
+		if [ ! -d ~/.rep/gruvbox-plus-icon-pack ]; then
+			git clone https://github.com/constellationz/gruvbox-plus-icon-pack ~/.rep/gruvbox-plus-icon-pack
 		fi
-		cd ~/.rep/papirus-icon-theme
-		echo "Pulling papirus-icon-theme..."
+		cd ~/.rep/gruvbox-plus-icon-pack
+		echo "Pulling gruvbox-plus-icon-pack..."
 		git pull
 
 		echo "Syncing themes..."
-		rsync --recursive --links ~/.rep/gruvbox-material-gtk/icons/Gruvbox-Material-Dark ~/.icons/
 		rsync --recursive --links ~/.rep/gruvbox-material-gtk/themes/Gruvbox-Material-Dark ~/.themes/
-		rsync --recursive --links ~/.rep/papirus-icon-theme/Papirus* ~/.icons/
+		rsync --recursive --links ~/.rep/gruvbox-plus-icon-pack/Gruvbox-Plus-Dark ~/.icons/
 
 		echo "Updating gsettings..."
-		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
 		gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
+		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Plus-Dark'
 		gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
