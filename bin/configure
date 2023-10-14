@@ -55,6 +55,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		jq \
 		tar \
 		gzip \
+		gron \
 		gnupg \
 		oathtool \
 		openresolv \
