@@ -15,8 +15,8 @@ set $right l
 floating_modifier $mod
 
 ##! Launch terminal
-bindsym $mod+t exec $term
-bindsym $mod+Shift+t exec $namedterm
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $namedterm
 
 ##! Lock screen
 bindsym $mod+Shift+m exec $lock
@@ -27,6 +27,7 @@ bindsym $mod+Shift+q kill
 ##! Run program
 bindsym $mod+d exec $launcher
 bindsym XF86Search exec $launcher
+bindsym F8 exec $launcher
 
 ##! Pick emoji
 bindsym $mod+Period exec $emoji
@@ -49,6 +50,7 @@ bindsym Print exec $screenshot
 ##! Quick switcher
 bindsym $mod+Tab exec $switcher
 bindsym XF86LaunchA exec $switcher
+bindsym F9 exec $switcher
 
 ##! Reload Sway
 bindsym $mod+Shift+c reload
@@ -111,27 +113,28 @@ bindsym  {
 bindsym $mod+s layout stacking
 
 ##! Tab windows in container
-bindsym $mod+b layout tabbed
+bindsym $mod+t layout tabbed
 
-##! Toggle s(p)lit direction
-bindsym $mod+p layout toggle split
+##! Toggle spl(i)t direction
+bindsym $mod+i layout toggle split
 
 ##! Launch web
 bindsym $mod+w exec $browser
 
-##! Home directory
+##! Open home directory
 bindsym $mod+e exec $files
 
 ##! Open notepad
 bindsym $mod+n exec $notepad
 
 ##! Toggle fullscreen 
-bindsym $mod+f fullscreen
+bindsym $mod+Shift+f fullscreen
+bindsym F11 fullscreen
 
 ##! Toggle floating
-bindsym $mod+Return floating toggle
+bindsym $mod+f floating toggle
 
-##! Toggle floating focus
+##! Switch focus
 bindsym $mod+space focus mode_toggle
 
 ##! Focus parent container
@@ -141,10 +144,10 @@ bindsym $mod+a focus parent
 bindsym $mod+c focus child
 
 ##! Create vert(i)cal container
-bindsym $mod+i splitv
+bindsym $mod+v splitv
 
 ##! Create h(o)rizontal container
-bindsym $mod+o splith
+bindsym $mod+b splith
 
 ##! Temporarily 'delete' window
 bindsym $mod+Delete move scratchpad
