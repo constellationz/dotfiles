@@ -133,6 +133,7 @@ bindsym F11 fullscreen
 
 ##! Toggle floating
 bindsym $mod+f floating toggle
+bindsym $mod+Shift+space floating toggle
 
 ##! Switch focus
 bindsym $mod+space focus mode_toggle
