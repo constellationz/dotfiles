@@ -5,7 +5,7 @@
 # Default programs 
 set $term alacritty
 set $files nemo
-set $browser luakit
+set $browser xdg-open "https://"
 set $notepad l3afpad
 set $launcher run
 set $switcher switch 
