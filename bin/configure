@@ -34,7 +34,6 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt install -y \
 		micro \
 		neovim \
-		kakoune \
 		curl \
 		gcc \
 		bc \
