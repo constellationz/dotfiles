@@ -54,7 +54,25 @@ __prompt_command() {
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
-# Add aliases
+# Type directory names to navigate
+shopt -s autocd
+
+# On linux, o is xdg-open
+if [ $(command -v xdg-open) ]; then
+	alias o='xdg-open'
+fi
+
+# On MacOS, o is open
+if [ $(command -v open) ]; then
+	alias o='open'
+fi
+
+# Navigate upwards 
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Add static aliases
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
@@ -65,20 +83,20 @@ alias dotfiles='cd $DOTS'
 alias dots='dotfiles' 
 alias su='su -l -c "cd $(pwd) && bash"'
 
+# Set terminal editor if available
+# e - (e)dit
+alias e="o"
+if [ $(command -v nvim) ]; then
+	alias e="nvim"
+elif [ $(command -v micro) ]; then
+	alias e="micro"
+fi
+
 # Wayland clipboard pipes to wl-copy
+# c - (c)opy
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
 	alias c='wl-copy'
 	alias imv='imv-wayland'
-fi
-
-# On linux, o is xdg-open
-if [ $(command -v xdg-open) ]; then
-	alias o='xdg-open'
-fi
-
-# On MacOS, o is open
-if [ $(command -v open) ]; then
-	alias o='open'
 fi
 
 # Set PATH, MANPATH, etc., for Homebrew.
