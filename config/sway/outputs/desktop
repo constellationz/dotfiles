@@ -1,0 +1,28 @@
+# Sway configuration
+#
+# Desktop output configuration
+
+## Output scale
+output * scale 1.0
+
+## Primary output
+set $primary DP-1
+output $primary pos 320 1080
+output $primary mode 1920x1080@240Hz
+
+## Secondary output
+set $secondary HDMI-A-1
+output $secondary pos 0 0
+output $secondary mode 2560x1080@75Hz
+
+## Configure workspaces
+workspace 1 output $primary
+workspace 2 output $primary
+workspace 3 output $primary
+workspace 4 output $primary
+workspace 5 output $primary
+workspace 6 output $primary
+workspace 7 output $primary
+workspace 8 output $primary
+workspace 9 output $primary
+workspace 10 output $secondary

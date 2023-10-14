@@ -1,0 +1,32 @@
+# Sway configuration
+#
+# Variables for most programs
+
+# Default programs 
+set $term alacritty
+set $notepad l3afpad
+set $launcher run
+set $switcher switch 
+set $emoji emoji -t
+set $lock swaylock --daemonize
+set $screenshot screenshot
+set $namedterm namedterm
+set $copykey keychain --list
+set $listbookmarks book --list
+set $openbookmarks OPEN_WITH=$notepad book --open
+set $quickaddbookmark book --quickadd
+
+# Execute once per Sway session
+exec {
+  waybar
+  gammastep
+  swayidle -w \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    timeout 300 '$lock' \
+    before-sleep '$lock' \
+}
+
+# Execute every time Sway is restarted
+exec_always {
+
+}
