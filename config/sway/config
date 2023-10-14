@@ -13,6 +13,9 @@ include /etc/sway/config.d/*
 ## Set wallpaper
 output * bg ~/.config/sway/wallpapers/wallpaper fill
 
+## Set cursor
+seat seat0 xcursor_theme Adwaita 16
+
 ## Gaps & Borders
 gaps inner 2
 gaps outer 0
