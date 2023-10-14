@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
+#
 # Output a json containing bind information
+# By default, it looks for ~/.config/sway/binds
+# 
+# Examples of formatted lines:
+#
+# ##! Fullscreen window
+# bindsym $mod+f fullscreen
+#
+# ##! Move to workspace - $mod+[number]
+# <ignores following line>
 
 import sys
 import glob
