@@ -113,8 +113,17 @@ bindsym $mod+s layout stacking
 ##! Tab windows in container
 bindsym $mod+t layout tabbed
 
-##! Tile windows in container
-bindsym $mod+e layout toggle split
+##! Toggle s(p)lit direction
+bindsym $mod+p layout toggle split
+
+##! Launch browser
+bindsym $mod+b exec $browser
+
+##! Home directory
+bindsym $mod+e exec $files
+
+##! Open notepad
+bindsym $mod+n exec $notepad
 
 ##! Toggle fullscreen 
 bindsym $mod+f fullscreen
@@ -131,16 +140,16 @@ bindsym $mod+a focus parent
 ##! Focus child
 bindsym $mod+c focus child
 
-##! Create horizontal container
-bindsym $mod+b splith
+##! Create vert(i)cal container
+bindsym $mod+i splitv
 
-##! Create vertical container
-bindsym $mod+v splitv
+##! Create h(o)rizontal container
+bindsym $mod+o splith
 
-##! Push window to scratchpad
+##! Temporarily 'delete' window
 bindsym $mod+Delete move scratchpad
 
-##! Retrieve window from scratchpad
+##! Retrieve 'deleted' window
 bindsym $mod+Shift+Delete scratchpad show
 
 mode "resize" {
@@ -183,7 +192,7 @@ bindsym {
     $mod+0 workspace number 10
 }
 
-##! Move focus to workspace - $mod+Shift+[number]
+##! Send focus to workspace - $mod+Shift+[number]
 bindsym {
     $mod+Shift+1 move container to workspace number 1
     $mod+Shift+2 move container to workspace number 2
