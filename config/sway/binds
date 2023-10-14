@@ -26,8 +26,8 @@ bindsym $mod+Shift+q kill
 
 ##! Run program
 bindsym $mod+d exec $launcher
+bindsym $mod+F8 exec $launcher
 bindsym XF86Search exec $launcher
-bindsym F8 exec $launcher
 
 ##! Pick emoji
 bindsym $mod+Period exec $emoji
@@ -49,8 +49,8 @@ bindsym Print exec $screenshot
 
 ##! Quick switcher
 bindsym $mod+Tab exec $switcher
+bindsym $mod+F9 exec $switcher
 bindsym XF86LaunchA exec $switcher
-bindsym F9 exec $switcher
 
 ##! Reload Sway
 bindsym $mod+Shift+c reload
