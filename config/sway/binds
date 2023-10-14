@@ -15,8 +15,8 @@ set $right l
 floating_modifier $mod
 
 ##! Launch terminal
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $namedterm
+bindsym $mod+t exec $term
+bindsym $mod+Shift+t exec $namedterm
 
 ##! Lock screen
 bindsym $mod+Shift+m exec $lock
@@ -111,13 +111,13 @@ bindsym  {
 bindsym $mod+s layout stacking
 
 ##! Tab windows in container
-bindsym $mod+t layout tabbed
+bindsym $mod+b layout tabbed
 
 ##! Toggle s(p)lit direction
 bindsym $mod+p layout toggle split
 
-##! Launch browser
-bindsym $mod+b exec $browser
+##! Launch web
+bindsym $mod+w exec $browser
 
 ##! Home directory
 bindsym $mod+e exec $files
@@ -129,7 +129,7 @@ bindsym $mod+n exec $notepad
 bindsym $mod+f fullscreen
 
 ##! Toggle floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Return floating toggle
 
 ##! Toggle floating focus
 bindsym $mod+space focus mode_toggle
@@ -149,7 +149,7 @@ bindsym $mod+o splith
 ##! Temporarily 'delete' window
 bindsym $mod+Delete move scratchpad
 
-##! Retrieve 'deleted' window
+##! Restore 'deleted' window
 bindsym $mod+Shift+Delete scratchpad show
 
 mode "resize" {
