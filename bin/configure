@@ -138,6 +138,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 	if yes_or_no "Install graphical desktop packages?"; then
 		sudo apt install -y \
 			nemo \
+			luakit \
 			l3afpad \
 			pavucontrol
 	fi
