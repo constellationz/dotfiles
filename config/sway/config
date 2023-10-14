@@ -3,11 +3,11 @@
 # References other configuration files
 # See man 5 sway for configuration information
 
-## Set wallpaper
-output * bg ~/.config/sway/wallpapers/wallpaper fill
-
-## Set cursor
+## Set default cursor
 seat seat0 xcursor_theme Adwaita 16
+
+## Set default wallpaper
+output * bg wallpapers/gemini fill
 
 ## Gaps & Borders
 gaps inner 2
@@ -25,10 +25,12 @@ for_window [app_id=".+"] title_format "<b>%title</b> (%app_id)"
 ## Disable XWayland
 # xwayland disable
 
+# Include default configuration
 include programs
 include binds
 include inputs
-include themes/theme
-include outputs/current
+include themes/gruvbox
 include local.d/*
+
+# Bind to systemd
 include /etc/sway/config.d/*
