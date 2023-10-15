@@ -15,8 +15,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "idle",
-            "deactivated": "noidle"
+            "activated": "noidle",
+            "deactivated": "idle"
         }
     },
     "sway/window": {
