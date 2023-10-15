@@ -3,7 +3,7 @@ map d scroll half-down
 map p toggle_page_mode
 map <BackSpace> scroll full-up
 
-set font "Inconsolata 10"
+set font "Hack 10"
 set selection-clipboard "clipboard"
 set sandbox none
 set continuous-hist-save true
