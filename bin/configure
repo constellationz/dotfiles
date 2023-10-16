@@ -50,7 +50,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt update -y
 	sudo apt upgrade -y
 	sudo apt install -y \
-		kak \
+		kakoune \
 		micro \
 		neovim \
 		curl \
