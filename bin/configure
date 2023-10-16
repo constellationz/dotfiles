@@ -9,6 +9,9 @@ if [[ "$@" == *"--auto"* ]]; then
 	AUTO=1
 fi
 
+# yes_or_no "prompt"
+# return 0 if no
+# return 1 if yes
 function yes_or_no {
 	while true; do
 		read -p "$* [y/n]: " yn
@@ -17,6 +20,21 @@ function yes_or_no {
 			[Nn]*) return 1 ;;
 		esac
 	done
+}
+
+# pull_repo https://github.com/author/reponame ~/containing/dir
+function pull_repo {
+	link="$1"
+	containingdir="$2"
+	repo=$(basename "$link")
+	if [ ! -d "$containingdir/$repo" ]; then
+		git clone "$link" "$containingdir/$repo" 
+	else
+		echo "Already pulled $repo"
+	fi
+	cd "$containingdir/$repo"
+	echo "Pulling $repo..."
+	git pull
 }
 
 # Ensure sudo is installed
@@ -164,30 +182,26 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 
 	# Install themes from separate repo
 	if yes_or_no "Install themes?"; then
+		echo "Making directories"
 		mkdir --parents ~/.icons
 		mkdir --parents ~/.themes
 		
-		# Pull sources
-		if [ ! -d ~/.rep/gruvbox-material-gtk ]; then
-			git clone https://github.com/constellationz/gruvbox-material-gtk ~/.rep/gruvbox-material-gtk
-		fi
-		cd ~/.rep/gruvbox-material-gtk
-		echo "Pulling gruvbox-material-gtk..."
-		git pull
-		if [ ! -d ~/.rep/gruvbox-plus-icon-pack ]; then
-			git clone https://github.com/constellationz/gruvbox-plus-icon-pack ~/.rep/gruvbox-plus-icon-pack
-		fi
-		cd ~/.rep/gruvbox-plus-icon-pack
-		echo "Pulling gruvbox-plus-icon-pack..."
-		git pull
+		echo "Pulling sources"
+		pull_repo https://github.com/constellationz/gruvbox-icons ~/.rep
+		pull_repo https://github.com/constellationz/gruvbox-material-gtk ~/.rep
+		pull_repo https://github.com/constellationz/simp1e-gruvbox-dark ~/.rep
+		pull_repo https://github.com/PapirusDevelopmentTeam/papirus-icon-theme ~/.rep
 
 		echo "Syncing themes..."
-		rsync --recursive --links ~/.rep/gruvbox-material-gtk/themes/Gruvbox-Material-Dark ~/.themes/
-		rsync --recursive --links ~/.rep/gruvbox-plus-icon-pack/Gruvbox-Plus-Dark ~/.icons/
+		rsync --recursive --links ~/.rep/gruvbox-icons ~/.icons/Gruvbox-Icons
+		rsync --recursive --links ~/.rep/gruvbox-material-gtk ~/.themes/Gruvbox-Material-Dark
+		rsync --recursive --links ~/.rep/simp1e-gruvbox-dark ~/.icons/Simp1e-Gruvbox-Dark
+		rsync --recursive --links ~/.rep/papirus-icon-theme/Papirus-Dark ~/.icons/Papirus-Dark
 
 		echo "Updating gsettings..."
 		gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
-		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Plus-Dark'
+		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Icons'
+		gsettings set org.gnome.desktop.interface cursor-theme 'Simp1e-Gruvbox-Dark'
 		gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'

@@ -1,0 +1,8 @@
+# Local configuration
+
+## Output configuration
+# include ../outputs/desktop
+# include ../outputs/laptop
+
+## Wallpaper
+# output * bg ~/Pictures/Wallpapers/background.jpg fill
