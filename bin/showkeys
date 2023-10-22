@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+wshowkeys -F "Hack 40" -a top -m 20
