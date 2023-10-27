@@ -137,7 +137,6 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			xdg-desktop-portal-wlr \
 			xdg-desktop-portal-gtk \
 			alacritty \
-			ffmpeg \
 			cmus \
 			mpv \
 			imv \
