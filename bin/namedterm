@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Spawn a named terminal
 
-name=$(echo Alacritty | bmenu -p 'Name')
+name=$(echo Alacritty | bmenu -p 'Name' | sed 's/ /_/g')
 if [ ! -z $name ]; then
   alacritty -t "$name"
 fi
