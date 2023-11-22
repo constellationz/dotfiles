@@ -81,6 +81,7 @@ alias rm='rm -i'
 alias oh='o .'
 alias dotfiles='cd $DOTS' 
 alias dots='dotfiles' 
+alias rep='cd ~/.rep'
 alias su='su -l -c "cd $(pwd) && bash"'
 
 # Set terminal editor if available
