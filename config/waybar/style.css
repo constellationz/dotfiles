@@ -11,7 +11,7 @@
 }
 
 #window {
-
+  font-weight: bold;
 }
 
 window#waybar {
