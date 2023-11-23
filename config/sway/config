@@ -6,9 +6,6 @@
 ## Set default cursor
 seat seat0 xcursor_theme Adwaita 24
 
-## Set default wallpaper
-output * bg wallpapers/gemini fill
-
 ## Gaps & Borders
 gaps inner 2
 gaps outer 0

@@ -1,3 +1,7 @@
 # Local wallpaper configuration
 
+## Set default wallpaper
+# output * bg wallpapers/gemini fill
+
+## Set live wallpaper
 exec wallpaper ~/.config/sway/wallpapers/gemini
