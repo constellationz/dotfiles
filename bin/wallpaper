@@ -10,7 +10,7 @@ secondary=HDMI-A-1
 # Generate wallpaper
 function gen {
   pscircle --output=/tmp/pscircle.png \
-    --max-children=50 \
+    --max-children=40 \
     --output-width=2560 \
     --output-height=1080 \
     --tree-radius-increment=10,150,80 \
