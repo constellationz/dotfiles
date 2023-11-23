@@ -12,8 +12,8 @@ if lsp == nil or cmp == nil then
 end
 
 -- Set cmp behavior
-local cmp_select = { 
-  behavior = cmp.SelectBehavior.Select 
+local cmp_select = {
+  behavior = cmp.SelectBehavior.Select
 }
 
 -- Use recommended defaults
@@ -23,7 +23,7 @@ lsp.preset("minimal")
 lsp.ensure_installed({})
 
 -- For every buffer, override some shortcuts with language server shortcuts
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
 	local opts = {
 		buffer = bufnr,
 		remap = false

@@ -1,2 +1,0 @@
--- Get git status
-vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>");

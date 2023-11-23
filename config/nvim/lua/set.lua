@@ -1,7 +1,7 @@
--- Use numbers and relative line numbers
+-- Use numbers
 vim.opt.nu = true
 
--- Use tabs of four
+-- Use tabs of two
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -34,3 +34,6 @@ vim.opt.signcolumn = 'yes'
 
 -- Use system clipboard
 vim.opt.clipboard = 'unnamedplus'
+
+-- Neoformat
+vim.g.neoformat_try_node_exe = 1

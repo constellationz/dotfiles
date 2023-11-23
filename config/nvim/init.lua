@@ -1,1 +1,3 @@
-require("config")
+require("set")
+require("keymap")
+require("packer")

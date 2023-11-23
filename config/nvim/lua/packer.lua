@@ -14,15 +14,6 @@ return packer.startup(function(use)
 	-- Packer
 	use "wbthomason/packer.nvim"
 
-	-- Telescope for fuzzy finding
-	use {
-		"nvim-telescope/telescope.nvim", 
-    tag = "0.1.0",
-		requires = { 
-      { "nvim-lua/plenary.nvim" }
-    }
-	}
-
 	-- Gruvbox colorscheme
 	use "morhetz/gruvbox"
 
