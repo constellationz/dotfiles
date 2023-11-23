@@ -4,5 +4,11 @@
 # include ../outputs/desktop
 # include ../outputs/laptop
 
-## Wallpaper
+## Wallpaper from pictures
 # output * bg ~/Pictures/Wallpapers/background.jpg fill
+
+## Set default wallpaper
+# output * bg wallpapers/gemini fill
+
+## Set live wallpaper
+# exec pswallpaper ~/.config/sway/wallpapers/gemini
