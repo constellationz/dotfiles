@@ -21,6 +21,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>")
 -- Quick buffer navigation
 vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>")
 vim.keymap.set("n", "<C-p>", "<cmd>bprev<CR>")
+vim.keymap.set("n", "<C-w>", "<cmd>bdelete<CR>")
 
 -- Replace current word with something
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
