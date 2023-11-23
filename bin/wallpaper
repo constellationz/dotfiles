@@ -33,12 +33,12 @@ function gen {
     --toplists-font-color=A89984FF \
     --toplists-pid-font-color=A89984FF \
     --background-color=28282800 \
-    --dot-color-min=689D6AFF \
-    --dot-color-max=B16286FF \
+    --dot-color-min=427B58FF \
+    --dot-color-max=8EC07CFF \
     --dot-border-color-min=00000000 \
     --dot-border-color-max=00000000 \
-    --link-color-min=689D6AFF \
-    --link-color-max=B16286FF \
+    --link-color-min=427B58FF \
+    --link-color-max=8EC07CFF \
     --toplists-bar-background=3C3836FF \
     --toplists-bar-color=A89984FF \
     --cpu-min-value=0 \
