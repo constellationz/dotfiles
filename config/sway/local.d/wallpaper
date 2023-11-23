@@ -1,6 +1,3 @@
 # Local wallpaper configuration
 
-exec {
-  killall wallpaper
-  wallpaper ~/.config/sway/wallpapers/gemini &>/dev/null
-}
+exec wallpaper ~/.config/sway/wallpapers/gemini

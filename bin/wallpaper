@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Set wallpaper with bg and pscircle
 # e.g. wallpaper ~/Pictures/Wallpapers/wallpaper.png
 
@@ -60,15 +60,15 @@ function gen {
 
 # Set wallpapers for the first time
 killall swaybg
-swaybg -o $primary -i $wallpaper -m fill &
-swaybg -o $secondary -i $wallpaper -m fill &
+swaybg -o $primary -i $wallpaper -m fill &>/dev/null &
+swaybg -o $secondary -i $wallpaper -m fill &>/dev/null &
 oldbg=$!
 
 # Generate on a slow loop
 while true
 do
   gen $temp
-  swaybg -o $secondary -i $temp -m fill &
+  swaybg -o $secondary -i $temp -m fill &>/dev/null &
   nextbg=$!
   sleep 1
   kill $oldbg
