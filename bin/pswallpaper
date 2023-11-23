@@ -60,15 +60,22 @@ function gen {
 
 # Set wallpapers for the first time
 killall swaybg
-swaybg -o $primary -i $wallpaper -m fill &>/dev/null &
-swaybg -o $secondary -i $wallpaper -m fill &>/dev/null &
+swaybg -o $primary -i $wallpaper -m fill &
+swaybg -o $secondary -i $wallpaper -m fill &
 oldbg=$!
+
+# Don't run loop if pscircle isn't installed
+if ! command -v pscircle &>/dev/null
+then
+  echo "pscircle not installed"
+  exit
+fi
 
 # Generate on a slow loop
 while true
 do
   gen $temp
-  swaybg -o $secondary -i $temp -m fill &>/dev/null &
+  swaybg -o $secondary -i $temp -m fill &
   nextbg=$!
   sleep 1
   kill $oldbg
