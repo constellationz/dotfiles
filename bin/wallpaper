@@ -1,0 +1,74 @@
+#!/bin/bash
+# Set wallpaper with bg and pscircle
+# e.g. wallpaper ~/Pictures/Wallpapers/wallpaper.png
+
+wallpaper=$1
+temp=/tmp/wallpaper.png
+primary=DP-1
+secondary=HDMI-A-1
+
+# Generate wallpaper
+function gen {
+  pscircle --output=/tmp/pscircle.png \
+    --max-children=50 \
+    --output-width=2560 \
+    --output-height=1080 \
+    --tree-radius-increment=10,150,80 \
+    --max-proc-name-len=10 \
+    --root-label-angle=0 \
+    --dot-radius=3 \
+    --link-width=1.3 \
+    --tree-font-size=10 \
+    --collapse-threads=true \
+    --toplists-font-size=10 \
+    --toplists-bar-width=30 \
+    --toplists-row-height=15 \
+    --toplists-bar-height=3 \
+    --cpulist-center=750.0:-60.0 \
+    --memlist-center=750.0:60.0 \
+    --tree-font-face=Hack \
+    --tree-font-color=A89984FF \
+    --toplists-font-face=Hack \
+    --toplists-font-color=A89984FF \
+    --toplists-pid-font-color=A89984FF \
+    --background-color=28282800 \
+    --dot-color-min=689D6AFF \
+    --dot-color-max=8EC97CFF \
+    --dot-border-color-min=00000000 \
+    --dot-border-color-max=00000000 \
+    --link-color-min=458555FF \
+    --link-color-max=83A598FF \
+
+  convert \
+    -size 2560x1080 \
+    $wallpaper \
+    /tmp/pscircle.png \
+    -layers flatten \
+    $1
+
+  rm /tmp/pscircle.png
+}
+
+# Set wallpapers for the first time
+killall swaybg
+swaybg -o $primary -i $wallpaper -m fill &
+swaybg -o $secondary -i $wallpaper -m fill &
+oldbg=$!
+
+# Generate for the first time
+gen $temp
+swaybg -o $secondary -i $temp -m fill &
+sleep 2
+kill $oldbg
+oldbg=$!
+
+# Generate on a slow loop
+while true
+do
+  gen $temp
+  swaybg -o $secondary -i $temp -m fill &
+  nextbg=$!
+  sleep 30
+  kill $oldbg
+  oldbg=$nextbg
+done
