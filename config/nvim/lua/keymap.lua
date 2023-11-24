@@ -29,17 +29,17 @@ do
 	-- Explorer
 	vim.keymap.set("n", "<C-e>", "<cmd>Ex<CR>")
 
-  -- List open buffers
+	-- List open buffers
 	vim.keymap.set("n", "<C-b>", ":buffers<CR>:buffer ")
 
-  -- Next buffer, previous buffer
+	-- Next buffer, previous buffer
 	vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>")
 	vim.keymap.set("n", "<C-p>", "<cmd>bprev<CR>")
 
-  -- New tab with current buffer
+	-- New tab with current buffer
 	vim.keymap.set("n", "<C-t>", "<cmd>tabedit %<CR>")
 
-  -- Next tab, previous tab
+	-- Next tab, previous tab
 	vim.keymap.set("n", "<C-Tab>", "<cmd>tabnext<CR>")
 	vim.keymap.set("n", "<C-S-Tab>", "<cmd>tabprev<CR>")
 

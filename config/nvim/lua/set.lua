@@ -20,7 +20,7 @@ vim.opt.undofile = true
 -- Highlight as we search
 vim.opt.incsearch = true
 
--- Use terminal colors 
+-- Use terminal colors
 vim.opt.termguicolors = true
 
 -- Use low update time
@@ -30,10 +30,10 @@ vim.opt.updatetime = 50
 vim.g.netrw_use_errorwindow = 0
 
 -- Don't allow column to use signs
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- Use system clipboard
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 
 -- Neoformat
 vim.g.neoformat_try_node_exe = 1

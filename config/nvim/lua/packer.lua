@@ -2,41 +2,40 @@
 -- Do nothing if packer isn't installed
 local packer
 pcall(function()
-  vim.cmd("packadd packer.nvim")
-  packer = require("packer")
+	vim.cmd("packadd packer.nvim")
+	packer = require("packer")
 end)
 if packer == nil then
-  return
+	return
 end
 
 -- Use :PackerSync to sync packages
 return packer.startup(function(use)
 	-- Packer
-	use "wbthomason/packer.nvim"
+	use("wbthomason/packer.nvim")
 
 	-- Gruvbox colorscheme
-	use "morhetz/gruvbox"
+	use("morhetz/gruvbox")
 
 	-- Prettier
-	use "sbdchd/neoformat"
+	use("sbdchd/neoformat")
 
 	-- Undo tree
-	use "mbbill/undotree"
+	use("mbbill/undotree")
 
 	-- Git integration
-	use "tpope/vim-fugitive"
+	use("tpope/vim-fugitive")
 
 	-- Guess indentation
-	use {
+	use({
 		"nmac427/guess-indent.nvim",
 		config = function()
-      require("guess-indent").setup {
-      }
-    end,
-	}
+			require("guess-indent").setup({})
+		end,
+	})
 
 	-- LSP integration
-	use {
+	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v1.x",
 		requires = {
@@ -56,7 +55,6 @@ return packer.startup(function(use)
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" },
 			{ "rafamadriz/friendly-snippets" },
-		}
-	}
+		},
+	})
 end)
-

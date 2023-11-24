@@ -13,7 +13,7 @@ end
 -- Nord quick command
 vim.api.nvim_command('command!-bar Gruvbox lua Color("gruvbox-material")')
 
-local ok, LoadColor = pcall(require, 'customcolor')
+local ok, LoadColor = pcall(require, "customcolor")
 if ok then
 	LoadColor()
 else
