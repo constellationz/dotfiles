@@ -29,6 +29,9 @@ vim.opt.updatetime = 50
 -- Set map leader
 vim.g.mapleader = " "
 
+-- Messages from netrw use echoerr
+vim.g.netrw_use_errorwindow = 0
+
 -- Don't allow column to use signs
 vim.opt.signcolumn = 'yes'
 
