@@ -26,9 +26,6 @@ vim.opt.termguicolors = true
 -- Use low update time
 vim.opt.updatetime = 50
 
--- Set map leader
-vim.g.mapleader = " "
-
 -- Messages from netrw use echoerr
 vim.g.netrw_use_errorwindow = 0
 
