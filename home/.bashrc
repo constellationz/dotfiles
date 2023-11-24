@@ -69,6 +69,7 @@ if command -v git &>/dev/null; then
   alias gs="git status"
   alias gc="git commit"
   alias ga="git add"
+  alias gp="git push"
 fi
 
 # Navigate upwards 
