@@ -57,14 +57,18 @@ __prompt_command() {
 # Type directory names to navigate
 shopt -s autocd
 
-# On linux, o is xdg-open
-if [ $(command -v xdg-open) ]; then
-	alias o='xdg-open'
+# Set open alias if available
+if command -v xdg-open &>/dev/null; then
+	alias o="xdg-open"
+elif command -v open &>/dev/null; then
+	alias o="open"
 fi
 
-# On MacOS, o is open
-if [ $(command -v open) ]; then
-	alias o='open'
+# Set git aliases if available
+if command -v git &>/dev/null; then
+  alias gs="git status"
+  alias gc="git commit"
+  alias ga="git add"
 fi
 
 # Navigate upwards 
@@ -88,9 +92,9 @@ alias down='cd ~/Downloads/'
 # Set terminal editor if available
 # e - (e)dit
 alias e="o"
-if [ $(command -v nvim) ]; then
+if command -v nvim &>/dev/null; then
 	alias e="nvim"
-elif [ $(command -v micro) ]; then
+elif command -v micro &>/dev/null; then
 	alias e="micro"
 fi
 
