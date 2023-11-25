@@ -23,8 +23,8 @@ do
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 
-	-- Close view
-	vim.keymap.set("n", "<C-c>", "<cmd>close<CR>")
+	-- Close/quit view
+	vim.keymap.set("n", "<C-q>", "<cmd>close<CR>")
 
 	-- Explorer
 	vim.keymap.set("n", "<C-e>", "<cmd>Ex<CR>")
