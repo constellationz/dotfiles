@@ -103,7 +103,7 @@ fi
 # Wayland clipboard pipes to wl-copy
 # c - (c)opy
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
-	alias c='wl-copy'
+	alias copy='wl-copy'
 	alias imv='imv-wayland'
 fi
 
