@@ -3,9 +3,6 @@ vim.g.mapleader = " "
 
 -- Editing
 do
-	-- Bring next line to end of line without moving cursor
-	vim.keymap.set("n", "J", "mzJ`z")
-
 	-- Replace current word with something
 	vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
