@@ -116,16 +116,13 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 
 ##! Toggle split direction
-bindsym $mod+p layout toggle split
-
-##! Launch web
-bindsym $mod+w exec $browser
+bindsym $mod+w layout toggle split
 
 ##! Open home directory
 bindsym $mod+e exec $files
 
 ##! Open notepad
-bindsym $mod+n exec $notepad
+bindsym $mod+Shift+n exec $notepad
 
 ##! Toggle fullscreen 
 bindsym $mod+Shift+f fullscreen
@@ -144,11 +141,14 @@ bindsym $mod+a focus parent
 ##! Focus child
 bindsym $mod+c focus child
 
-##! Create vert(i)cal container
-bindsym $mod+v splitv
+##! Create vertical container
+bindsym $mod+v split vertical
 
-##! Create h(o)rizontal container
-bindsym $mod+b splith
+##! Create horizontal container
+bindsym $mod+b split horizontal
+
+##! Remove parent containers
+bindsym $mod+n split none
 
 ##! Temporarily 'delete' window
 bindsym $mod+Delete move scratchpad
