@@ -9,7 +9,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = 200
 
     # The maximum height of a single notification, excluding the frame.
     height = 150
@@ -18,7 +18,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = 8x8
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -33,10 +33,10 @@
 
     # Set the progress bar height. This includes the frame, so make sure
     # it's at least twice as big as the frame width.
-    progress_bar_height = 6
+    progress_bar_height = 4
 
     # Set the frame width of the progress bar
-    progress_bar_frame_width = 1
+    progress_bar_frame_width = 0
 
     # Set the minimum width for the progress bar
     progress_bar_min_width = 150
@@ -140,7 +140,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "%s\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -283,21 +283,24 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#303030"
+    background = "#282828"
     foreground = "#D5C4A1"
+    highlight = "#504945"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#303030"
+    background = "#282828"
     foreground = "#D5C4A1"
+    highlight = "#504945"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
     background = "#9D0006"
+    highlight = "#FB4934"
     foreground = "#FB4934"
     frame_color = "#FB4934"
     timeout = 10
