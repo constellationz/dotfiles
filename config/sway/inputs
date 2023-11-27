@@ -6,7 +6,7 @@
 # Read `man 5 sway-input` for more information about this section.
 
 ## No mouse jumping
-mouse_warping none
+# mouse_warping none
 
 ## Trackpads
 input type:touchpad {
