@@ -150,10 +150,10 @@ bindsym $mod+b split horizontal
 ##! Remove parent containers
 bindsym $mod+n split none
 
-##! Temporarily 'delete' window
+##! Temporarily delete a window
 bindsym $mod+Delete move scratchpad
 
-##! Restore 'deleted' window
+##! Restore deleted window
 bindsym $mod+Shift+Delete scratchpad show
 
 mode "resize" {
