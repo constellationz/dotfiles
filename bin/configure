@@ -45,11 +45,6 @@ if ! command -v sudo &> /dev/null; then
 	exit 1
 fi
 
-# Add userconf to /etc/apt/apt.conf.d
-if yes_or_no "Use minimal apt?"; then
-  echo 'APT::Install-Recommends "0"' | sudo tee /etc/apt/apt.conf.d/99userconf &>/dev/null
-fi
-
 # Perform full system upgrade and install programs
 if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt update -y
