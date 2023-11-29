@@ -32,7 +32,7 @@ fi
 if [[ "$@" =~ .*"--list".* ]]; then
   wtype $(ls "$KEY_DIR/"*."2fa.gpg" \
     | cat $($PICKER -p "Pick key") \
-    | gpg -d --passphrase $(echo "password" | $PICKER -x -p "Unlock" ) \
+    | gpg -d \
     | oathtool -b -)
 elif [[ "$@" =~ .*"--open".* ]]; then 
   xdg-open $(dirname "$KEY_DIR") &
