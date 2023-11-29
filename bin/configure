@@ -150,6 +150,8 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			fonts-noto-color-emoji \
 			fonts-noto-cjk
 		systemctl --user --now enable pipewire pipewire-pulse
+    mkdir -p $HOME/.local/bin/
+    ln -s $(which alacritty) $HOME/.local/bin/xterm
 	fi
 
 	# Install graphical desktop packages
