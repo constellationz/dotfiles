@@ -11,6 +11,9 @@ set $down j
 set $up k
 set $right l
 
+## Switch back and forth when pressing a workspace key twice
+workspace_auto_back_and_forth yes
+
 ## Set floating drag key
 floating_modifier $mod
 
@@ -147,8 +150,14 @@ bindsym $mod+v split vertical
 ##! Create horizontal container
 bindsym $mod+b split horizontal
 
-##! Remove parent containers
-bindsym $mod+n split none
+##! Split none
+bindsym $mod+o split none
+
+##! Switch to next workspace
+bindsym $mod+n workspace next_on_output
+
+##! Switch to previous workspace
+bindsym $mod+p workspace prev_on_output
 
 ##! Temporarily delete a window
 bindsym $mod+Delete move scratchpad
