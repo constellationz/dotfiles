@@ -17,6 +17,9 @@ do
 	-- Unbind capital q
 	vim.keymap.set("n", "Q", "<nop>")
 
+  -- Close current buffer
+	vim.keymap.set("n", "bc", "<cmd>bdelete<CR>")
+
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 
