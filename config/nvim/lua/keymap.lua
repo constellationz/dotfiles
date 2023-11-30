@@ -18,7 +18,7 @@ do
 	vim.keymap.set("n", "Q", "<nop>")
 
   -- Close current buffer
-	vim.keymap.set("n", "bc", "<cmd>bdelete<CR>")
+	vim.keymap.set("n", "<C-c>", "<cmd>bdelete<CR>")
 
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
