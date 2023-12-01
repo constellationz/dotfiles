@@ -107,7 +107,7 @@ if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
 	alias imv='imv-wayland'
 fi
 
-# Set PATH, MANPATH, etc., for Homebrew.
-if [ -x /opt/homebrew/bin/brew ]; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+# Use rust environment
+if [ -f "$HOME/.cargo/env" ]; then
+	source "$HOME/.cargo/env"
 fi
