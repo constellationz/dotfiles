@@ -26,6 +26,14 @@ return packer.startup(function(use)
 	-- Git integration
 	use("tpope/vim-fugitive")
 
+	-- Comments
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
+
 	-- Guess indentation
 	use({
 		"nmac427/guess-indent.nvim",
