@@ -3,6 +3,9 @@ vim.g.mapleader = " "
 
 -- Editing
 do
+	-- Search gl docs
+	vim.keymap.set("n", "<leader>gl", "yiw:!librewolf --new-window https://docs.gl/gl3/$(wl-paste)<CR><CR>")
+
 	-- Replace current word with something
 	vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 

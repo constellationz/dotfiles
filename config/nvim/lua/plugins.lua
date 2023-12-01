@@ -26,6 +26,9 @@ return packer.startup(function(use)
 	-- Git integration
 	use("tpope/vim-fugitive")
 
+	-- Argument wrapping
+	use("AndrewRadev/splitjoin.vim")
+
 	-- Comments
 	use({
 		"numToStr/Comment.nvim",
