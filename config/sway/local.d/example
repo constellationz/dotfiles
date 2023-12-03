@@ -8,7 +8,7 @@
 # output * bg ~/Pictures/Wallpapers/background.jpg fill
 
 ## Set default wallpaper
-# output * bg wallpapers/gemini fill
+# output * bg ../wallpapers/gemini fill
 
 ## Set live wallpaper
 # exec pswallpaper ~/.config/sway/wallpapers/gemini
