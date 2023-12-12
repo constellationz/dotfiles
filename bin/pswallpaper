@@ -77,7 +77,7 @@ do
   gen $temp
   swaybg -o $secondary -i $temp -m fill &
   nextbg=$!
-  sleep 1
+  sleep 4
   kill $oldbg
   oldbg=$nextbg
   sleep 30
