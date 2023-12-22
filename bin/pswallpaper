@@ -2,10 +2,9 @@
 # Set wallpaper with bg and pscircle
 # e.g. wallpaper ~/Pictures/Wallpapers/wallpaper.png
 
-wallpaper=$1
+display=$1
+wallpaper=$2
 temp=/tmp/wallpaper.png
-primary=DP-1
-secondary=HDMI-A-1
 
 # Generate wallpaper
 function gen {
@@ -59,9 +58,7 @@ function gen {
 }
 
 # Set wallpapers for the first time
-killall swaybg
-swaybg -o $primary -i $wallpaper -m fill &
-swaybg -o $secondary -i $wallpaper -m fill &
+swaybg -o $display -i $wallpaper -m fill &
 oldbg=$!
 
 # Don't run loop if pscircle isn't installed
@@ -75,7 +72,7 @@ fi
 while true
 do
   gen $temp
-  swaybg -o $secondary -i $temp -m fill &
+  swaybg -o $display -i $temp -m fill &
   nextbg=$!
   sleep 4
   kill $oldbg

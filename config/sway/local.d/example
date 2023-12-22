@@ -1,8 +1,13 @@
 # Local configuration
 
 ## Output configuration
+# include ../outputs/home
 # include ../outputs/desktop
 # include ../outputs/laptop
+
+## Wallpaper from program
+# output $primary ~/.config/sway/wallpapers/gemini
+# exec pswallpaper $secondary ~/.config/sway/wallpapers/gemini
 
 ## Wallpaper from pictures
 # output * bg ~/Pictures/Wallpapers/background.jpg fill

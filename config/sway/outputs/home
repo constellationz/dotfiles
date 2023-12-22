@@ -1,0 +1,10 @@
+# Sway configuration
+#
+# Desktop output configuration
+
+## Output scale
+output * scale 1.0
+
+## Primary output
+set $primary DP-1
+output $primary mode 1920x1080@144Hz
