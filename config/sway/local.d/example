@@ -10,10 +10,7 @@
 # exec pswallpaper $secondary ~/.config/sway/wallpapers/gemini
 
 ## Wallpaper from pictures
-# output * bg ~/Pictures/Wallpapers/background.jpg fill
+# output $primary bg ~/.config/sway/wallpapers/gemini fill
 
 ## Set default wallpaper
-# output * bg ../wallpapers/gemini fill
-
-## Set live wallpaper
-# exec pswallpaper ~/.config/sway/wallpapers/gemini
+# output * bg ~/.config/sway/wallpapers/gemini fill
