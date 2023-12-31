@@ -78,8 +78,16 @@ bindsym {
     XF86AudioRaiseVolume exec amixer sset Master 2%+
     XF86AudioLowerVolume exec amixer sset Master 2%-
     XF86AudioMute exec amixer sset Master toggle
-    XF86AudioMicMute exec amixer sset Capture toggle
+    $mod+Prior exec amixer sset Master 2%+
+    $mod+Next exec amixer sset Master 2%-
+    $mod+Home exec amixer sset Master toggle
 }
+
+## Microphone
+# bindsym {
+#     XF86AudioMicMute exec amixer sset Capture toggle
+#     $mod+End amixer sset Capture toggle
+# }
 
 ##! Move focus - $mod + ↑ ↓ ← →
 bindsym {
