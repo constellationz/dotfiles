@@ -26,11 +26,11 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# dotfiles
+# launch sway
 if [ -d "$HOME/.rep/dotfiles/bin" ] ; then
     PATH="$HOME/.rep/dotfiles/bin:$PATH"
 fi
-if which swayrun &>/dev/null ; then
+if which sway &>/dev/null && which swayrun &>/dev/null ; then
     swayrun
 fi
 
