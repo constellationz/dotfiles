@@ -1,0 +1,47 @@
+# Dotfiles can either be in ~/.rep or ~/Repositories
+if [[ -x "$HOME/.rep/dotfiles" ]]; then 
+	DOTS="$HOME/.rep/dotfiles"
+fi
+if [[ -x "$HOME/Repositories/dotfiles" ]]; then
+	DOTS="$HOME/Repositories/dotfiles"
+fi
+
+# Add paths
+PATH=$PATH:/usr/sbin
+PATH=$PATH:/usr/sbin
+PATH=$PATH:$HOME/.bin
+PATH=$PATH:$DOTS/bin
+PATH=$PATH:$HOME/.ghcup/bin
+
+# Don't show warning on MacOS
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# If not running interactively, don't set aliases
+[[ $- != *i* ]] && return
+
+# Add aliases
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias ll='ls -l'
+alias pls='!!'
+alias rm='rm -i'
+alias oh='o .'
+alias dotfiles='cd $DOTS' 
+alias dots='dotfiles' 
+alias su='su -l -c "cd $(pwd) && bash"'
+
+# On MacOS, c is pbcopy
+if [ $(command -v pbcopy) ]; then
+	alias c='pbcopy'
+fi
+
+# On MacOS, o is open
+if [ $(command -v open) ]; then
+	alias o='open'
+fi
+
+# Set PATH, MANPATH, etc., for Homebrew.
+if [ -x /opt/homebrew/bin/brew ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+. "$HOME/.cargo/env"
