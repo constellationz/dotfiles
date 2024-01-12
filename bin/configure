@@ -2,6 +2,7 @@
 # Install packages and copy configs
 
 SCRIPT_DIR="$(dirname $0)"
+LOCAL_BIN="$HOME/.local/bin"
 
 # Should core packages be auto-installed?
 AUTO=0
@@ -52,7 +53,6 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt install -y \
 		kakoune \
 		micro \
-		neovim \
 		curl \
 		gcc \
 		bc \
@@ -89,7 +89,14 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Synchronize configs now?"; then
 fi
 
 # Optionally configure neovim
-if [[ AUTO -eq 0 ]] && yes_or_no "Add packer for neovim?"; then
+if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
+	# Install neovim from source
+	cd /tmp/
+	wget https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
+	chmod +x nvim.appimage
+	mkdir -p $LOCAL_BIN
+	mv nvim.appimage $LOCAL_BIN/nvim
+
 	# Only copy packer if it hasn't been initialized yet
 	if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
 		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
