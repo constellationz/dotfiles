@@ -26,12 +26,9 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# launch sway
+# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.rep/dotfiles/bin" ] ; then
     PATH="$HOME/.rep/dotfiles/bin:$PATH"
-fi
-if which sway &>/dev/null && which swayrun &>/dev/null ; then
-    swayrun
 fi
 
 . "$HOME/.cargo/env"
