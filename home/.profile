@@ -32,6 +32,6 @@ if [ -d "$HOME/.rep/dotfiles/bin" ] ; then
 fi
 
 # Load cargo
-if [ -f "$HOME/.cargo/env ] ; then
+if [ -f "$HOME/.cargo/env" ] ; then
     . "$HOME/.cargo/env"
 fi
