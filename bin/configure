@@ -119,7 +119,7 @@ fi
 if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 	if yes_or_no "Install desktop packages?"; then
 		sudo apt install -y \
-			iwd \
+			network-manager \
 			sway \
 			swaybg \
 			swayidle \
