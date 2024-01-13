@@ -8,7 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
+# If running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
@@ -31,4 +31,7 @@ if [ -d "$HOME/.rep/dotfiles/bin" ] ; then
     PATH="$HOME/.rep/dotfiles/bin:$PATH"
 fi
 
-. "$HOME/.cargo/env"
+# Load cargo
+if [ -f "$HOME/.cargo/env ] ; then
+    . "$HOME/.cargo/env"
+fi

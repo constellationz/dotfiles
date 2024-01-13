@@ -104,7 +104,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 	fi
 
 	# Run neovim with packersync command
-	nvim -c "PackerSync"
+	$LOCAL_BIN/nvim -c "PackerSync"
 fi
 
 # Install battery programs
