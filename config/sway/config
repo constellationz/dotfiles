@@ -6,6 +6,9 @@
 ## Set default cursor
 seat seat0 xcursor_theme Adwaita 24
 
+## Disable XWayland
+# xwayland disable
+
 ## Gaps & Borders
 gaps inner 2
 gaps outer 0
@@ -13,17 +16,8 @@ gaps outer 0
 ## Set title font
 font pango:Hack 10
 
-## All windows float by default
-for_window [title=".*"] floating enable
-
 ## Set title format for windows with app id
 for_window [app_id=".+"] title_format "%title (%app_id)"
-
-## Make browser a certain size
-for_window [app_id="librewolf"] resize set width 1000 px height 750 px
-
-## Disable XWayland
-# xwayland disable
 
 # Include default configuration
 include programs
