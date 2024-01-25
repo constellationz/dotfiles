@@ -96,6 +96,8 @@ alias down='cd ~/Downloads/'
 alias e="o"
 if command -v nvim &>/dev/null; then
 	alias e="nvim"
+	alias vi="nvim"
+	alias vim="nvim"
 elif command -v micro &>/dev/null; then
 	alias e="micro"
 fi
@@ -110,4 +112,9 @@ fi
 # Use rust environment
 if [ -f "$HOME/.cargo/env" ]; then
 	source "$HOME/.cargo/env"
+fi
+
+# Haskell environment
+if [ -f "/home/tyler/.ghcup/env" ]; then 
+	source "/home/tyler/.ghcup/env"
 fi
