@@ -98,6 +98,7 @@ if command -v nvim &>/dev/null; then
 	alias e="nvim"
 	alias vi="nvim"
 	alias vim="nvim"
+	export EDITOR="nvim"
 elif command -v micro &>/dev/null; then
 	alias e="micro"
 fi

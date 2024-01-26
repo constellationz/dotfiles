@@ -31,10 +31,10 @@ do
 		vim.keymap.set("n", "gh", vim.diagnostic.goto_prev, opts)
 		vim.keymap.set("n", "<C-k>", vim.diagnostic.open_float, opts)
 		vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, opts)
-		vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-		vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-		vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-		vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
 	end)
 
 	-- Configure lsp for neovim
