@@ -29,9 +29,6 @@ do
 	-- Explorer
 	vim.keymap.set("n", "<C-e>", "<cmd>Ex<CR>")
 
-	-- List open buffers
-	vim.keymap.set("n", "<C-b>", ":buffers<CR>:buffer ")
-
 	-- Next buffer, previous buffer
 	vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>")
 	vim.keymap.set("n", "<C-p>", "<cmd>bprev<CR>")
@@ -51,6 +48,9 @@ do
 
 	-- Toggle undo tree (plugin)
 	vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
+
+	-- List open buffers
+	vim.keymap.set("n", "<leader>b", ":buffers<CR>:buffer ")
 
 	-- Quickfix navigation
 	vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>")
