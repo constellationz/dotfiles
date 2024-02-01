@@ -91,9 +91,6 @@ alias rep='cd ~/.rep'
 alias desk='cd ~/Desktop/'
 alias down='cd ~/Downloads/'
 
-# Fixes colors in tmux
-export TERM='xterm-direct'
-
 # Set terminal editor if available
 # e - (e)dit
 alias e="o"
