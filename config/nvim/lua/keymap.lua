@@ -49,8 +49,19 @@ do
 	-- Toggle undo tree (plugin)
 	vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
-	-- List open buffers
-	vim.keymap.set("n", "<leader>b", ":buffers<CR>:buffer ")
+	-- Open a buffer
+	vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+
+	-- Find a file
+	vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+
+	-- Find with grep
+	vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+
+	-- Toggle numbers
+	vim.keymap.set("n", "<leader>n", function()
+		vim.o.nu = not vim.o.nu
+	end)
 
 	-- Quickfix navigation
 	vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>")

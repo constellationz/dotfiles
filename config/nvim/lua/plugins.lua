@@ -29,6 +29,13 @@ return packer.startup(function(use)
 	-- Argument wrapping
 	use("AndrewRadev/splitjoin.vim")
 
+	-- Fuzzy find
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.5",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+
 	-- Comments
 	use({
 		"numToStr/Comment.nvim",
