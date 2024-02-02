@@ -17,7 +17,7 @@ do
 	-- Unbind capital q
 	vim.keymap.set("n", "Q", "<nop>")
 
-  -- Close current buffer
+	-- Close current buffer
 	vim.keymap.set("n", "<C-c>", "<cmd>bdelete<CR>")
 
 	-- Save current buffer
@@ -43,20 +43,20 @@ do
 	-- Format with Neoformat (plugin)
 	vim.keymap.set("n", "<C-f>", "<cmd>Neoformat<CR>")
 
-	-- Get git status with fugitive (plugin)
+	-- Find with grep (plugin)
+	vim.keymap.set("n", "<C-g>", "<cmd>Telescope live_grep<CR>")
+
+	-- Show git status (plugin)
 	vim.keymap.set("n", "<leader>g", "<cmd>Git<CR>")
 
 	-- Toggle undo tree (plugin)
 	vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
-	-- Open a buffer
-	vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+	-- Open a buffer (plugin)
+	vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>")
 
-	-- Find a file
-	vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
-
-	-- Find with grep
-	vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+	-- Find a file (plugin)
+	vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>")
 
 	-- Toggle numbers
 	vim.keymap.set("n", "<leader>n", function()

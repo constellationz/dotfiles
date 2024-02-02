@@ -4,6 +4,9 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+-- Always match working directory of current file
+vim.opt.autochdir = true
+
 -- Use smart indent
 vim.opt.smartindent = true
 vim.opt.wrap = true
