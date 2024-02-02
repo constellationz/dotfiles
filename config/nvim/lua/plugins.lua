@@ -15,7 +15,7 @@ return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- Gruvbox colorscheme
-	use("morhetz/gruvbox")
+	use("sainnhe/gruvbox-material")
 
 	-- Prettier
 	use("sbdchd/neoformat")

@@ -1,7 +1,7 @@
 -- Get default color
 -- Can program to change based on environment
 function GetDefaultColor()
-	return "gruvbox"
+	return "gruvbox-material"
 end
 
 -- Pick a colorscheme
@@ -10,8 +10,10 @@ function Color(color)
 	pcall(vim.cmd, "colorscheme " .. color)
 end
 
--- Nord quick command
-vim.api.nvim_command('command!-bar Gruvbox lua Color("gruvbox-material")')
+-- Set variables for gruvbox
+do
+	vim.g.gruvbox_material_foreground = "classic"
+end
 
 local ok, LoadColor = pcall(require, "customcolor")
 if ok then
