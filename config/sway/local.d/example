@@ -6,7 +6,7 @@
 # include ../outputs/laptop
 
 ## Wallpaper from program
-# output $primary ~/.config/sway/wallpapers/gemini
+# output $primary bg ~/.config/sway/wallpapers/gemini fill
 # exec pswallpaper $secondary ~/.config/sway/wallpapers/gemini
 
 ## Wallpaper from pictures
