@@ -26,9 +26,6 @@ do
 	-- Close/quit view
 	vim.keymap.set("n", "<C-q>", "<cmd>close<CR>")
 
-	-- Explorer
-	vim.keymap.set("n", "<C-e>", "<cmd>Ex<CR>")
-
 	-- Next buffer, previous buffer
 	vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>")
 	vim.keymap.set("n", "<C-p>", "<cmd>bprev<CR>")
@@ -46,6 +43,9 @@ do
 	-- Find with grep (plugin)
 	vim.keymap.set("n", "<C-g>", "<cmd>Telescope live_grep<CR>")
 
+	-- Explorer
+	vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
+
 	-- Show git status (plugin)
 	vim.keymap.set("n", "<leader>g", "<cmd>Git<CR>")
 
@@ -60,7 +60,9 @@ do
 
 	-- Toggle numbers
 	vim.keymap.set("n", "<leader>n", function()
-		vim.o.nu = not vim.o.nu
+		local show = not vim.o.nu
+		vim.o.nu = show
+		vim.o.relativenumber = show
 	end)
 
 	-- Quickfix navigation

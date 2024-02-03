@@ -13,8 +13,9 @@ end
 -- Set customization for gruvbox
 do
 	vim.g.gruvbox_material_sign_column_background = "grey"
-	vim.g.gruvbox_material_foreground = "mix"
+	vim.g.gruvbox_material_foreground = "original"
 	vim.g.gruvbox_material_disable_terminal_colors = true
+	vim.g.gruvbox_material_disable_italic_comment = true
 end
 
 local ok, LoadColor = pcall(require, "customcolor")
