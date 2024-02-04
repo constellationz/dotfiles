@@ -64,6 +64,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		gh \
 		nnn \
 		tmux \
+		stow \
 		fzf \
 		tree \
 		zip \

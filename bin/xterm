@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+if [ -f "/usr/bin/alacritty" ]; then
+  /usr/bin/alacritty $@
+else
+  /usr/bin/xterm $@
+fi

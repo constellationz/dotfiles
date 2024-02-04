@@ -9,7 +9,6 @@ fi
 # Add paths
 PATH=$PATH:/usr/sbin
 PATH=$PATH:~/.local/bin
-PATH=$PATH:$DOTS/bin
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1

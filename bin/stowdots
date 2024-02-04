@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# Link dotfiles to the system
+
+# Move packages
+STOWDIR="$(dirname $0)/.."
+
+# Config packages and their targets
+declare -A pkgs
+pkgs["home"]="$HOME"
+pkgs["config"]="$HOME/.config"
+pkgs["bin"]="$HOME/.local/bin"
+
+# Link config
+for pkg in "${!pkgs[@]}"; do
+  target="${pkgs[$pkg]}"
+  mkdir -p "$target"
+  echo "Linking dotfiles/$pkg to $target"
+  stow --dir="$STOWDIR" --target="$target" --dotfiles --no "$pkg" $@
+done
+
