@@ -60,9 +60,7 @@ do
 
 	-- Toggle numbers
 	vim.keymap.set("n", "<leader>n", function()
-		local show = not vim.o.nu
-		vim.o.nu = show
-		vim.o.relativenumber = show
+		vim.o.nu = not vim.o.nu
 	end)
 
 	-- Quickfix navigation
