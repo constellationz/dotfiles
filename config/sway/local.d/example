@@ -11,6 +11,7 @@
 
 ## Wallpaper from pictures
 # output $primary bg ~/.config/sway/wallpapers/gemini fill
+# output * bg ~/.config/sway/wallpapers/gemini fill
 
 ## Set default wallpaper
 # output * bg ~/.config/sway/wallpapers/gemini fill
