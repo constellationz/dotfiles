@@ -15,6 +15,6 @@ for pkg in "${!pkgs[@]}"; do
   target="${pkgs[$pkg]}"
   mkdir -p "$target"
   echo "Linking dotfiles/$pkg to $target"
-  stow --dir="$STOWDIR" --target="$target" --dotfiles --no "$pkg" $@
+  stow --dir="$STOWDIR" --target="$target" --dotfiles "$pkg" $@
 done
 
