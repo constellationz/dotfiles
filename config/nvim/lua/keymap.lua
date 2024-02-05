@@ -37,17 +37,17 @@ do
 	vim.keymap.set("n", "<C-Tab>", "<cmd>tabnext<CR>")
 	vim.keymap.set("n", "<C-S-Tab>", "<cmd>tabprev<CR>")
 
+	-- Show git status (plugin)
+	vim.keymap.set("n", "<C-g>", "<cmd>Git<CR>")
+
 	-- Format with Neoformat (plugin)
 	vim.keymap.set("n", "<C-f>", "<cmd>Neoformat<CR>")
-
-	-- Find with grep (plugin)
-	vim.keymap.set("n", "<C-g>", "<cmd>Telescope live_grep<CR>")
 
 	-- Explorer
 	vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
 
-	-- Show git status (plugin)
-	vim.keymap.set("n", "<leader>g", "<cmd>Git<CR>")
+	-- Live grep (plugin)
+	vim.keymap.set("n", "<leader>g", "<cmd>Telescope live_grep<CR>")
 
 	-- Toggle undo tree (plugin)
 	vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
