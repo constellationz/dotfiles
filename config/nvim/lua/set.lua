@@ -17,7 +17,10 @@ vim.opt.undofile = true
 -- Highlight as we search
 vim.opt.incsearch = true
 
--- Use terminal colors 
+-- List certain whitespace characters
+vim.o.listchars = "tab:>\\ ,trail:-,nbsp:+"
+
+-- Use terminal colors
 vim.opt.termguicolors = true
 
 -- Use low update time

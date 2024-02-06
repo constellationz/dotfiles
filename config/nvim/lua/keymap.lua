@@ -58,9 +58,11 @@ do
 	-- Find a file (plugin)
 	vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>")
 
-	-- Toggle numbers
+	-- Toggle numbers and whitespace rendering
 	vim.keymap.set("n", "<leader>n", function()
-		vim.o.nu = not vim.o.nu
+		local shownumbers = not vim.o.nu
+		vim.o.nu = shownumbers
+		vim.o.list = shownumbers
 	end)
 
 	-- Quickfix navigation
