@@ -104,6 +104,9 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 			~/.local/share/nvim/site/pack/packer/start/packer.nvim
 	fi
 
+	# Install ripgrep for telescope
+	sudo apt install -y ripgrep
+
 	# Run neovim with packersync command
 	$LOCAL_BIN/nvim -c "PackerSync"
 fi
