@@ -49,6 +49,9 @@ do
 	-- Live grep (plugin)
 	vim.keymap.set("n", "<leader>g", "<cmd>Telescope live_grep<CR>")
 
+	-- Workspace symbols (plugin)
+	vim.keymap.set("n", "<leader>m", "<cmd>Telescope lsp_workspace_symbols<CR>")
+
 	-- Toggle undo tree (plugin)
 	vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
 
