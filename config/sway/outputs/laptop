@@ -3,7 +3,7 @@
 # Laptop output configuration
 
 ## Output scale
-output * scale 1.0
+output * scale 1.4
 
 ## Primary output
 set $primary eDP-1

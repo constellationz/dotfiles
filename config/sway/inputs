@@ -11,7 +11,7 @@
 ## Trackpads
 input type:touchpad {
     dwt disabled 
-    tap disabled
+    tap enable
     natural_scroll enabled
     middle_emulation disabled
     scroll_factor 0.15
