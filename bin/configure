@@ -78,6 +78,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		gzip \
 		gron \
 		gnupg \
+		zoxide \
 		oathtool \
 		openresolv \
 		wireguard-tools \
