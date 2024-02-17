@@ -43,10 +43,11 @@ elif [ ! -f "$BOOKMARK_FILE" ]; then
 fi
 
 if [[ "$@" =~ .*"--list".* ]]; then
-  wtype $(cat "$BOOKMARK_FILE" \
+  wl-copy $(cat "$BOOKMARK_FILE" \
     | list-links \
     | $PICKER -p "Bookmark" \
     | extract-link)
+  notify-send "Copied link" --icon="$HOME/Sync/Pictures/alien.png"
 elif [[ "$@" =~ .*"--open".* ]]; then 
   $OPEN_WITH $BOOKMARK_FILE
 elif [[ "$@" =~ .*"--quickadd".* ]]; then
