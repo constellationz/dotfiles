@@ -186,7 +186,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		xdg-mime default nemo.desktop \
 			inode/directory
 		xdg-mime default librewolf.desktop \
-			x-scheme-handler/https x-scheme-handler/http
+			x-scheme-handler/https x-scheme-handler/http text/html
 
 		# For nemo "open in terminal" functionality
 		gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
