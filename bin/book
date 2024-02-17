@@ -47,6 +47,7 @@ if [[ "$@" =~ .*"--list".* ]]; then
     | list-links \
     | $PICKER -p "Bookmark" \
     | extract-link)
+  wtype -M ctrl v
   notify-send "Copied link" --icon="$HOME/Sync/Pictures/alien.png"
 elif [[ "$@" =~ .*"--open".* ]]; then 
   $OPEN_WITH $BOOKMARK_FILE
