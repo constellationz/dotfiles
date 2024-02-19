@@ -1,39 +1,39 @@
 -- Use tabs of two
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
 
 -- Use smart indent
-vim.opt.smartindent = true
-vim.opt.wrap = true
+vim.o.smartindent = true
+vim.o.wrap = true
 
 -- Keep undo information in its own directory
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.o.undofile = true
 
 -- Highlight as we search
-vim.opt.incsearch = true
+vim.o.incsearch = true
 
 -- List certain whitespace characters
 vim.o.listchars = "tab:>\\ ,trail:-,nbsp:+"
 
 -- Use terminal colors
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
 -- Use low update time
-vim.opt.updatetime = 50
+vim.o.updatetime = 50
 
 -- Messages from netrw use echoerr
 vim.g.netrw_use_errorwindow = 0
 
 -- Don't allow column to use signs
-vim.opt.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 -- Use system clipboard
-vim.opt.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamedplus'
 
 -- Neoformat
 vim.g.neoformat_try_node_exe = 1

@@ -17,8 +17,8 @@ do
 	-- Unbind capital q
 	vim.keymap.set("n", "Q", "<nop>")
 
-	-- Close current buffer
-	vim.keymap.set("n", "<C-c>", "<cmd>bdelete<CR>")
+	-- Copy the current buffer
+	vim.keymap.set("n", "<C-c>", "<cmd>%y<CR>")
 
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
@@ -66,6 +66,11 @@ do
 		local shownumbers = not vim.o.nu
 		vim.o.nu = shownumbers
 		vim.o.list = shownumbers
+	end)
+
+	-- Toggle wrapping
+	vim.keymap.set("n", "<C-a>", function()
+		vim.o.wrap = not vim.o.wrap
 	end)
 
 	-- Quickfix navigation
