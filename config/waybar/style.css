@@ -46,6 +46,7 @@ window#waybar {
 #cpu,
 #memory,
 #battery,
+#mode,
 #disk {
   color: #83a598;
 }
