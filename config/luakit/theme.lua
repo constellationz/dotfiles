@@ -32,8 +32,8 @@ local base0F = "#d65d0e"
 local theme = {}
 
 -- Default settings
-theme.fg   = base00
-theme.bg   = base07
+theme.fg   = base07
+theme.bg   = base00
 
 -- Genaral colours
 theme.success_fg = base0C
