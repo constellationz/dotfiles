@@ -1,2 +1,3 @@
 ## Fancy text
-bindsym $mod+i exec wtype $(echo "" | bmenu -p "fancy" | fancy)
+bindsym $mod+i exec 'wtype $(echo "" | bmenu -p "vro" | vro)'
+bindsym $mod+Shift+i exec 'wtype $(echo "" | bmenu -p "fancy" | fancy)'
