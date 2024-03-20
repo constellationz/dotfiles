@@ -1,24 +1,9 @@
 #!/usr/bin/env bash
-# Screenshot with lock
+# Take a screenshot in Wayland
 
-LOCK="/tmp/screenshot.lock"
-
-if [[ -d "$LOCK" ]]; then
-  exit
+# Don't run duplicates
+if ps aux | grep slurp | grep -v grep; then
+  exit 1
 fi
 
-function take_screenshot() {
-  grim -g "$(slurp -b 00000055 -w 0)" - | wl-copy
-}
-
-function lock() {
-  mkdir "$LOCK" 2>/dev/null
-}
-
-function unlock() {
-  rmdir "$LOCK"
-}
-
-lock
-take_screenshot
-trap unlock SIGINT EXIT
+grim -g "$(slurp -b 00000055 -w 0)" - | wl-copy
