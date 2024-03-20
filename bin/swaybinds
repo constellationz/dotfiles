@@ -129,6 +129,7 @@ def getDocsList(lines: list[str]):
     sanitizedConfig = sanitize(docsConfig, symbolDict)
     return sanitizedConfig
 
+
 # Read config file
 HOME = os.environ['HOME']
 bindsfile = f'{HOME}/.config/sway/binds'
