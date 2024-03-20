@@ -3,8 +3,8 @@ vim.g.mapleader = " "
 
 -- Editing
 do
-	-- Replace current word with something
-	vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+	-- "Cut all" matching words
+	vim.keymap.set("n", "ca", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
 	-- Paste/delete and put underlying text in void register
 	vim.keymap.set("x", "<leader>p", '"_dP')
