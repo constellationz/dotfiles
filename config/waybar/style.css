@@ -19,17 +19,16 @@ window#waybar {
 .modules-left,
 .modules-right,
 .modules-center {
-  border-radius: 4px;
+  border-radius: 2px;
   background: #282828;
-  padding: 4px 4px;
 }
 
-/* Left and right accents */
+/* Special padding */
 .modules-left {
-  border-left: 2px solid #504945;
+  padding-left: 1px;
 }
 .modules-right {
-  border-right: 2px solid #504945;
+  padding-right: 1px;
 }
 
 /* Workspace buttons */
@@ -47,7 +46,7 @@ window#waybar {
 
 /* Workspace buttons */
 #window {
-  margin: 0px 8px;
+  margin: 0px 4px;
 }
 
 /* Item margins */

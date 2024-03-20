@@ -1,7 +1,7 @@
 {
     "layer": "bottom",
     "position": "bottom",
-    "height": 34,
+    "height": 26,
     "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
     "modules-center": ["clock"],
     "modules-right": ["idle_inhibitor", "memory", "cpu", "battery", "network", "pulseaudio"],
