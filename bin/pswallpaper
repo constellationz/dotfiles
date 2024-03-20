@@ -6,9 +6,18 @@ display=$1
 wallpaper=$2
 temp=/tmp/wallpaper.png
 
+# Make sure programs are installed
+if ! command -v pscircle &>/dev/null; then
+  echo "pscircle not installed"
+  exit 1
+elif ! command -v swww &>/dev/null; then
+  echo "swww not installed"
+  exit 2
+fi
+
 # Generate wallpaper
 function gen {
-  pscircle --output=/tmp/pscircle.png \
+  pscircle --output=$temp \
     --max-children=40 \
     --output-width=2560 \
     --output-height=1080 \
@@ -50,32 +59,15 @@ function gen {
   convert \
     -size 2560x1080 \
     $wallpaper \
-    /tmp/pscircle.png \
+    $temp \
     -layers flatten \
     $1
-
-  rm /tmp/pscircle.png
 }
 
-# Set wallpapers for the first time
-swaybg -o $display -i $wallpaper -m fill &
-oldbg=$!
-
-# Don't run loop if pscircle isn't installed
-if ! command -v pscircle &>/dev/null
-then
-  echo "pscircle not installed"
-  exit
-fi
-
-# Generate on a slow loop
+swww init --no-cache &>/dev/null
 while true
 do
   gen $temp
-  swaybg -o $display -i $temp -m fill &
-  nextbg=$!
-  sleep 4
-  kill $oldbg
-  oldbg=$nextbg
-  sleep 30
+  swww img --outputs $display $temp --transition-type none
+  sleep 15
 done
