@@ -39,13 +39,13 @@ if [ $(command -v open) ]; then
 	alias o='open'
 fi
 
+# Add zoxide if available
+if [ $(command -v zoxide) ]; then
+	eval "$(zoxide init zsh)"
+fi
+
 # Set PATH, MANPATH, etc., for Homebrew.
 if [ -x /opt/homebrew/bin/brew ]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 . "$HOME/.cargo/env"
-
-# Add zoxide if available
-if [ $(command -v zoxide) ]; then
-	eval "$(zoxide init zsh)"
-fi
