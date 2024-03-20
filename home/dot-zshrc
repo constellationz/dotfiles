@@ -44,3 +44,8 @@ if [ -x /opt/homebrew/bin/brew ]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 . "$HOME/.cargo/env"
+
+# Add zoxide if available
+if [ $(command -v zoxide) ]; then
+	eval "$(zoxide init zsh)"
+fi
