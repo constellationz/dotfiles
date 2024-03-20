@@ -4,4 +4,15 @@
 BAKDIR="$HOME/Sync"
 TARFILE="$HOME/Sync.tar"
 
-tar --exclude="Pictures/Archive" --exclude="Videos" --exclude="Music" --exclude=".osync_workdir" -cvf "$TARFILE" "$BAKDIR"
+if [ ! -d $BAKDIR ]; then
+  echo "Could not back up $BAKDIR (does not exist)"
+  exit 1
+else
+  tar \
+    --exclude="Pictures/Archive" \
+    --exclude="Videos" \
+    --exclude="Music" \
+    --exclude=".osync_workdir" \
+    -cvf "$TARFILE" "$BAKDIR"
+  echo "Backed up to $TARFILE"
+fi
