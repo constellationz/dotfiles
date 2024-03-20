@@ -6,7 +6,9 @@ sudo apt install -y wget gnupg lsb-release apt-transport-https ca-certificates
 
 source /etc/os-release
 
-wget -O- https://deb.librewolf.net/keyring.gpg | sudo gpg --dearmor | sudo tee /usr/share/keyrings/librewolf.gpg >/dev/null
+wget -O- https://deb.librewolf.net/keyring.gpg \
+  | sudo gpg --dearmor \
+  | sudo tee /usr/share/keyrings/librewolf.gpg >/dev/null
 
 sudo tee /etc/apt/sources.list.d/librewolf.sources << EOF > /dev/null
 Types: deb
