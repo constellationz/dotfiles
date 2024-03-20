@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Screenshot with lock
 
 LOCK="/tmp/screenshot.lock"

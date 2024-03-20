@@ -1,10 +1,10 @@
-#!/usr/bin/lua
--- Format keys formatted in 
+#!/usr/bin/env lua
+-- Format keys formatted in
 -- <key> # ...
 -- to be
 -- <otp> # ...
 for line in io.stdin:lines() do
-  print((line:gsub("(%w+)(%s+#.+)", function(s, rest)
-    return io.popen("oathtool -b --totp " .. s):read() .. rest
-  end)))
+	print((line:gsub("(%w+)(%s+#.+)", function(s, rest)
+		return io.popen("oathtool -b --totp " .. s):read() .. rest
+	end)))
 end

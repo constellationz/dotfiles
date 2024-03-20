@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Remove .desktop entries for certain programs
 
 APPS=~/.local/share/applications/

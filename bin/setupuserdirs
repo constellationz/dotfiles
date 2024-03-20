@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Set up directories with xdg-user-dirs-update
 
 # Name of the directory to sync

@@ -1,10 +1,10 @@
-#!/bin/bash
+#!usr/bin/env bash
 # This script will notify you when your battery is low.
 # It will check all batteries and notify you when both of them are below the threshold.
 # It will also check if the laptop is charging or not.
 # If you want to run this script automatically, you can add it to your crontab.
 # To do so, run "crontab -e" and add the following line:
-# */5 * * * * /bin/bash /home/user/.rep/dotfiles/bin/batterycheck
+# */5 * * * * /bin/bash /home/tyler/.rep/dotfiles/bin/batterycheck
 
 # Percentage threshold. 
 # If all batteries are below this threshold, you will be notified. 

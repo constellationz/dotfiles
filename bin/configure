@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Install packages and copy configs
 
 SCRIPT_DIR="$(dirname $0)"

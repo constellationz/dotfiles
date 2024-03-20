@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Set a file to be opened with a certain program by filetype
 
 if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Compress a file to a password protected vault
 
 export GPG_TTY=$(tty)

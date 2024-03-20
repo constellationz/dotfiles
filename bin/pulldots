@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Pull dotfiles to the system
 
 SCRIPT_DIR=$(dirname $0)

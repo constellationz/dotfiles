@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Add a program to local bin
 
 BIN_DIR="$HOME/.local/bin"

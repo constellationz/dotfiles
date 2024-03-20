@@ -2,7 +2,7 @@
 #
 # Output a json containing bind information
 # By default, it looks for ~/.config/sway/binds
-# 
+#
 # Examples of formatted lines:
 #
 # ##! Fullscreen window

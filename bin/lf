@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Get sorted list of filesize in directory
 
 du -hc --max-depth=0 ./* | grep -v "Permission denied" | sort -h | tac
