@@ -2,11 +2,13 @@
 #
 # Variables for most programs
 
-# Default programs 
+# Default programs
 set $term alacritty
 set $files nemo
-set $browser xdg-open "https://"
 set $notepad l3afpad
+set $audio pavucontrol
+set $calculator galculator
+set $browser xdg-open "https://"
 set $launcher run
 set $switcher switch 
 set $emoji emoji -t
@@ -23,14 +25,12 @@ for_window [app_id="l3afpad"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="galculator"] floating enable
 
-# Execute once per Sway session
+# Execute certain programs once per Sway session
+# swayidle -w timeout 300 '$lock' before-sleep '$lock' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' 
 exec {
   waybar
   gammastep
-  swayidle -w \
-    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    timeout 300 '$lock' \
-    before-sleep '$lock' \
+  swayidle -w timeout 300 '$lock' before-sleep '$lock'
 }
 
 # Execute every time Sway is restarted

@@ -53,7 +53,7 @@ bindsym $mod+F9 exec $switcher
 bindsym XF86LaunchA exec $switcher
 
 ##! Reload Sway
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
 ## Change brightness
 bindsym {
@@ -131,6 +131,15 @@ bindsym $mod+e exec $files
 
 ##! Open notepad
 bindsym $mod+Shift+n exec $notepad
+
+##! Open audio control
+bindsym $mod+Shift+a exec $audio
+
+##! Open calculator
+bindsym $mod+Shift+c exec $calculator
+
+##! Open browser
+bindsym $mod+Shift+b exec $browser
 
 ##! Toggle fullscreen 
 bindsym $mod+Shift+f fullscreen
