@@ -3,10 +3,20 @@
 
 BIN_DIR="$HOME/.local/bin"
 
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] <file>"
+  echo "Add a file to ~/.local/bin/"
+  echo ""
+  echo "Options:"
+  echo "  --help | -h  Lists help"
+  exit
+fi
+
 if [ ! -f $FILE ]; then
   echo "error: file $FILE not found"
   exit 1
+else
+  mkdir -p "$BIN_DIR"
+  mv "$@" "$BIN_DIR"
+  echo "Moved $@ to $BIN_DIR"
 fi
-
-mkdir -p "$BIN_DIR"
-mv "$@" "$BIN_DIR"
