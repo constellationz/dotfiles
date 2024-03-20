@@ -3,11 +3,11 @@
 -- Don't execute configuration if lsp is not installed
 local lsp
 local cmp
-pcall(function()
+local ok = pcall(function()
 	lsp = require("lsp-zero")
 	cmp = require("cmp")
 end)
-if lsp == nil or cmp == nil then
+if not ok then
 	return
 end
 

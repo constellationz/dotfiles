@@ -26,14 +26,28 @@ return packer.startup(function(use)
 	-- Git integration
 	use("tpope/vim-fugitive")
 
+	-- Treesitter
+	use({
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate',
+	})
+
 	-- Argument wrapping
-	use("AndrewRadev/splitjoin.vim")
+	use({
+		"Wansmer/treesj",
+		requires = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({})
+		end,
+	})
 
 	-- Fuzzy find
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+		},
 	})
 
 	-- Comments
@@ -41,6 +55,15 @@ return packer.startup(function(use)
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
+		end,
+	})
+
+	-- Auto pairs
+	use({
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup({})
 		end,
 	})
 
