@@ -1,2 +1,9 @@
 #!/usr/bin/env bash
-wshowkeys -F "Hack 40" -a top -m 20
+# Show keys on screen
+
+if ! command -v wshowkeys; then
+  echo "wshowkeys not installed"
+  exit 1
+else
+  wshowkeys -F "Hack 40" -a top -m 20 -t 3
+fi
