@@ -1,4 +1,4 @@
-#!usr/bin/env bash
+#!/usr/bin/env bash
 # This script will notify you when your battery is low.
 # It will check all batteries and notify you when both of them are below the threshold.
 # It will also check if the laptop is charging or not.
