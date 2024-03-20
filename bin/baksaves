@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-cp /mnt/Saves /tmp/ -r
-cd /tmp/
-tarball Saves
-cp Saves.tar.gz ~/Sync/Documents/Archive/
-echo Done
+# Back up saves off mounted devices
+
+SAVES_DIR="/mnt/Saves"
+SAVES_NAME="Saves"
+DESTINATION="$HOME/Sync/Documents/Archive"
+
+if [ ! -d $SAVES_DIR]; then
+  echo "Could not back up ($SAVES_DIR does not exist)"
+  exit 1
+elif [ ! -d $DESTINATION]; then
+  echo "No destination to back up to ($DESTINATION not found)"
+else
+  cp $SAVES_DIR /tmp/$SAVES_NAME -r
+  cd /tmp/
+  tarball $SAVES_NAME
+  cp $SAVES_NAME.tar.gz $DESTINATION
+  echo "Finished backing up $DESTINATION/$SAVES_NAME.tar.gz"
+fi

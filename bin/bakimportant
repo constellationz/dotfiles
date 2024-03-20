@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Back up important files
 
-BAKDIR="$HOME/Sync"
-TARFILE="$HOME/Sync.tar"
+BAK_DIR="$HOME/Sync"
+TAR_FILE="$HOME/Sync.tar"
 
-if [ ! -d $BAKDIR ]; then
-  echo "Could not back up $BAKDIR (does not exist)"
+if [ ! -d $BAK_DIR ]; then
+  echo "Could not back up $BAK_DIR (does not exist)"
   exit 1
 else
   tar \
@@ -13,6 +13,6 @@ else
     --exclude="Videos" \
     --exclude="Music" \
     --exclude=".osync_workdir" \
-    -cvf "$TARFILE" "$BAKDIR"
-  echo "Backed up to $TARFILE"
+    -cvf "$TAR_FILE" "$BAK_DIR"
+  echo "Backed up to $TAR_FILE"
 fi
