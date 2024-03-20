@@ -8,6 +8,10 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.wrap = true
 
+-- Searches are case insensitive until uppercase is used
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 -- Keep undo information in its own directory
 vim.o.swapfile = false
 vim.o.backup = false
