@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Show keys on screen
 
-if ! command -v wshowkeys; then
+if ! command -v wshowkeys &>/dev/null; then
   echo "wshowkeys not installed"
   exit 1
 else
