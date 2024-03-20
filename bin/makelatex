@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 # Run latexmk and open the viewer
 
-latexmk -pvc -new-viewer- $@
+if ! command -v latexmk &>/dev/null; then
+  echo "latexmk not installed"
+  exit 1
+else
+  latexmk -pvc -new-viewer- $@
+fi
