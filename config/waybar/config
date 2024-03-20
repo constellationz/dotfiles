@@ -1,12 +1,12 @@
 {
     "layer": "bottom",
     "position": "bottom",
-    "height": 30,
+    "height": 34,
     "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
     "modules-center": ["clock"],
     "modules-right": ["idle_inhibitor", "memory", "cpu", "battery", "network", "pulseaudio"],
     "output": "DP-1",
-    "margin": 0,
+    "margin": 2,
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -20,7 +20,11 @@
         }
     },
     "sway/window": {
-        "max-length": 30
+        "max-length": 30,
+        "format": "{title} ({app_id})",
+        "rewrite": {
+            "": "None",
+        },
     },
     "sway/mode": {
         "format": "{}"

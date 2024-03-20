@@ -2,47 +2,68 @@
  * Waybar configuration
 */
 
+/* Set font, color, and family */
 * {
   color: #ebdbb2;
   font-size: 14px;
   font-family: 'Hack';
-  padding: 0px 4px;
   border-radius: 0px;
 }
 
-#window {
-}
-
+/* Floating bar */
 window#waybar {
-  background: #282828;
+  background: transparent;
 }
 
-#workspaces,
-#tray {
-  padding: 0px;
-}
-
-#workspaces button {
-  padding: 0;
-  margin: 2px 0;
+/* Module padding */
+.modules-left,
+.modules-right,
+.modules-center {
   border-radius: 4px;
+  background: #282828;
+  padding: 4px 4px;
 }
 
+/* Left and right accents */
+.modules-left {
+  border-left: 2px solid #504945;
+}
+.modules-right {
+  border-right: 2px solid #504945;
+}
+
+/* Workspace buttons */
+#workspaces button {
+  padding: 0px 0px;
+  border-radius: 2px;
+}
 #workspaces button.focused {
   background: #504945;
   border-bottom: 2px solid #83a598;
 }
-
 #workspaces button:hover {
   background: #32302f;
 }
 
+/* Workspace buttons */
+#window {
+  margin: 0px 8px;
+}
+
+/* Item margins */
 #idle_inhibitor,
 #network,
 #clock,
+#cpu,
+#memory,
+#battery,
+#mode,
+#disk,
 #pulseaudio {
+  margin: 0px 4px;
 }
 
+/* Blue text */
 #cpu,
 #memory,
 #battery,
@@ -50,4 +71,3 @@ window#waybar {
 #disk {
   color: #83a598;
 }
-
