@@ -1,73 +1,78 @@
 #!/usr/bin/env bash
 # Set wallpaper with bg and pscircle
-# e.g. wallpaper ~/Pictures/Wallpapers/wallpaper.png
-
-display=$1
-wallpaper=$2
-temp=/tmp/wallpaper.png
+# e.g. pswallpaper HDMI-A-1 ~/Pictures/Wallpapers/wallpaper.png
 
 # Make sure programs are installed
-if ! command -v pscircle &>/dev/null; then
-  echo "pscircle not installed"
-  exit 1
-elif ! command -v swww &>/dev/null; then
-  echo "swww not installed"
+for i in pscircle swww convert; do
+  if ! command -v $i &>/dev/null; then
+    echo "$i not installed"
+    exit 1
+  fi
+done
+
+# Get arguments
+display=$1
+background=$2
+width=2560
+height=1080
+
+# Make sure background exists
+if [ ! -f $background ]; then
+  echo "Could not find background $background"
   exit 2
 fi
 
 # Generate wallpaper
 function gen {
-  pscircle --output=$temp \
-    --max-children=40 \
-    --output-width=2560 \
-    --output-height=1080 \
-    --tree-radius-increment=10,150,100,80 \
-    --max-proc-name-len=10 \
-    --root-label-angle=0 \
-    --dot-radius=3 \
-    --link-width=1.2 \
-    --link-convexity=0.5 \
-    --collapse-threads=true \
-    --tree-font-size=10 \
-    --toplists-font-size=10 \
-    --toplists-bar-width=30 \
-    --toplists-row-height=15 \
-    --toplists-bar-height=3 \
-    --cpulist-center=750.0:-60.0 \
-    --memlist-center=750.0:60.0 \
-    --tree-font-face=Hack \
-    --tree-font-color=A89984FF \
-    --toplists-font-face=Hack \
-    --toplists-font-color=A89984FF \
-    --toplists-pid-font-color=A89984FF \
-    --background-color=28282800 \
-    --dot-color-min=427B58FF \
-    --dot-color-max=8EC07CFF \
-    --dot-border-color-min=00000000 \
-    --dot-border-color-max=00000000 \
-    --link-color-min=427B58FF \
-    --link-color-max=8EC07CFF \
-    --toplists-bar-background=3C3836FF \
-    --toplists-bar-color=A89984FF \
-    --cpu-min-value=0 \
-    --cpu-max-value=0.001 \
-    --cpulist-name=cpu \
-    --memlist-name=mem \
-    --memory-min-value=10 \
-    --memory-max-value=104857600 # 1024 * 1024 * 100
-
-  convert \
-    -size 2560x1080 \
-    $wallpaper \
-    $temp \
-    -layers flatten \
-    $1
+  ps -e -o pid,ppid,pcpu,rss,comm --no-headers \
+    | pscircle --stdin=1 \
+      --output=$1 \
+      --output-width=$width \
+      --output-height=$height \
+      --background-image=$background \
+      --max-children=40 \
+      --tree-radius-increment=10,150,100,80 \
+      --max-proc-name-len=10 \
+      --root-label-angle=0 \
+      --dot-radius=3 \
+      --link-width=1.2 \
+      --link-convexity=0.5 \
+      --collapse-threads=true \
+      --tree-font-size=10 \
+      --toplists-font-size=10 \
+      --toplists-bar-width=30 \
+      --toplists-row-height=15 \
+      --toplists-bar-height=3 \
+      --cpulist-center=750.0:-60.0 \
+      --memlist-center=750.0:60.0 \
+      --tree-font-face=Hack \
+      --tree-font-color=A89984FF \
+      --toplists-font-face=Hack \
+      --toplists-font-color=A89984FF \
+      --toplists-pid-font-color=A89984FF \
+      --background-color=28282800 \
+      --dot-color-min=427B58FF \
+      --dot-color-max=8EC07CFF \
+      --dot-border-color-min=00000000 \
+      --dot-border-color-max=00000000 \
+      --link-color-min=427B58FF \
+      --link-color-max=8EC07CFF \
+      --toplists-bar-background=3C3836FF \
+      --toplists-bar-color=A89984FF \
+      --cpu-min-value=0 \
+      --cpu-max-value=0.001 \
+      --cpulist-name=cpu \
+      --memlist-name=mem \
+      --memory-min-value=10 \
+      --memory-max-value=104857600 # 1024 * 1024 * 100
 }
 
 swww init --no-cache &>/dev/null
 while true
 do
-  gen $temp
-  swww img --outputs $display $temp --transition-type none
-  sleep 15
+  wallpaper=$(mktemp /tmp/pswallpaper_XXXXX)
+  gen $wallpaper
+  swww img --outputs $display --transition-type none $wallpaper
+  rm $wallpaper
+  sleep 10
 done
