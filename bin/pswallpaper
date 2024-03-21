@@ -57,8 +57,8 @@ function gen {
       --dot-border-color-max=00000000 \
       --link-color-min=427B58FF \
       --link-color-max=8EC07CFF \
-      --toplists-bar-background=3C3836FF \
-      --toplists-bar-color=A89984FF \
+      --toplists-bar-background=3C383600 \
+      --toplists-bar-color=A8998400 \
       --cpu-min-value=0 \
       --cpu-max-value=0.001 \
       --cpulist-name=cpu \
@@ -71,7 +71,7 @@ swww init --no-cache &>/dev/null
 while true
 do
   # Break when swww-daemon is no longer running
-  if ! pidof swww-daemon; then
+  if ! pidof swww-daemon &>/dev/null; then
     break
   fi
 
