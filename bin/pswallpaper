@@ -70,6 +70,12 @@ function gen {
 swww init --no-cache &>/dev/null
 while true
 do
+  # Break when swww-daemon is no longer running
+  if ! pidof swww-daemon; then
+    break
+  fi
+
+  # Generate wallpaper
   wallpaper=$(mktemp /tmp/pswallpaper_XXXXX)
   gen $wallpaper
   swww img --outputs $display --transition-type none $wallpaper
