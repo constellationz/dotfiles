@@ -19,12 +19,15 @@ font pango:Hack 10
 ## Set title format for windows with app id
 for_window [app_id=".+"] title_format "%title (%app_id)"
 
-# Include default configuration
+## Set borders for all windows
+for_window [app_id=".*"] border normal
+
+## Include default configuration
 include programs
 include binds
 include inputs
 include themes/gruvbox
 include local.d/*
 
-# Bind to systemd
+## Include system configuration
 include /etc/sway/config.d/*
