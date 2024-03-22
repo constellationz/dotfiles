@@ -17,7 +17,7 @@ if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
 fi
 
 # Make sure commands are installed
-for i in grim slurp; do
+for i in grim slurp jq; do
   if ! command -v $i; then
     echo "$i not installed"
     exit 1
