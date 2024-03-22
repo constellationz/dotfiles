@@ -46,6 +46,7 @@ bindsym $mod+slash exec $copykey
 
 ##! Take screenshot
 bindsym Print exec $screenshot
+bindsym $mod+Print exec $screenshot --client
 
 ##! Quick switcher
 bindsym $mod+Tab exec $switcher

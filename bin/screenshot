@@ -1,9 +1,47 @@
 #!/usr/bin/env bash
 # Take a screenshot in Wayland
 
-# Don't run duplicates
-if ps aux | grep slurp | grep -v grep; then
-  exit 1
+# Slurp colors
+slurpstyle="-b 00000055 -B 00000000 -s ffffff10 -w 0"
+
+# Show help
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] [--client]"
+  echo "Take a screenshot with grim and slurp"
+  echo "Pipes screenshotted image to wl-copy by default"
+  echo ""
+  echo "Options:"
+  echo "  --client     Screenshot a client rather than a region"
+  echo "  --help | -h  Lists help"
+  exit
 fi
 
-grim -g "$(slurp -b 00000055 -w 0)" - | wl-copy
+# Make sure commands are installed
+for i in grim slurp; do
+  if ! command -v $i; then
+    echo "$i not installed"
+    exit 1
+  fi
+done
+
+# Don't run duplicates
+if pidof slurp; then
+  exit 2
+fi
+
+# Pick command to pipe to based on installed
+for i in wl-copy swappy; do
+  if command -v $i; then
+    pipeto=$i
+  fi
+done
+if [ $pipeto == "swappy" ]; then
+  pipeto="swappy -f -"
+fi
+
+# Screenshot region or client
+if [[ "$@" == *"--client"* ]]; then
+  grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r $slurpstyle)" - | $pipeto
+else
+  grim -g "$(slurp $slurpstyle)" - | $pipeto
+fi
