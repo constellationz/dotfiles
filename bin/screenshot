@@ -18,7 +18,7 @@ fi
 
 # Make sure commands are installed
 for i in grim slurp jq; do
-  if ! command -v $i; then
+  if ! command -v $i &>/dev/null; then
     echo "$i not installed"
     exit 1
   fi
@@ -31,7 +31,7 @@ fi
 
 # Pick command to pipe to based on installed
 for i in wl-copy swappy; do
-  if command -v $i; then
+  if command -v $i &>/dev/null; then
     pipeto=$i
   fi
 done
