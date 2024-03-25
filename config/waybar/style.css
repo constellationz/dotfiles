@@ -12,23 +12,16 @@
 
 /* Floating bar */
 window#waybar {
-  background: transparent;
+  background: #282828;
+  border-radius: 3px;
 }
 
-/* Module padding */
+/* Modules */
 .modules-left,
 .modules-right,
 .modules-center {
-  border-radius: 2px;
-  background: #282828;
-}
-
-/* Special padding */
-.modules-left {
-  padding-left: 1px;
-}
-.modules-right {
-  padding-right: 1px;
+  background: transparent;
+  margin: 2px 2px;
 }
 
 /* Workspace buttons */
@@ -44,9 +37,9 @@ window#waybar {
   background: #32302f;
 }
 
-/* Workspace buttons */
-#window {
-  margin: 0px 4px;
+/* Workspaces container */
+#workspaces {
+  margin-right: 4px;
 }
 
 /* Item margins */
@@ -56,6 +49,7 @@ window#waybar {
 #cpu,
 #memory,
 #battery,
+#window,
 #mode,
 #disk,
 #pulseaudio {

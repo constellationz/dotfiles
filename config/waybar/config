@@ -1,7 +1,7 @@
 {
     "layer": "bottom",
     "position": "bottom",
-    "height": 26,
+    "height": 30,
     "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
     "modules-center": ["clock"],
     "modules-right": ["idle_inhibitor", "memory", "cpu", "battery", "network", "pulseaudio"],
@@ -48,9 +48,10 @@
         "format": "mem {used:0.1f}/{total:0.1f}G"
     },
     "network": {
-        "format-wifi": "net {essid} ({signalStrength}%)",
+        "format-wifi": "wifi {signalStrength}% {essid}",
         "format-ethernet": "net {ifname}",
-        "format-disconnected": "net disconnected"
+        "format-disconnected": "net disconnected",
+        "max-length": 20,
     },
     "pulseaudio": {
         "scroll-step": 1,
