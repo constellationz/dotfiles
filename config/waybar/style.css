@@ -1,6 +1,6 @@
 /*
  * Waybar configuration
-*/
+ */
 
 /* Set font, color, and family */
 * {
@@ -15,14 +15,30 @@ window#waybar {
   background: #282828;
   border-radius: 3px;
 }
+window#waybar.empty {
+  background: #504945;
+}
+
+/* Tooltips */
+tooltip {
+  background: #3c3836;
+  border-radius: 4px;
+  border: 2px solid #504945;
+}
+
+/*
+ * The container for modules-left
+ * modules-right and modules-center
+ */
+window > box {
+  background: #282828;
+  margin: 2px 2px;
+}
 
 /* Modules */
 .modules-left,
 .modules-right,
-.modules-center {
-  background: transparent;
-  margin: 2px 2px;
-}
+.modules-center {}
 
 /* Workspace buttons */
 #workspaces button {
@@ -40,6 +56,16 @@ window#waybar {
 /* Workspaces container */
 #workspaces {
   margin-right: 4px;
+}
+
+/* Activated style */
+#mode,
+#idle_inhibitor.activated {
+  color: #f8fb26;
+  background: #98971a;
+  padding: 0px 6px;
+  border: 2px solid #b8bb26;
+  border-radius: 2px;
 }
 
 /* Item margins */
@@ -60,7 +86,6 @@ window#waybar {
 #cpu,
 #memory,
 #battery,
-#mode,
 #disk {
   color: #83a598;
 }
