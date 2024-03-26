@@ -7,4 +7,4 @@ if ! command -v mixxc &>/dev/null; then
   exit 1
 fi
 
-pkill mixxc || mixxc --anchor right --anchor bottom --margin 8 --margin 8 --keep --icon --bar h
+pkill mixxc || mixxc --anchor left --anchor bottom --margin 6 --margin 8 --keep --icon --bar h
