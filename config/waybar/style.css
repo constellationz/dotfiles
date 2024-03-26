@@ -19,11 +19,22 @@ window#waybar.empty {
   background: #504945;
 }
 
-/* Tooltips */
-tooltip {
+/* Activated style */
+tooltip,
+#idle_inhibitor.activated {
   background: #3c3836;
-  border-radius: 4px;
+  padding: 0px 6px;
   border: 2px solid #504945;
+  border-radius: 4px;
+}
+
+/* Green activated style */
+#mode {
+  color: #f8fb26;
+  background: #98971a;
+  padding: 0px 6px;
+  border: 2px solid #b8bb26;
+  border-radius: 4px;
 }
 
 /*
@@ -56,16 +67,6 @@ window > box {
 /* Workspaces container */
 #workspaces {
   margin-right: 4px;
-}
-
-/* Activated style */
-#mode,
-#idle_inhibitor.activated {
-  color: #f8fb26;
-  background: #98971a;
-  padding: 0px 6px;
-  border: 2px solid #b8bb26;
-  border-radius: 2px;
 }
 
 /* Item margins */
