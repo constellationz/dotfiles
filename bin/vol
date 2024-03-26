@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Quickly set volume
+
+# Make sure mixxc is installed
+if ! command -v mixxc &>/dev/null; then
+  echo "mixxc not installed"
+  exit 1
+fi
+
+pkill mixxc || mixxc --anchor right --anchor bottom --margin 8 --margin 8 --keep --icon --bar h

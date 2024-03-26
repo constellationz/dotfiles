@@ -9,6 +9,7 @@ set $notepad l3afpad
 set $audio pavucontrol
 set $calculator galculator
 set $browser xdg-open "https://"
+set $volume vol
 set $launcher run
 set $switcher switch 
 set $emoji emoji -t

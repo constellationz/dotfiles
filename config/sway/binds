@@ -136,6 +136,9 @@ bindsym $mod+Shift+n exec $notepad
 ##! Open audio control
 bindsym $mod+Shift+a exec $audio
 
+##! Toggle quick volume control
+bindsym $mod+Shift+v exec $volume
+
 ##! Open calculator
 bindsym $mod+Shift+c exec $calculator
 
