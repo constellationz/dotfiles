@@ -4,7 +4,7 @@
 @define-color bg     #282828;
 @define-color fg     #EBDBB2;
 @define-color accent #8EC07C;
-@define-color border #504945;
+@define-color border #3C3836;
 
 * {
 	all: unset;
