@@ -1,17 +1,25 @@
+/*
+ * Decoration gradients
+ */
 decoration {
     box-shadow: none;
 }
-
 decoration:backdrop {
     box-shadow: none;
 }
 
+/*
+ * Titlebar
+ */
 .titlebar,
 .titlebar .background {
     border-radius: 0;
     box-shadow: none;
 }
 
+/*
+ * Dialogs
+ */
 messagedialog {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
