@@ -15,9 +15,6 @@ window#waybar {
   background: #282828;
   border-radius: 3px;
 }
-window#waybar.empty {
-  background: #3c3836;
-}
 
 /* Activated style */
 tooltip,
