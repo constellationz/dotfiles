@@ -21,8 +21,7 @@ tooltip,
 #idle_inhibitor.activated {
   background: #3c3836;
   padding: 0px 6px;
-  border: 2px solid #504945;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 /* Green activated style */
@@ -32,6 +31,12 @@ tooltip,
   padding: 0px 6px;
   border: 3px solid #b8bb26;
   border-radius: 6px;
+}
+
+/* Gray border style */
+tooltip {
+  border: 2px solid #504945;
+  border-radius: 4px;
 }
 
 /*
