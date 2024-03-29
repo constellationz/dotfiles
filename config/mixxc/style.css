@@ -12,7 +12,7 @@
 
 window {
 	border: 2px @border solid;
-	border-radius: 4px;
+	border-radius: 0px;
 
 	background-color: @bg;
 }
