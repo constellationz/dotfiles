@@ -87,7 +87,7 @@ fi
 
 # Copy configs now
 if [[ AUTO -eq 1 ]] || yes_or_no "Synchronize configs now?"; then
-	bash "$SCRIPT_DIR/putdots"	
+	bash "$SCRIPT_DIR/putdots"
 fi
 
 # Optionally configure neovim
@@ -159,8 +159,8 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			fonts-noto-color-emoji \
 			fonts-noto-cjk
 		systemctl --user --now enable pipewire pipewire-pulse
-    mkdir -p $HOME/.local/bin/
-    ln -s $(which alacritty) $HOME/.local/bin/xterm &>/dev/null
+		mkdir -p $LOCAL_BIN
+		ln -s $(which alacritty) $LOCAL_BIN/xterm &>/dev/null
 	fi
 
 	# Install graphical desktop packages
@@ -199,23 +199,27 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		mkdir --parents ~/.icons
 		mkdir --parents ~/.themes
 		
+		echo "Downloading themes"
+		cd /tmp/
+		wget https://github.com/constellationz/gruvbox-material-gtk/releases/download/latest/Gruvbox-Material-Dark.tar.gz
+		tar -xvf Gruvbox-Material-Dark.tar.gz
+		cp -r Gruvbox-Material-Dark ~/.themes/
+		yes | rm -r Gruvbox-Material-Dark.tar.gz &>/dev/null
+
 		echo "Pulling sources"
 		pull_repo https://github.com/constellationz/gruvbox-icons ~/.rep
-		pull_repo https://github.com/constellationz/gruvbox-material-gtk ~/.rep
 		pull_repo https://github.com/constellationz/simp1e-gruvbox-dark ~/.rep
 		pull_repo https://github.com/PapirusDevelopmentTeam/papirus-icon-theme ~/.rep
 
-		echo "Syncing themes..."
+		echo "Linking themes"
 		rsync --recursive --links ~/.rep/gruvbox-icons/ \
 			~/.icons/Gruvbox-Icons/
-		rsync --recursive --links ~/.rep/gruvbox-material-gtk/themes/Gruvbox-Material-Dark/ \
-			~/.themes/Gruvbox-Material-Dark/
 		rsync --recursive --links ~/.rep/simp1e-gruvbox-dark/ \
 			~/.icons/Simp1e-Gruvbox-Dark/
 		rsync --recursive --links ~/.rep/papirus-icon-theme/Papirus-Dark/ \
 			~/.icons/Papirus-Dark/
 
-		echo "Updating gsettings..."
+		echo "Updating gsettings"
 		gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
 		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Icons'
 		gsettings set org.gnome.desktop.interface cursor-theme 'Simp1e-Gruvbox-Dark'
@@ -234,7 +238,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		sudo flatpak override --env=GTK_THEME=$gtk_theme \
 			--env=ICON_THEME=$icon_theme \
 			--filesystem=~/.config \
-			--filesystem=~/.themes \
-			--filesystem=~/.icons
+			--filesystem=~/.icons \
+			--filesystem=~/.themes
 	fi
 fi
