@@ -86,8 +86,8 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 fi
 
 # Copy configs now
-if [[ AUTO -eq 1 ]] || yes_or_no "Synchronize configs now?"; then
-	bash "$SCRIPT_DIR/putdots"
+if [[ AUTO -eq 1 ]] || yes_or_no "Link configs now?"; then
+	bash "$SCRIPT_DIR/stowdots"
 fi
 
 # Optionally configure neovim
