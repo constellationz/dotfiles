@@ -11,7 +11,7 @@ output $primary pos 320 1080
 output $primary mode 1920x1080@240Hz
 
 ## Secondary output
-set $secondary HDMI-A-1
+set $secondary DP-2
 output $secondary pos 0 0
 output $secondary mode 2560x1080@75Hz
 
