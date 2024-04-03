@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Date a file as today
+# Date files as today
 
-file="$1"
-newfile="$(date +%F)_$1"
-mv "$file" "$newfile"
-echo "Renamed $file to $newfile"
+for file in $@; do
+  newfile="$(date +%F)_$file"
+  mv "$file" "$newfile"
+  echo "Renamed $file to $newfile"
+done
