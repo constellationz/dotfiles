@@ -225,6 +225,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
 		gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
+		gsettings set org.gnome.desktop.wm.preferences button-layout ""
 	fi
 
 	# Install flatpak
