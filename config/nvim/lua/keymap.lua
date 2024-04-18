@@ -23,6 +23,12 @@ do
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 
+	-- Close/quit view
+	vim.keymap.set("n", "<C-q>", "<cmd>close<CR>")
+
+	-- Open new tab
+	vim.keymap.set("n", "<C-t>", "<cmd>tabedit<CR>")
+
 	-- Switch buffers 
 	vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>")
 	vim.keymap.set("n", "<C-p>", "<cmd>bprev<CR>")
@@ -33,12 +39,6 @@ do
 	-- Switch tabs
 	vim.keymap.set("n", "<C-Tab>", "<cmd>tabnext<CR>")
 	vim.keymap.set("n", "<C-S-Tab>", "<cmd>tabprev<CR>")
-
-	-- Open new tab
-	vim.keymap.set("n", "<leader>t", "<cmd>tabedit<CR>")
-
-	-- Close/quit view
-	vim.keymap.set("n", "<leader>q", "<cmd>close<CR>")
 
 	-- Explorer
 	vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
