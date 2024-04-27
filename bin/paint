@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Open a paint-like program
+
+# Show help
+if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
+  echo "Usage: $(basename $0) [--help | -h] [--clipboard]"
+  echo "Edit either a blank image or what's in the clipboard"
+  echo "Gets copied image from wl-paste"
+  echo ""
+  echo "Options:"
+  echo "  --clipboard  Get image from the clipboard"
+  echo "  --help | -h  Lists help"
+  exit
+fi
+
+# Make sure commands are installed
+for i in convert swappy wl-copy; do
+  if ! command -v $i &>/dev/null; then
+    echo "$i not installed"
+    exit 1
+  fi
+done
+
+# Get image
+if [[ "$@" =~ .*"--clipboard".* ]]; then
+  wl-paste > /tmp/edit.png
+else
+  convert -size 1280:720 xc:black /tmp/edit.png
+fi
+
+# Make image and pipe to swappy
+swappy -f /tmp/edit.png
