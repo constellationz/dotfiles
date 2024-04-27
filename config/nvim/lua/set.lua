@@ -41,3 +41,10 @@ vim.o.clipboard = 'unnamedplus'
 
 -- Neoformat
 vim.g.neoformat_try_node_exe = 1
+
+-- Neovide settings
+if vim.g.neovide then
+  vim.o.guifont = "Hack:h10"
+  vim.g.neovide_floating_shadow = false
+  vim.g.neovide_refresh_rate = 240
+end
