@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Take a screenshot in Wayland
 
+# Exit on error
+set -e
+
 # Slurp colors
 slurpstyle="-b 00000055 -B 00000000 -s ffffff10 -w 0"
 
@@ -17,7 +20,7 @@ if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
 fi
 
 # Make sure commands are installed
-for i in grim slurp jq; do
+for i in grim slurp jq wl-copy; do
   if ! command -v $i &>/dev/null; then
     echo "$i not installed"
     exit 1
@@ -29,19 +32,17 @@ if pidof slurp; then
   exit 2
 fi
 
-# Pick command to pipe to based on installed
-for i in wl-copy swappy; do
-  if command -v $i &>/dev/null; then
-    pipeto=$i
-  fi
-done
-if [ $pipeto == "swappy" ]; then
-  pipeto="swappy -f -"
+function notify {
+  notify-send "Copied to clipboard" -i ~/.icons/Gruvbox-Icons/mimetypes/32/image-png.svg
+}
+
+# Select region
+if [[ "$@" == *"--client"* ]]; then
+  region=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r $slurpstyle)
+else
+  region=$(slurp $slurpstyle)
 fi
 
-# Screenshot region or client
-if [[ "$@" == *"--client"* ]]; then
-  grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r $slurpstyle)" - | $pipeto
-else
-  grim -g "$(slurp $slurpstyle)" - | $pipeto
-fi
+# Screenshot
+grim -g "$region" - | wl-copy
+notify
