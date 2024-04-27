@@ -47,6 +47,7 @@ bindsym $mod+slash exec $copykey
 ##! Take screenshot
 bindsym Print exec $screenshot
 bindsym $mod+Print exec $screenshot --client
+bindsym $mod+Shift+Print exec $paint --clipboard
 
 ##! Quick switcher
 bindsym $mod+Tab exec $switcher
@@ -132,6 +133,9 @@ bindsym $mod+e exec $files
 
 ##! Open notepad
 bindsym $mod+Shift+n exec $notepad
+
+##! Open paint
+bindsym $mod+Shift+p exec $paint
 
 ##! Open audio control
 bindsym $mod+Shift+a exec $audio

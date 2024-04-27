@@ -1,4 +1,4 @@
 ## Fancy text
 bindsym $mod+i exec 'wtype $(echo "" | bmenu -p "vro" | vro)'
 bindsym $mod+Shift+i exec 'wtype $(echo "" | bmenu -p "fancy" | fancy)'
-bindsym $mod+Shift+p exec 'convert -background black -fill white -font Papyrus -pointsize 64 label:"$(echo "" | bmenu -p "papyrus")" /tmp/file.png && cat /tmp/file.png | wl-copy && wtype -M ctrl v'
+bindsym $mod+Shift+g exec 'convert -background black -fill white -font Papyrus -pointsize 64 label:"$(echo "" | bmenu -p "papyrus")" /tmp/file.png && cat /tmp/file.png | wl-copy && wtype -M ctrl v'

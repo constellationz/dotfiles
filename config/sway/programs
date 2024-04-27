@@ -13,6 +13,7 @@ set $volume vol
 set $launcher run
 set $switcher switch 
 set $emoji emoji -t
+set $paint paint
 set $lock swaylock --daemonize
 set $screenshot screenshot
 set $namedterm namedterm
