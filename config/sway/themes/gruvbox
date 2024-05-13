@@ -4,6 +4,7 @@
 
 # Cursor theme
 seat seat0 xcursor_theme Simp1e-Gruvbox-Dark 24
+font pango:Hack Medium 10
 
 # Window colors
 # -------------------------------------------------------------
