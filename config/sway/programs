@@ -23,6 +23,7 @@ set $openbookmarks OPEN_WITH=$notepad book --open
 set $quickaddbookmark book --quickadd
 
 # Set floating windows
+for_window [app_id="nemo"] floating enable
 for_window [app_id="l3afpad"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="galculator"] floating enable
