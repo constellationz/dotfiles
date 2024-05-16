@@ -3,9 +3,11 @@
 
 cd "$HOME"
 
+set -e
+
 export TERMINAL="alacritty"
 export MICRO_TRUECOLOR=1
 export XDG_CURRENT_DESKTOP=sway
 export MOZ_ENABLE_WAYLAND=1
 
-exec sway || echo "Sway not installed "; exit 1
+exec /usr/bin/sway || echo "Sway not installed "; exit 1
