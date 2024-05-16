@@ -184,7 +184,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			video/mkv video/mp4 video/avi video/webm video/* audio/mp3 audio/flac audio/*
 		xdg-mime default nemo.desktop \
 			inode/directory
-		xdg-mime default librewolf.desktop \
+		xdg-mime default firefox.desktop \
 			x-scheme-handler/https x-scheme-handler/http text/html
 
 		# For nemo "open in terminal" functionality
