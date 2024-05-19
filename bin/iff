@@ -1,30 +1,53 @@
 #!/usr/bin/env bash
-# Install librewolf
-
-sudo apt update
-sudo apt install -y wget gnupg lsb-release apt-transport-https ca-certificates
-
-source /etc/os-release
-
-# Create keyrings folder
-sudo install -d -m 0755 /etc/apt/keyrings
-
-# Download mozilla key
-wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
-  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-
-# Import mozilla key
-gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc
-
-# Append mozilla source
-echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" \
-  | sudo tee /etc/apt/sources.list.d/mozilla.list > /dev/null
-
-echo '
-Package: *
-Pin: origin packages.mozilla.org
-Pin-Priority: 1000
-' | sudo tee /etc/apt/preferences.d/mozilla
-
 # Install firefox
-sudo apt-get update && sudo apt-get install firefox
+# Needs git and wget
+
+scriptdir="$(dirname $0)"
+mode=$1
+
+# Install browser from .deb
+if [ $mode == "--browser" ]; then
+  sudo apt update
+  sudo apt install -y wget gnupg lsb-release apt-transport-https ca-certificates
+
+  # Create keyrings folder
+  sudo install -d -m 0755 /etc/apt/keyrings
+
+  # Download mozilla key
+  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+    | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc &>/dev/null
+
+  # Import mozilla key
+  gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc &>/dev/null
+
+  # Append mozilla source
+  echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" \
+    | sudo tee /etc/apt/sources.list.d/mozilla.list &>/dev/null
+
+  printf 'Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000\n' \
+    | sudo tee /etc/apt/preferences.d/mozilla &>/dev/null
+
+  # Install firefox
+  sudo apt-get update && sudo apt-get install firefox
+elif [ $mode == "--theme" ]; then
+  # Make sure user provided directory
+  profiledir=$2
+  if [ -z $profiledir]; then
+    echo "invalid profile directory"
+    echo "try iff --theme $HOME/.mozilla/firefox/<tab>.default"
+    exit 1
+  fi
+
+  # Clone WaveFox
+  cd /tmp/
+  git clone https://github.com/QNetITQ/WaveFox
+  cd WaveFox
+  git pull
+  cp -r chrome $profiledir/chrome
+
+  # Close user.js
+  cp $scriptdir/../config/firefox/user.js $profiledir/user.js
+else
+  echo "use flag --browser to install browser"
+  echo "use flag --theme <profiledir> to install theme"
+fi
