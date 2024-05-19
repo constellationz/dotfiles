@@ -18,7 +18,7 @@ gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozil
 
 # Append mozilla source
 echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" \
-  | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+  | sudo tee /etc/apt/sources.list.d/mozilla.list > /dev/null
 
 echo '
 Package: *
