@@ -77,18 +77,18 @@ bindsym {
 
 ## Volume
 bindsym {
-    XF86AudioRaiseVolume exec amixer sset Master 2%+
-    XF86AudioLowerVolume exec amixer sset Master 2%-
-    XF86AudioMute exec amixer sset Master toggle
-    $mod+Prior exec amixer sset Master 2%+
-    $mod+Next exec amixer sset Master 2%-
-    $mod+Home exec amixer sset Master toggle
+    XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -2%
+    XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +2%
+    XF86AudioMute exec pactl -- set-sink-mute 0 toggle
+    $mod+Prior exec pactl -- set-sink-volume 0 -2%
+    $mod+Next exec pactl -- set-sink-volume 0 +2%
+    $mod+Home exec pactl -- set-sink-mute 0 toggle
 }
 
 ## Microphone
 # bindsym {
-#     XF86AudioMicMute exec amixer sset Capture toggle
-#     $mod+End amixer sset Capture toggle
+#     XF86AudioMicMute pactl -- set-source-mute 0 toggle
+#     $mod+End pactl -- set-source-mute 0 toggle
 # }
 
 ##! Move focus - $mod + ↑ ↓ ← →
