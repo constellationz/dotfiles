@@ -45,9 +45,9 @@ bindsym $mod+minus exec $openbookmarks
 bindsym $mod+slash exec $copykey
 
 ##! Take screenshot
-bindsym Print exec $screenshot
-bindsym $mod+Print exec $screenshot --client
-bindsym $mod+Shift+Print exec $paint --clipboard
+bindsym Print exec $screenshot --region
+bindsym $mod+Print exec $screenshot
+bindsym $mod+Shift+Print exec $screenshot --client
 
 ##! Quick switcher
 bindsym $mod+Tab exec $switcher
@@ -86,10 +86,10 @@ bindsym {
 }
 
 ## Microphone
-# bindsym {
-#     XF86AudioMicMute pactl -- set-source-mute 0 toggle
-#     $mod+End pactl -- set-source-mute 0 toggle
-# }
+bindsym {
+    XF86AudioMicMute pactl -- set-source-mute 0 toggle
+    $mod+End pactl -- set-source-mute 0 toggle
+}
 
 ##! Move focus - $mod + ↑ ↓ ← →
 bindsym {

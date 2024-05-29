@@ -14,6 +14,7 @@ if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
   echo "Pipes screenshotted image to wl-copy by default"
   echo ""
   echo "Options:"
+  echo "  --region     Screenshot a region"
   echo "  --client     Screenshot a client rather than a region"
   echo "  --help | -h  Lists help"
   exit
@@ -38,11 +39,11 @@ function notify {
 
 # Select region
 if [[ "$@" == *"--client"* ]]; then
-  region=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r $slurpstyle)
-else
-  region=$(slurp $slurpstyle)
+  params="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r $slurpstyle)"
+elif [[ "$@" == *"--region"* ]]; then
+  params="-g $(slurp $slurpstyle)"
 fi
 
 # Screenshot
-grim -g "$region" - | wl-copy
+grim $params - | wl-copy
 notify
