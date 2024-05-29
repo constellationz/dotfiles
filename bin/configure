@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Install packages and copy configs
+# Auto mode does these things:
+# - Installs core packages
+# - Links configs
 
 SCRIPT_DIR="$(dirname $0)"
 LOCAL_BIN="$HOME/.local/bin"
@@ -45,6 +48,9 @@ if ! command -v sudo &> /dev/null; then
 	echo "After modifying groups, log out and log back in for changes to take effect"
 	exit 1
 fi
+
+# Make sure ~/.local/bin exists
+mkdir -p $LOCAL_BIN
 
 # Perform full system upgrade and install programs
 if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
@@ -95,7 +101,6 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 	cd /tmp/
 	wget https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
 	chmod +x nvim.appimage
-	mkdir -p $LOCAL_BIN
 	mv nvim.appimage $LOCAL_BIN/nvim
 
 	# Only copy packer if it hasn't been initialized yet
@@ -121,79 +126,105 @@ fi
 
 # Install desktop environment
 if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
-	if yes_or_no "Install desktop packages?"; then
+	if yes_or_no "Install packages for sway?"; then
 		sudo apt install -y \
-			network-manager \
 			sway \
 			swaybg \
 			swayidle \
 			swaylock \
-			gammastep \
-			bemenu \
-			wl-clipboard \
-			wtype \
 			light \
+			wtype \
 			grim \
 			slurp \
-			waybar \
-			upower \
 			dunst \
-			libnotify-bin \
-			pipewire-audio \
+			waybar \
+			bemenu \
+			upower \
+			gammastep \
 			alsa-utils \
+			pipewire-audio \
+			network-manager \
+			wl-clipboard \
+			libnotify-bin \
 			xdg-utils \
-			xdg-desktop-portal-wlr \
-			xdg-desktop-portal-gtk \
-			alacritty \
-			cmus \
-			mpv \
-			imv \
-			zathura \
-			zathura-pdf-poppler \
-			gtk2-engines \
-			libglib2.0-bin \
+			xdg-desktop-portal-wlr
+		systemctl --user --now enable pipewire pipewire-pulse
+	fi
+
+	# Install fonts
+	if yes_or_no "Install fonts?"; then
+		sudo apt install -y \
 			fonts-hack \
 			fonts-freefont-ttf \
 			fonts-noto \
 			fonts-noto-color-emoji \
 			fonts-noto-cjk
-		systemctl --user --now enable pipewire pipewire-pulse
-		mkdir -p $LOCAL_BIN
+	fi
+
+	# Install generic desktop programs
+	if yes_or_no "Install generic desktop applications?"; then
+		sudo apt install -y \
+			alacritty \
+			mpv \
+			imv \
+			zathura \
+			zathura-pdf-poppler
 		ln -s $(which alacritty) $LOCAL_BIN/xterm &>/dev/null
 	fi
 
-	# Install graphical desktop packages
-	if yes_or_no "Install graphical desktop packages?"; then
+	# Install gtk desktop packages
+	if yes_or_no "Install gtk desktop applications?"; then
 		sudo apt install -y \
 			nemo \
 			l3afpad \
 			galculator \
-			pavucontrol
+			pavucontrol \
+			xdg-desktop-portal-gtk
 	fi
 
 	# Set default programs with xdg-mime
 	# * doesn't work for mimetype so I give extensions as well
+	# * only sets applications if corresponding default is installed
 	if yes_or_no "Set default programs?"; then
-		xdg-mime default org.pwmt.zathura.desktop \
-			application/pdf applicaiton/epub application/epub+zip
-		xdg-mime default l3afpad.desktop \
-			application/octet-stream application/json text/plain text/*
-		xdg-mime default imv.desktop \
-			image/png image/jpg image/jpeg image/gif image/webp image/bmp image/*
-		xdg-mime default mpv.desktop \
-			video/mkv video/mp4 video/avi video/webm video/* audio/mp3 audio/flac audio/*
-		xdg-mime default nemo.desktop \
-			inode/directory
-		xdg-mime default firefox.desktop \
-			x-scheme-handler/https x-scheme-handler/http text/html
-
+		# zathura for pdf
+		if [ -f /usr/share/applications/org.pwmt.zathura.desktop ]; then
+			xdg-mime default org.pwmt.zathura.desktop \
+				application/pdf applicaiton/epub application/epub+zip
+		fi
+		# l3afpad for notes
+		if [ -f /usr/share/applications/l3afpad.desktop ]; then
+			xdg-mime default l3afpad.desktop \
+				application/octet-stream application/json text/plain text/*
+		fi
+		# imv for images
+		if [ -f /usr/share/applications/imv.desktop ]; then
+			xdg-mime default imv.desktop \
+				image/png image/jpg image/jpeg image/gif image/webp image/bmp image/*
+		fi
+		# mpv for videos
+		if [ -f /usr/share/applications/mpv.desktop ]; then
+			xdg-mime default mpv.desktop \
+				video/mkv video/mp4 video/avi video/webm video/* audio/mp3 audio/flac audio/*
+		fi
+		# firefox for browser links
+		if [ -f /usr/share/applications/firefox.desktop ]; then
+			xdg-mime default firefox.desktop \
+				x-scheme-handler/https x-scheme-handler/http text/html
+		fi
+		# nemo for files
+		if [ -f /usr/share/applications/nemo.desktop ]; then
+			xdg-mime default nemo.desktop \
+				inode/directory
+		fi
 		# For nemo "open in terminal" functionality
-		gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
-		gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg "-e"
+		if command -v alacritty &>/dev/null; then
+			gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
+			gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg "-e"
+		fi
 	fi
 
-	# Install themes from separate repo
-	if yes_or_no "Install themes?"; then
+	# Optionally download themes
+	if yes_or_no "Download themes?"; then
 		echo "Making directories"
 		mkdir --parents ~/.icons
 		mkdir --parents ~/.themes
@@ -218,27 +249,28 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		rsync --recursive --links ~/.rep/papirus-icon-theme/Papirus-Dark/ \
 			~/.icons/Papirus-Dark/
 
-		echo "Updating gsettings"
-		gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
-		gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Icons'
-		gsettings set org.gnome.desktop.interface cursor-theme 'Simp1e-Gruvbox-Dark'
-		gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
-		gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
-		gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
-		gsettings set org.gnome.desktop.wm.preferences button-layout ""
-	fi
+		# After downloading themes, optionally set themes
+		if yes_or_no "Set themes & fonts via gsettings?"; then
+			echo "Updating theme with gsettings"
+			gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
+			gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Icons'
+			gsettings set org.gnome.desktop.interface cursor-theme 'Simp1e-Gruvbox-Dark'
+			gsettings set org.gnome.desktop.interface font-name 'FreeSans 11'
+			gsettings set org.gnome.desktop.interface document-font-name 'FreeSans 11'
+			gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
+			gsettings set org.gnome.desktop.wm.preferences button-layout ""
 
-	# Install flatpak
-	if yes_or_no "Install flatpak?"; then
-		sudo apt install -y flatpak
-
-		# Configure flatpak to use correct theming
-		gtk_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")
-		icon_theme=$(gsettings get org.gnome.desktop.interface icon-theme | sed "s/'//g")
-		sudo flatpak override --env=GTK_THEME=$gtk_theme \
-			--env=ICON_THEME=$icon_theme \
-			--filesystem=~/.config \
-			--filesystem=~/.icons \
-			--filesystem=~/.themes
+			# Optionally set flatpak themes
+			if yes_or_no "Set themes in flatpak?"; then
+				sudo apt install -y flatpak
+				gtk_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")
+				icon_theme=$(gsettings get org.gnome.desktop.interface icon-theme | sed "s/'//g")
+				sudo flatpak override --env=GTK_THEME=$gtk_theme \
+					--env=ICON_THEME=$icon_theme \
+					--filesystem=~/.config \
+					--filesystem=~/.icons \
+					--filesystem=~/.themes
+			fi
+		fi
 	fi
 fi
