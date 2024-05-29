@@ -172,8 +172,8 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 		ln -s $(which alacritty) $LOCAL_BIN/xterm &>/dev/null
 	fi
 
-	# Install gtk desktop packages
-	if yes_or_no "Install gtk desktop applications?"; then
+	# Install GTK desktop packages
+	if yes_or_no "Install GTK desktop applications?"; then
 		sudo apt install -y \
 			nemo \
 			l3afpad \
@@ -260,17 +260,17 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			gsettings set org.gnome.desktop.interface monospace-font-name 'Hack 11'
 			gsettings set org.gnome.desktop.wm.preferences button-layout ""
 
-			# Optionally set flatpak themes
-			if yes_or_no "Set themes in flatpak?"; then
-				sudo apt install -y flatpak
-				gtk_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")
-				icon_theme=$(gsettings get org.gnome.desktop.interface icon-theme | sed "s/'//g")
-				sudo flatpak override --env=GTK_THEME=$gtk_theme \
-					--env=ICON_THEME=$icon_theme \
-					--filesystem=~/.config \
-					--filesystem=~/.icons \
-					--filesystem=~/.themes
-			fi
+		fi
+
+		# Optionally set flatpak themes
+		if command -v flatpak && yes_or_no "Set themes in flatpak?"; then
+			gtk_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")
+			icon_theme=$(gsettings get org.gnome.desktop.interface icon-theme | sed "s/'//g")
+			sudo flatpak override --env=GTK_THEME=$gtk_theme \
+				--env=ICON_THEME=$icon_theme \
+				--filesystem=~/.config \
+				--filesystem=~/.icons \
+				--filesystem=~/.themes
 		fi
 	fi
 fi
