@@ -186,15 +186,15 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 	# * doesn't work for mimetype so I give extensions as well
 	# * only sets applications if corresponding default is installed
 	if yes_or_no "Set default programs?"; then
+		# nvim for text files
+		if [ -f /usr/share/applications/nvim.desktop ]; then
+			xdg-mime default nvim.desktop \
+				application/octet-stream application/json text/plain text/*
+		fi
 		# zathura for pdf
 		if [ -f /usr/share/applications/org.pwmt.zathura.desktop ]; then
 			xdg-mime default org.pwmt.zathura.desktop \
 				application/pdf applicaiton/epub application/epub+zip
-		fi
-		# l3afpad for notes
-		if [ -f /usr/share/applications/l3afpad.desktop ]; then
-			xdg-mime default l3afpad.desktop \
-				application/octet-stream application/json text/plain text/*
 		fi
 		# imv for images
 		if [ -f /usr/share/applications/imv.desktop ]; then
