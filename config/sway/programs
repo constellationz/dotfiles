@@ -24,10 +24,8 @@ set $quickaddbookmark book --quickadd
 
 # Set floating windows
 for_window [app_id="nemo"] floating enable
-for_window [app_id="l3afpad"] floating enable
-for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="galculator"] floating enable
-for_window [app_id="gnome-network-displays"] floating enable
+for_window [app_id="pavucontrol"] floating enable
 
 # Execute certain programs once per Sway session
 # swayidle -w timeout 300 '$lock' before-sleep '$lock' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' 
