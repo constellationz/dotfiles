@@ -54,9 +54,9 @@ mkdir -p $LOCAL_BIN
 
 # Perform full system upgrade and install programs
 if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
-	sudo apt update -y
-	sudo apt upgrade -y
-	sudo apt install -y \
+	sudo apt-get update -y
+	sudo apt-get upgrade -y
+	sudo apt-get install -y \
 		neovim \
 		curl \
 		gcc \
@@ -110,7 +110,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 	fi
 
 	# Install ripgrep for telescope
-	sudo apt install -y ripgrep
+	sudo apt-get install -y ripgrep
 
 	# Run neovim with packersync command
 	$LOCAL_BIN/nvim -c "PackerSync"
@@ -118,7 +118,7 @@ fi
 
 # Install battery programs
 if [[ AUTO -eq 0 ]] && yes_or_no "Install battery programs?"; then
-	sudo apt install -y \
+	sudo apt-get install -y \
 		upower \
 		tlp
 	sudo systemctl enable tlp.service --now
@@ -127,7 +127,7 @@ fi
 # Install desktop environment
 if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 	if yes_or_no "Install packages for sway?"; then
-		sudo apt install -y \
+		sudo apt-get install -y \
 			sway \
 			swaybg \
 			swayidle \
@@ -153,7 +153,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 
 	# Install fonts
 	if yes_or_no "Install fonts?"; then
-		sudo apt install -y \
+		sudo apt-get install -y \
 			fonts-hack \
 			fonts-freefont-ttf \
 			fonts-noto \
@@ -163,7 +163,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 
 	# Install generic desktop programs
 	if yes_or_no "Install generic desktop applications?"; then
-		sudo apt install -y \
+		sudo apt-get install -y \
 			alacritty \
 			mpv \
 			imv \
@@ -174,7 +174,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 
 	# Install GTK desktop packages
 	if yes_or_no "Install GTK desktop applications?"; then
-		sudo apt install -y \
+		sudo apt-get install -y \
 			nemo \
 			l3afpad \
 			galculator \
