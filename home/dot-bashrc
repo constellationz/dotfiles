@@ -57,22 +57,6 @@ __prompt_command() {
 # Type directory names to navigate
 shopt -s autocd
 
-# Set open alias if available
-if command -v xdg-open &>/dev/null; then
-	alias o="xdg-open"
-elif command -v open &>/dev/null; then
-	alias o="open"
-fi
-
-# Set git aliases if available
-if command -v git &>/dev/null; then
-  alias gs="git status"
-  alias gc="git commit"
-  alias ga="git add"
-  alias gp="git push"
-  alias gd="git diff"
-fi
-
 # Navigate upwards 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -91,23 +75,51 @@ alias rep='cd ~/.rep'
 alias desk='cd ~/Desktop/'
 alias down='cd ~/Downloads/'
 
-# Set terminal editor if available
-# e - (e)dit
-alias e="o"
-if command -v nvim &>/dev/null; then
-	alias e="nvim"
-	alias vi="nvim"
-	alias vim="nvim"
-	export EDITOR="nvim"
-elif command -v micro &>/dev/null; then
-	alias e="micro"
+# Set open alias
+if command -v xdg-open &>/dev/null; then
+	alias o="xdg-open"
+elif command -v open &>/dev/null; then
+	alias o="open"
 fi
 
-# Wayland clipboard pipes to wl-copy
-# c - (c)opy
+# Set git aliases
+if command -v git &>/dev/null; then
+  alias gs="git status"
+  alias gc="git commit"
+  alias ga="git add"
+  alias gp="git push"
+  alias gd="git diff"
+fi
+
+# Set clipboard aliases
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
 	alias c='wl-copy'
 	alias imv='imv-wayland'
+fi
+
+# Set vim aliases
+set_vim_aliases () {
+	alias vi="$1"
+	alias vim="$1"
+}
+
+# Set editor for "e" alias and other programs
+set_editor () {
+	alias e="$1"
+	export EDITOR="$1"
+}
+
+# Set terminal editor if available
+alias e="o"
+if command -v nvim &>/dev/null; then
+	set_editor nvim
+	set_vim_aliases nvim
+elif command -v helix &>/dev/null; then
+	set_editor helix 
+elif command -v hx &>/dev/null; then
+	set_editor hx 
+elif command -v micro &>/dev/null; then
+	set_editor micro
 fi
 
 # Use rust environment
