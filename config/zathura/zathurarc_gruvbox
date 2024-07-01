@@ -1,0 +1,52 @@
+map <BackSpace> scroll full-up
+map d scroll half-down
+map p toggle_page_mode
+map u scroll half-up
+set continuous-hist-save true
+set dbus-raise-window false
+set dbus-service true
+set filemonitor "signal"
+set font "Hack 10"
+set page-cache-size 64
+set page-padding 2
+set recolor true
+set recolor-keephue true
+set recolor-reverse-video false
+set render-loading true
+set sandbox none
+set scroll-full-overlap 0.1
+set scroll-page-aware true
+set scroll-step 60
+set selection-clipboard "clipboard"
+set statusbar-home-tilde true
+set synctex true
+set synctex-editor-command "nvim +%{line} %{input}"
+set window-title-home-tilde true
+set completion-bg               "#504945"
+set completion-fg               "#ebdbb2"
+set completion-group-bg         "#3c3836"
+set completion-group-fg         "#928374"
+set completion-highlight-bg     "#83a598"
+set completion-highlight-fg     "#504945"
+set default-bg                  "#282828"
+set default-fg                  "#ebdbb2"
+set highlight-active-color      "#fe8019"
+set highlight-color             "#fabd2f"
+set index-active-bg             "#83a598"
+set index-active-fg             "#504945"
+set index-bg                    "#504945"
+set index-fg                    "#ebdbb2"
+set inputbar-bg                 "#282828"
+set inputbar-fg                 "#ebdbb2"
+set notification-bg             "#282828"
+set notification-error-bg       "#282828"
+set notification-error-fg       "#fb4934"
+set notification-fg             "#b8bb26"
+set notification-warning-bg     "#282828"
+set notification-warning-fg     "#fabd2f"
+set recolor-darkcolor           "#ebdbb2"
+set recolor-lightcolor          "#282828"
+set render-loading-bg           "#282828"
+set render-loading-fg           "#ebdbb2"
+set statusbar-bg                "#504945"
+set statusbar-fg                "#ebdbb2"
