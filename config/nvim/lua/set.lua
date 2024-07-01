@@ -3,6 +3,8 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
+vim.o.background = "light"
+vim.o.termguicolors = true
 
 -- Use smart indent
 vim.o.smartindent = true

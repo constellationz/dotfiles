@@ -1,7 +1,8 @@
 -- Get default color
 -- Can program to change based on environment
 function GetDefaultColor()
-	return "gruvbox-material"
+	return "breezy"
+	-- return "gruvbox-material"
 end
 
 -- Pick a colorscheme
