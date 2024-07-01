@@ -3,8 +3,6 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
-vim.o.background = "light"
-vim.o.termguicolors = true
 
 -- Use smart indent
 vim.o.smartindent = true
@@ -27,7 +25,6 @@ vim.o.incsearch = true
 vim.o.listchars = "tab:>\\ ,trail:-,nbsp:+"
 
 -- Use terminal colors
-vim.o.termguicolors = true
 
 -- Use low update time
 vim.o.updatetime = 50
@@ -43,6 +40,13 @@ vim.o.clipboard = 'unnamedplus'
 
 -- Neoformat
 vim.g.neoformat_try_node_exe = 1
+
+-- Use no color theme
+do
+  vim.cmd "hi Statusline ctermfg=15 ctermbg=NONE cterm=NONE"
+  vim.cmd "hi StatuslineNC ctermfg=15 ctermbg=NONE cterm=NONE"
+  vim.o.termguicolors = false
+end
 
 -- Neovide settings
 if vim.g.neovide then

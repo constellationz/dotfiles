@@ -14,10 +14,6 @@ return packer.startup(function(use)
 	-- Packer
 	use("wbthomason/packer.nvim")
 
-	-- Color schemes
-	use("sainnhe/gruvbox-material")
-	use("fneu/breezy")
-
 	-- Prettier
 	use("sbdchd/neoformat")
 
