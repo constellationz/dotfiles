@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Add a program to local bin
 
-BIN_DIR="$HOME/.local/bin"
+bin_dir="$HOME/.local/bin"
 
 if [[ "$1" == "-h" ]] || [[ "$@" =~ .*"--help".* ]]; then
   echo "Usage: $(basename $0) [--help | -h] <file>"
@@ -16,7 +16,18 @@ if [ ! -f $FILE ]; then
   echo "error: file $FILE not found"
   exit 1
 else
-  mkdir -p "$BIN_DIR"
-  mv "$@" "$BIN_DIR"
-  echo "Moved $@ to $BIN_DIR"
+  mkdir -p "$bin_dir"
+  for file in $@
+  do
+    # Set executable bit
+    if [ ! -x $file ];
+    then
+      chmod +x $file
+      echo "Set executable bit of $file"
+    fi
+
+    # Move file
+    mv "$file" "$bin_dir"
+    echo "Moved $file to $bin_dir"
+  done
 fi
