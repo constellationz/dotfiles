@@ -72,6 +72,7 @@ alias oh='o .'
 alias dotfiles='cd $DOTS' 
 alias dots='dotfiles' 
 alias rep='cd ~/.rep'
+alias bin='cd ~/.local/bin'
 alias desk='cd ~/Desktop/'
 alias down='cd ~/Downloads/'
 
