@@ -17,11 +17,9 @@ if [ ! -f $FILE ]; then
   exit 1
 else
   mkdir -p "$BIN_DIR"
-  for file in $@
-  do
+  for file in $@; do
     # Set executable bit
-    if [ ! -x $file ];
-    then
+    if [ ! -x $file ]; then
       chmod +x $file
       echo "Set executable bit of $file"
     fi
