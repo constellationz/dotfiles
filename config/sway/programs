@@ -11,7 +11,7 @@ set $calculator galculator
 set $browser xdg-open "https://"
 set $volume vol
 set $launcher run
-set $switcher switch 
+set $switcher swayswitch 
 set $emoji emoji -t
 set $paint paint
 set $lock swaylock --daemonize
