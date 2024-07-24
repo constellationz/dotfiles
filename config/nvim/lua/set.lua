@@ -25,7 +25,7 @@ vim.o.incsearch = true
 vim.o.listchars = "tab:>\\ ,trail:-,nbsp:+"
 
 -- Use terminal colors
-vim.o.termguicolors = true
+vim.o.termguicolors = false
 
 -- Use low update time
 vim.o.updatetime = 50
