@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # Open configured bemenu
 
-FG="#ebdbb2"
-BG="#282828"
-BG1="#3c3836"
-BG2="#7c6f64"
+FG="#DEDDDA"
+BG="#1D1D1D"
+BG1="#303030"
+BG2="#242424"
 
 # Don't run duplicates
 if pidof bemenu; then
   exit 1
 fi
 
-bemenu --fn Hack 10 \
+bemenu --fn Fira\ Mono 10 \
   --width-factor 0.3 \
   --no-overlap \
   --monitor 1 \
