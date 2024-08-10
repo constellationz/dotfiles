@@ -2,17 +2,17 @@
 #
 # Gruvbox color theme
 
-# Cursor theme
-seat seat0 xcursor_theme Simp1e-Gruvbox-Dark 24
+## Set default cursor
+seat seat0 xcursor_theme Adwaita 24
 
 # Window colors
 # -------------------------------------------------------------
 # class                 border  bg      text    indicat border
 # -------------------------------------------------------------
-client.focused          #504945 #504945 #EBDBB2 #504945 #504945
-client.focused_inactive #3c3836 #3c3836 #D5C4A1 #3c3836 #3c3836
-client.unfocused        #303030 #303030 #D5C4A1 #303030 #303030
-client.urgent           #4F4343 #4F4343 #EAB2B2 #4F4343 #4F4343
+client.focused          #1D1D1D #1D1D1D #FFFFFF #1D1D1D #1D1D1D
+client.focused_inactive #303030 #303030 #DEDDDA #303030 #303030
+client.unfocused        #282828 #282828 #9A9996 #282828 #282828
+client.urgent           #4F4343 #4F4343 #DEDDDA #4F4343 #4F4343
 client.placeholder      #303030 #303030 #303030 #303030 #303030
 client.background       #303030
 # -------------------------------------------------------------

@@ -19,7 +19,7 @@ input type:touchpad {
 
 ## Pointers
 input type:pointer {
-    pointer_accel -1.0
+    pointer_accel -0.5
 }
 
 ## Keyboards

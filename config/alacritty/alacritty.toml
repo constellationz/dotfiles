@@ -1,33 +1,29 @@
 [colors.primary]
-background = '#F7F7F7'
-foreground = '#434343'
-
-[colors.cursor]
-text = '#F7F7F7'
-cursor = '#434343'
+background = '#1e1e1e'
+foreground = '#ffffff'
 
 [colors.normal]
-black = '#000000'
-red = '#AA3731'
-green = '#448C27'
-yellow = '#CB9000'
-blue = '#325CC0'
-magenta = '#7A3E9D'
-cyan = '#0083B2'
-white = '#BBBBBB'
+black      = '#171421'
+red        = '#c01c28'
+green      = '#26a269'
+yellow     = '#a2734c'
+blue       = '#12488b'
+magenta    = '#a347ba'
+cyan       = '#2aa1b3'
+white      = '#d0cfcc'
 
 [colors.bright]
-black = '#777777'
-red = '#F05050'
-green = '#60CB00'
-yellow = '#FFBC5D'
-blue = '#007ACC'
-magenta = '#E64CE6'
-cyan = '#00AACB'
-white = '#FFFFFF'
+black      = '#5e5c64'
+red        = '#f66151'
+green      = '#33d17a'
+yellow     = '#e9ad0c'
+blue       = '#2a7bde'
+magenta    = '#c061cb'
+cyan       = '#33c7de'
+white      = '#ffffff'
 
 [window]
-decorations_theme_variant = "Light"
+decorations_theme_variant = "Dark"
 
 [font]
 size = 10.0

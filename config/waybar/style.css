@@ -4,16 +4,16 @@
 
 /* Set font, color, and family */
 * {
-  color: #ebdbb2;
+  color: #deddda;
   font-size: 14px;
-  font-family: 'Hack';
+  font-family: 'Fira Mono Medium';
   border-radius: 0px;
 }
 
 /* Floating bar */
 window#waybar {
-  background: #282828;
-  border-radius: 3px;
+  background: #000000;
+  border-radius: 2px;
 }
 
 /* Activated style */
@@ -29,8 +29,8 @@ tooltip,
   color: #f8fb26;
   background: #98971a;
   padding: 0px 4px;
-  border: 3px solid #b8bb26;
-  border-radius: 6px;
+  border: 2px solid #b8bb26;
+  border-radius: 4px;
 }
 
 /* Gray border style */
@@ -44,7 +44,7 @@ tooltip {
  * modules-right and modules-center
  */
 window > box {
-  background: #282828;
+  background: #000000;
   margin: 2px 2px;
 }
 
@@ -55,12 +55,12 @@ window > box {
 
 /* Workspace buttons */
 #workspaces button {
-  padding: 0px 0px;
+  padding: 0px 8px;
   border-radius: 2px;
 }
 #workspaces button.focused {
-  background: #504945;
-  border-bottom: 2px solid #83a598;
+  background: #303030;
+  border-bottom: 2px solid #99c1f1;
 }
 #workspaces button:hover {
   background: #32302f;
@@ -90,5 +90,5 @@ window > box {
 #memory,
 #battery,
 #disk {
-  color: #83a598;
+  color: #99c1f1;
 }

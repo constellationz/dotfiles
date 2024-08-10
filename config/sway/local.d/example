@@ -1,17 +1,19 @@
 # Local configuration
 
 ## Output configuration
-# include ../outputs/home
-# include ../outputs/desktop
-# include ../outputs/laptop
+# include ../outputs/hd
+# include ../outputs/4k
+include ../outputs/1440p
+# include ../outputs/hd_dual
 
 ## Wallpaper from program
-# output $primary bg ~/.config/sway/wallpapers/gemini.png fill
-# exec pswallpaper $secondary ~/.config/sway/wallpapers/gemini.png
+# output $primary bg ~/.config/sway/wallpapers/l.png fill
+# exec pswallpaper $secondary ~/.config/sway/wallpapers/l.png
 
 ## Wallpaper from pictures
-# output $primary bg ~/.config/sway/wallpapers/gemini.png fill
-# output * bg ~/.config/sway/wallpapers/gemini.png fill
+# output $primary bg ~/.config/sway/wallpapers/l.png fill
+# output * bg ~/.config/sway/wallpapers/l.png fill
 
 ## Set default wallpaper
-# output * bg ~/.config/sway/wallpapers/gemini.png fill
+output * bg ~/.config/sway/wallpapers/l.png fill
+# output * bg ~/.config/sway/wallpapers/d.png fill

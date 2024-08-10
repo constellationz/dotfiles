@@ -10,6 +10,7 @@ set $left h
 set $down j
 set $up k
 set $right l
+set $resize 50px
 
 ## Set floating drag key
 floating_modifier $mod
@@ -194,15 +195,15 @@ mode "resize" {
     # Down "unwinds" the window
     bindsym {
         # -- Default keys --
-        $left resize shrink width 10px
-        $down resize grow height 10px
-        $up resize shrink height 10px
-        $right resize grow width 10px
+        $left resize shrink width $resize
+        $down resize grow height $resize
+        $up resize shrink height $resize
+        $right resize grow width $resize
         # -- Arrow keys --
-        Left resize shrink width 10px
-        Down resize grow height 10px
-        Up resize shrink height 10px
-        Right resize grow width 10px
+        Left resize shrink width $resize
+        Down resize grow height $resize
+        Up resize shrink height $resize
+        Right resize grow width $resize
     }
 
     ##! Exit resize mode

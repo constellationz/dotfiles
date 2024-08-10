@@ -3,31 +3,24 @@
 # References other configuration files
 # See man 5 sway for configuration information
 
-## Set default cursor
-seat seat0 xcursor_theme Adwaita 24
-
 ## Disable XWayland
 # xwayland disable
 
 ## Gaps & Borders
 gaps inner 2
-gaps outer 0
-gaps bottom -2
+gaps outer 2
 
 ## Set title font
-font pango:Hack 10
+font pango:Fira Mono Medium 10
 
 ## Set title format for windows with app id
 for_window [app_id=".+"] title_format "%title (%app_id)"
-
-## Set borders for all windows
-for_window [app_id=".*"] border normal
 
 ## Include default configuration
 include programs
 include binds
 include inputs
-include themes/gruvbox
+include themes/adwaita
 include local.d/*
 
 ## Include system configuration
