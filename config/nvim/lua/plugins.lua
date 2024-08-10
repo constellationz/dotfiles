@@ -14,6 +14,10 @@ return packer.startup(function(use)
 	-- Packer
 	use("wbthomason/packer.nvim")
 
+	-- Themes
+	use("Mofiqul/adwaita.nvim")
+	pcall(vim.cmd, "colorscheme adwaita")
+
 	-- Prettier
 	use("sbdchd/neoformat")
 
