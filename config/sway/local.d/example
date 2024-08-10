@@ -3,7 +3,7 @@
 ## Output configuration
 # include ../outputs/hd
 # include ../outputs/4k
-include ../outputs/1440p
+# include ../outputs/1440p
 # include ../outputs/hd_dual
 
 ## Wallpaper from program
@@ -15,5 +15,5 @@ include ../outputs/1440p
 # output * bg ~/.config/sway/wallpapers/l.png fill
 
 ## Set default wallpaper
-output * bg ~/.config/sway/wallpapers/l.png fill
+# output * bg ~/.config/sway/wallpapers/l.png fill
 # output * bg ~/.config/sway/wallpapers/d.png fill
