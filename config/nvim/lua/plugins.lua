@@ -16,7 +16,9 @@ return packer.startup(function(use)
 
 	-- Themes
 	use("Mofiqul/adwaita.nvim")
-	pcall(vim.cmd, "colorscheme adwaita")
+	use("sainnhe/gruvbox-material")
+	pcall(vim.cmd, "colorscheme gruvbox-material")
+	-- pcall(vim.cmd, "colorscheme adwaita")
 
 	-- Prettier
 	use("sbdchd/neoformat")
