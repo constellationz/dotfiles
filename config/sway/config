@@ -9,6 +9,7 @@
 ## Gaps & Borders
 gaps inner 2
 gaps outer 2
+gaps bottom -2
 
 ## Set title font
 font pango:Hack 10
