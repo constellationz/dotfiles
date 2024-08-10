@@ -87,7 +87,8 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		oathtool \
 		openresolv \
 		wireguard-tools \
-		xdg-user-dirs
+		xdg-user-dirs \
+		pkg-config \
 fi
 
 # Copy configs now
