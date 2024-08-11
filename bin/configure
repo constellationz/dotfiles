@@ -88,7 +88,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		openresolv \
 		wireguard-tools \
 		xdg-user-dirs \
-		pkg-config \
+		pkg-config
 fi
 
 # Copy configs now
