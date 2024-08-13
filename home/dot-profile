@@ -35,3 +35,8 @@ fi
 if [ -f "$HOME/.cargo/env" ] ; then
     . "$HOME/.cargo/env"
 fi
+
+# Load aftman
+if [ -f "$HOME/.aftman/env" ] ; then
+    . "$HOME/.aftman/env"
+fi

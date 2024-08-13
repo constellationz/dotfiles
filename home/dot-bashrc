@@ -133,6 +133,11 @@ if [ -f "/home/tyler/.ghcup/env" ]; then
 	source "/home/tyler/.ghcup/env"
 fi
 
+# Aftman environment
+if [ -f "$HOME/.aftman/env" ]; then
+	source "$HOME/.aftman/env"
+fi
+
 # Zoxide navigation
 if command -v zoxide &>/dev/null; then
 	eval "$(zoxide init bash)"

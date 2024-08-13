@@ -59,6 +59,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt-get install -y \
 		neovim \
 		curl \
+		wget \
 		gcc \
 		bc \
 		lua5.4 \
