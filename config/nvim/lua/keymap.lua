@@ -14,17 +14,14 @@ end
 
 -- Navigation
 do
-	-- Unbind capital q
-	vim.keymap.set("n", "Q", "<nop>")
-
 	-- Copy the current buffer
 	vim.keymap.set("n", "<C-c>", "<cmd>%y<CR>")
 
 	-- Save current buffer
 	vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 
-	-- Close/quit view
-	vim.keymap.set("n", "<C-q>", "<cmd>close<CR>")
+	-- Unbind capital q
+	vim.keymap.set("n", "Q", "<cmd>close<CR>")
 
 	-- Open new tab
 	vim.keymap.set("n", "<C-t>", "<cmd>tabedit<CR>")
