@@ -2,7 +2,7 @@
 # Link dotfiles to the system
 
 # Move packages
-STOWDIR="$(dirname $0)/.."
+STOWDIR="$HOME/.rep/dotfiles"
 
 # Make sure stow is installed
 if ! command -v stow &>/dev/null; then

@@ -5,7 +5,7 @@
     "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
     "modules-center": ["clock"],
     "modules-right": ["idle_inhibitor", "memory", "cpu", "battery", "network", "pulseaudio"],
-    "output": "LVDS-1",
+    "output": "eDP-1",
     "margin": 2,
     "sway/workspaces": {
         "disable-scroll": true,
