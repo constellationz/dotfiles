@@ -1,10 +1,9 @@
 # Local configuration
 
 ## Output configuration
-# include ../outputs/hd
-# include ../outputs/4k
-# include ../outputs/1440p
-# include ../outputs/hd_dual
+# include ../outputs/home
+# include ../outputs/desktop
+# include ../outputs/laptop
 
 ## Wallpaper from program
 # output $primary bg ~/.config/sway/wallpapers/gemini.png fill
@@ -15,5 +14,4 @@
 # output * bg ~/.config/sway/wallpapers/gemini.png fill
 
 ## Set default wallpaper
-# output * bg ~/.config/sway/wallpapers/vnc_l.png fill
-# output * bg ~/.config/sway/wallpapers/vnc_d.png fill
+# output * bg ~/.config/sway/wallpapers/gemini.png fill

@@ -1,0 +1,9 @@
+# Sway configuration
+#
+# Laptop output configuration
+
+## Output scale
+output * scale 1.2
+
+## Primary output
+set $primary eDP-1

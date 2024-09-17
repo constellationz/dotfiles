@@ -1,8 +1,0 @@
-# Sway configuration
-# Output configuration
-
-## Output scale
-output * scale 2 
-
-## Primary output
-set $primary DP-1

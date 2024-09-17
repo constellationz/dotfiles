@@ -1,18 +1,18 @@
 # Sway configuration
-# Output configuration
+#
+# Desktop output configuration
 
 ## Output scale
 output * scale 1.0
 
 ## Primary output
 set $primary DP-1
-output $primary pos 0 0 
 output $primary mode 1920x1080@60Hz
 
 ## Secondary output
 set $secondary DP-2
 output $secondary pos 1920 0
-output $secondary mode 1920x1080@60Hz
+output $primary mode 1920x1080@60Hz
 
 ## Configure workspaces
 workspace 1 output $primary
