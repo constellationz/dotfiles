@@ -146,7 +146,6 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Configure desktop?"; then
 			gammastep \
 			alsa-utils \
 			pipewire-audio \
-			network-manager \
 			wl-clipboard \
 			libnotify-bin \
 			xdg-utils \
