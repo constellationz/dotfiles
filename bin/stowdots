@@ -10,6 +10,11 @@ if ! command -v stow &>/dev/null; then
   exit 1
 fi
 
+# Remove certain files that cause issues
+rm $HOME/.bashrc
+rm $HOME/.profile
+rm $HOME/.hushlogin
+
 # Config packages and their targets
 declare -A pkgs
 pkgs["home"]="$HOME"
