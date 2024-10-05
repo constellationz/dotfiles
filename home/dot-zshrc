@@ -27,6 +27,7 @@ alias rm='rm -i'
 alias oh='o .'
 alias dotfiles='cd $DOTS' 
 alias dots='dotfiles' 
+alias desk='cd $HOME/Desktop'
 alias su='su -l -c "cd $(pwd) && bash"'
 
 # On MacOS, c is pbcopy
