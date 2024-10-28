@@ -8,8 +8,10 @@ fi
 
 # Add paths
 PATH=$PATH:/usr/sbin
-PATH=$PATH:~/.bin
-PATH=$PATH:$DOTS/bin
+PATH=$PATH:$HOME/.bin
+PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.ghcup/bin
+PATH=$PATH:$HOME/.nix-profile/bin
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -30,8 +32,8 @@ BYELLOW="\[\e[1;33m\]"
 SYMBOL="$"
 
 # Choose name color for different operating systems
-USERCOLOR="$BGREEN"
-DIRCOLOR="$GREEN"
+USERCOLOR=""
+DIRCOLOR=""
 if [ "$EUID" = "0" ]; then
 	USERCOLOR=""
 	DIRCOLOR=""
