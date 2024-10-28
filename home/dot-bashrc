@@ -45,7 +45,7 @@ PROMPT_COMMAND=__prompt_command
 __prompt_command() {
 	local EXIT="$?"
 	if [ $EXIT != 0 ]; then
-		PS1="${BRED}[$EXIT] "
+		PS1="[$EXIT] "
 	else
 		PS1=""
 	fi
@@ -62,6 +62,7 @@ alias oh='o .'
 alias dotfiles='cd $DOTS' 
 alias dots='dotfiles' 
 alias su='su -l -c "cd $(pwd) && bash"'
+alias desk='cd $HOME/Desktop'
 
 # Wayland clipboard pipes to wl-copy
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
