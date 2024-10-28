@@ -27,6 +27,9 @@ vim.o.listchars = "tab:>\\ ,trail:-,nbsp:+"
 -- Use terminal colors
 vim.o.termguicolors = false
 
+-- Remove status line
+vim.o.laststatus = 0
+
 -- Use low update time
 vim.o.updatetime = 50
 
