@@ -19,8 +19,14 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # If not running interactively, don't set aliases
 [[ $- != *i* ]] && return
 
-# Add aliases
-alias ls='ls --color=auto'
+# ls alternative
+if [ $(command -v eza ) ]; then
+	alias ls='eza --color=never'
+else
+	alias ls='ls --color=never'
+fi
+
+# Generic aliases
 alias la='ls -a'
 alias ll='ls -l'
 alias pls='!!'

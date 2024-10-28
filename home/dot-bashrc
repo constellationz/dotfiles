@@ -52,8 +52,14 @@ __prompt_command() {
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
-# Add aliases
-alias ls='ls --color=auto'
+# ls alternative
+if [ $(command -v eza ) ]; then
+	alias ls='eza --color=never'
+else
+	alias ls='ls --color=never'
+fi
+
+# Generic aliases
 alias la='ls -a'
 alias ll='ls -l'
 alias pls='!!'
