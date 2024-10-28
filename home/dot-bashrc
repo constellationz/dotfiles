@@ -8,8 +8,8 @@ fi
 
 # Add paths
 PATH=$PATH:/usr/sbin
-PATH=$PATH:~/.local/bin
-PATH=$PATH:~/.cargo/bin
+PATH=$PATH:~/.bin
+PATH=$PATH:$DOTS/bin
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -32,10 +32,6 @@ SYMBOL="$"
 # Choose name color for different operating systems
 USERCOLOR="$BGREEN"
 DIRCOLOR="$GREEN"
-if [ "$OSTYPE" = "darwin22" ]; then
-	USERCOLOR="$BBLUE"
-	DIRCOLOR="$BLUE"
-fi
 if [ "$EUID" = "0" ]; then
 	USERCOLOR=""
 	DIRCOLOR=""
@@ -54,15 +50,7 @@ __prompt_command() {
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
-# Type directory names to navigate
-shopt -s autocd
-
-# Navigate upwards 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
-# Add static aliases
+# Add aliases
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
@@ -71,78 +59,29 @@ alias rm='rm -i'
 alias oh='o .'
 alias dotfiles='cd $DOTS' 
 alias dots='dotfiles' 
-alias rep='cd ~/.rep'
-alias bin='cd ~/.local/bin'
-alias desk='cd ~/Desktop/'
-alias down='cd ~/Downloads/'
+alias su='su -l -c "cd $(pwd) && bash"'
 
-# Set open alias
-if command -v xdg-open &>/dev/null; then
-	alias o="xdg-open"
-elif command -v open &>/dev/null; then
-	alias o="open"
-fi
-
-# Set git aliases
-if command -v git &>/dev/null; then
-  alias gs="git status"
-  alias gc="git commit"
-  alias ga="git add"
-  alias gp="git push"
-  alias gd="git diff"
-fi
-
-# Set clipboard aliases
+# Wayland clipboard pipes to wl-copy
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
 	alias c='wl-copy'
-	alias imv='imv-wayland'
 fi
 
-# Set vim aliases
-set_vim_aliases () {
-	alias vi="$1"
-	alias vim="$1"
-}
-
-# Set editor for "e" alias and other programs
-set_editor () {
-	alias e="$1"
-	export EDITOR="$1"
-}
-
-# Set terminal editor if available
-alias e="o"
-if command -v nvim &>/dev/null; then
-	set_editor nvim
-	set_vim_aliases nvim
-elif command -v helix &>/dev/null; then
-	set_editor helix 
-elif command -v hx &>/dev/null; then
-	set_editor hx 
-elif command -v micro &>/dev/null; then
-	set_editor micro
+# On linux, o is xdg-open
+if [ $(command -v xdg-open) ]; then
+	alias o='xdg-open'
 fi
 
-# Use rust environment
-if [ -f "$HOME/.cargo/env" ]; then
-	source "$HOME/.cargo/env"
+# On MacOS, o is open
+if [ $(command -v open) ]; then
+	alias o='open'
 fi
 
-# Haskell environment
-if [ -f "/home/tyler/.ghcup/env" ]; then 
-	source "/home/tyler/.ghcup/env"
+# Set PATH, MANPATH, etc., for Homebrew.
+if [ -x /opt/homebrew/bin/brew ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Aftman environment
-if [ -f "$HOME/.aftman/env" ]; then
-	source "$HOME/.aftman/env"
+# Use cargo env
+if [ -x $HOME/.cargo/env ]; then
+	. "$HOME/.cargo/env"
 fi
-
-# Zoxide navigation
-if command -v zoxide &>/dev/null; then
-	eval "$(zoxide init bash)"
-fi
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$BUN_INSTALL/bin:$PATH
