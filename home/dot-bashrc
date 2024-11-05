@@ -43,13 +43,7 @@ fi
 # Custom prompt
 PROMPT_COMMAND=__prompt_command
 __prompt_command() {
-	local EXIT="$?"
-	if [ $EXIT != 0 ]; then
-		PS1="[$EXIT] "
-	else
-		PS1=""
-	fi
-	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
+	PS1="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
 # ls alternative
