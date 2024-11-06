@@ -58,6 +58,7 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 	sudo apt-get upgrade -y
 	sudo apt-get install -y \
 		vim \
+		zsh \
 		curl \
 		wget \
 		gcc \
