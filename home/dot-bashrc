@@ -32,8 +32,8 @@ BYELLOW="\[\e[1;33m\]"
 SYMBOL="$"
 
 # Choose name color for different operating systems
-USERCOLOR=""
-DIRCOLOR=""
+USERCOLOR="$BGREEN"
+DIRCOLOR="$GREEN"
 if [ "$EUID" = "0" ]; then
 	USERCOLOR=""
 	DIRCOLOR=""
