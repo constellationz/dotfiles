@@ -29,15 +29,17 @@ BGREEN="\[\e[1;32m\]"
 BBLUE="\[\e[1;34m\]"
 BRED="\[\e[1;31m\]"
 BYELLOW="\[\e[1;33m\]"
-SYMBOL="$"
 
-# Choose name color for different operating systems
+# Choose colors
+SYMBOL="$"
 USERCOLOR="$BGREEN"
 DIRCOLOR="$GREEN"
+
+# Root has no colors
 if [ "$EUID" = "0" ]; then
+	SYMBOL="#"
 	USERCOLOR=""
 	DIRCOLOR=""
-	SYMBOL="#"
 fi
 
 # Custom prompt
@@ -45,7 +47,7 @@ PROMPT_COMMAND=__prompt_command
 __prompt_command() {
 	local EXIT="$?"
 	if [ $EXIT != 0 ]; then
-		PS1="[$EXIT] "
+		PS1="$BRED[$EXIT] "
 	else
 		PS1=""
 	fi
@@ -54,9 +56,9 @@ __prompt_command() {
 
 # ls alternative
 if [ $(command -v eza ) ]; then
-	alias ls='eza --color=never'
+	alias ls='eza'
 else
-	alias ls='ls --color=never'
+	alias ls='ls'
 fi
 
 # Generic aliases
