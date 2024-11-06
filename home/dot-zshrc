@@ -6,6 +6,9 @@ if [[ -x "$HOME/Repositories/dotfiles" ]]; then
 	DOTS="$HOME/Repositories/dotfiles"
 fi
 
+# Set PS1
+PS1="%n@%m %1~ %# "
+
 # Add paths
 PATH=$PATH:/usr/sbin
 PATH=$PATH:$HOME/.bin
