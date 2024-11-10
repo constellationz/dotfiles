@@ -56,9 +56,9 @@ __prompt_command() {
 
 # ls alternative
 if [ $(command -v eza ) ]; then
-	alias ls='eza'
+	alias ls='eza --color=auto'
 else
-	alias ls='ls'
+	alias ls='ls --color=auto'
 fi
 
 # Generic aliases
