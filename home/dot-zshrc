@@ -1,9 +1,9 @@
 # Dotfiles can either be in ~/.rep or ~/Repositories
 if [[ -x "$HOME/.rep/dotfiles" ]]; then 
-	DOTS="$HOME/.rep/dotfiles"
+	DOTFILES="$HOME/.rep/dotfiles"
 fi
 if [[ -x "$HOME/Repositories/dotfiles" ]]; then
-	DOTS="$HOME/Repositories/dotfiles"
+	DOTFILES="$HOME/Repositories/dotfiles"
 fi
 
 # Set PS1
@@ -23,16 +23,11 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # If not running interactively, don't set aliases
 [[ $- != *i* ]] && return
 
-# ls alternative
-if [ $(command -v eza ) ]; then
-	alias ls='eza --color=never'
-else
-	alias ls='ls --color=never'
-fi
-
 # Generic aliases
 alias desk='cd $HOME/Desktop'
-alias dots='dotfiles' 
+alias dots='cd $DOTFILES' 
+alias eza='eza --color=never'
+alias ls='ls --color=never'
 alias oh='o .'
 alias pls='!!'
 alias rm='rm -i'

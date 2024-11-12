@@ -1,9 +1,9 @@
 # Dotfiles can either be in ~/.rep or ~/Repositories
 if [[ -x "$HOME/.rep/dotfiles" ]]; then 
-	DOTS="$HOME/.rep/dotfiles"
+	DOTFILES="$HOME/.rep/dotfiles"
 fi
 if [[ -x "$HOME/Repositories/dotfiles" ]]; then
-	DOTS="$HOME/Repositories/dotfiles"
+	DOTFILES="$HOME/Repositories/dotfiles"
 fi
 
 # Add paths
@@ -55,20 +55,11 @@ __prompt_command() {
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
-# Update eza colors
-eval $(dircolors)
-export EXA_COLORS="reset:da=37:fi=97"
-
-# ls alternative
-if [ $(command -v eza ) ]; then
-	alias ls='eza --color=auto'
-else
-	alias ls='ls --color=auto'
-fi
-
 # Generic aliases
 alias desk='cd $HOME/Desktop'
-alias dots='dotfiles' 
+alias dots='cd $DOTFILES' 
+alias eza='eza --color=auto'
+alias ls='ls --color=auto'
 alias oh='o .'
 alias pls='!!'
 alias rm='rm -i'
