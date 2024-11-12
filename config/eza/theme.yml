@@ -1,0 +1,108 @@
+filekinds:
+  normal: { foreground: white }
+  directory: { foreground: white }
+  symlink: { foreground: white }
+  pipe: { foreground: white }
+  block_device: { foreground: white }
+  char_device: { foreground: white }
+  socket: { foreground: white }
+  special: { foreground: white }
+  executable: { foreground: white }
+  mount_point: { foreground: white }
+
+perms:
+  user_read: { foreground: white }
+  user_write: { foreground: white }
+  user_executable_file: { foreground: white }
+  user_execute_other: { foreground: white }
+  group_read: { foreground: white }
+  group_write: { foreground: white }
+  group_execute: { foreground: white }
+  other_read: { foreground: white }
+  other_write: { foreground: white }
+  other_execute: { foreground: white }
+  special_user_file: { foreground: white }
+  special_other: { foreground: white }
+  attribute: { foreground: white }
+
+size:
+  major: { foreground: white }
+  minor: { foreground: white }
+  number_byte: { foreground: white }
+  number_kilo: { foreground: white }
+  number_mega: { foreground: white }
+  number_giga: { foreground: white }
+  number_huge: { foreground: white }
+  unit_byte: { foreground: white }
+  unit_kilo: { foreground: white }
+  unit_mega: { foreground: white }
+  unit_giga: { foreground: white }
+  unit_huge: { foreground: white }
+
+users:
+  user_you: { foreground: white }
+  user_root: { foreground: white }
+  user_other: { foreground: white }
+  group_yours: { foreground: white }
+  group_other: { foreground: white }
+  group_root: { foreground: white }
+
+links:
+  normal: { foreground: white }
+  multi_link_file: { foreground: white }
+
+git:
+  new: { foreground: white }
+  modified: { foreground: white }
+  deleted: { foreground: white }
+  renamed: { foreground: white }
+  ignored: { foreground: white }
+  conflicted: { foreground: white }
+
+git_repo:
+  branch_main: { foreground: white }
+  branch_other: { foreground: white }
+  git_clean: { foreground: white }
+  git_dirty: { foreground: white }
+
+security_context:
+  none:
+  selinux:
+    colon: { foreground: white }
+    user: { foreground: white }
+    role: { foreground: white }
+    typ: { foreground: white }
+    range: { foreground: white }
+
+file_type:
+  image: { foreground: white }
+  video: { foreground: white }
+  music: { foreground: white }
+  crypto: { foreground: white }
+  document: { foreground: white }
+  compressed: { foreground: white }
+  temp: { foreground: white }
+  compiled: { foreground: white }
+  build: { foreground: white }
+  source: { foreground: white }
+
+punctuation:
+
+date:
+
+inode:
+
+blocks:
+
+header:
+
+octal:
+
+flags:
+
+control_char:
+
+broken_symlink:
+
+broken_path_overlay:
+
