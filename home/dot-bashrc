@@ -9,8 +9,9 @@ fi
 # Add paths
 PATH=$PATH:/usr/sbin
 PATH=$PATH:$HOME/.bin
-PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.cargo/bin
 PATH=$PATH:$HOME/.ghcup/bin
+PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.nix-profile/bin
 
 # Don't show warning on MacOS
@@ -53,6 +54,10 @@ __prompt_command() {
 	fi
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
+
+# Set dircolors
+eval $(dircolors)
+export EZA_COLORS=$LS_COLORS
 
 # ls alternative
 if [ $(command -v eza ) ]; then

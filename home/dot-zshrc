@@ -12,8 +12,9 @@ PS1="%n@%m %1~ %# "
 # Add paths
 PATH=$PATH:/usr/sbin
 PATH=$PATH:$HOME/.bin
-PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.cargo/bin
 PATH=$PATH:$HOME/.ghcup/bin
+PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.nix-profile/bin
 
 # Don't show warning on MacOS
