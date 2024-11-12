@@ -55,9 +55,9 @@ __prompt_command() {
 	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
 }
 
-# Set dircolors
+# Update eza colors
 eval $(dircolors)
-export EZA_COLORS=$LS_COLORS
+export EXA_COLORS="reset:da=37:fi=97"
 
 # ls alternative
 if [ $(command -v eza ) ]; then
