@@ -123,7 +123,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 fi
 
 # Install battery programs
-if [[ AUTO -eq 0 ]] && yes_or_no "Install battery programs?"; then
+if [[ -f /dev/bat* ]] && [[ AUTO -eq 0 ]] && yes_or_no "Install battery programs?"; then
 	sudo apt-get install -y \
 		upower \
 		tlp
