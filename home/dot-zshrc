@@ -16,6 +16,13 @@ PATH=$PATH:$HOME/.cargo/bin
 PATH=$PATH:$HOME/.ghcup/bin
 PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.nix-profile/bin
+PATH=$PATH:$DOTFILES/bin
+
+# Add dotfiles bin
+if [[ -x "$DOTFILES/bin" ]]; then
+	PATH=$PATH:$DOTFILES/bin
+fi
+
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
