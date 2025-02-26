@@ -1,3 +1,6 @@
-./*
-!rc
-!.gitignore
+autosave
+cache
+command-history
+lib.pl
+playlists
+search-history
