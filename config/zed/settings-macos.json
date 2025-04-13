@@ -1,0 +1,44 @@
+{
+  // My configuration
+  "vim_mode": true,
+  "format_on_save": "off",
+  "show_whitespaces": "all",
+  "buffer_font_size": 14,
+  "theme": {
+    "light": "Ayu Light",
+    "dark": "macOS Classic Dark2"
+  },
+
+  // Configuration for Luau LSP provided by the system
+  "languages": {
+    "Luau": {
+      "tab_size": 4,
+      "formatter": {
+        "external": {
+          "command": "stylua",
+          "arguments": ["-", "--syntax", "luau"]
+        }
+      },
+      "language_servers": ["luau-lsp"]
+    }
+  },
+
+  // File associations
+  "file_types": {
+    "Luau": ["lua"]
+  },
+
+  // Configuration for Luau LSP Zed plugin
+  "lsp": {
+    "luau-lsp": {
+      "settings": {
+        "ext": {
+          "roblox": {
+            "enabled": true,
+            "security-level": "roblox-script"
+          }
+        }
+      }
+    }
+  }
+}
