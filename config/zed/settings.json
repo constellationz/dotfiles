@@ -1,18 +1,47 @@
 {
-  // My configuration
+  // Vim navigation
   "vim_mode": true,
+
+  // Do not format on save, use cmd+shift+i
   "format_on_save": "off",
-  "show_whitespaces": "all",
+
+  // Fonts
   "buffer_font_size": 14,
+
+  // Colors
   "theme": {
-    "light": "Ayu Light",
+    "light": "macOS Classic Light",
     "dark": "macOS Classic Dark2"
+  },
+
+  // Indent guides, whitespace
+  "show_whitespaces": "all",
+  "indent_guides": {
+    "enabled": true
+  },
+
+  // Zed AI settings
+  "show_edit_predictions": false,
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-latest"
+    },
+    "version": "2"
+  },
+
+
+  // File associations
+  "file_types": {
+    "Luau": ["luau"]
   },
 
   // Configuration for Luau LSP provided by the system
   "languages": {
     "Luau": {
-      "tab_size": 4,
       "formatter": {
         "external": {
           "command": "stylua",
@@ -21,11 +50,6 @@
       },
       "language_servers": ["luau-lsp"]
     }
-  },
-
-  // File associations
-  "file_types": {
-    "Luau": ["lua"]
   },
 
   // Configuration for Luau LSP Zed plugin
