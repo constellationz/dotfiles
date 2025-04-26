@@ -18,6 +18,9 @@ PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.nix-profile/bin
 PATH=$PATH:$DOTFILES/bin
 
+# Add sbin
+PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+
 # Add dotfiles bin
 if [[ -x "$DOTFILES/bin" ]]; then
 	PATH=$PATH:$DOTFILES/bin
