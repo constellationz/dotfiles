@@ -87,9 +87,9 @@ if [[ AUTO -eq 1 ]] || yes_or_no "Install core packages?"; then
 		gnupg \
 		zoxide \
 		oathtool \
-    net-tools \
+		net-tools \
 		openresolv \
-    bridge-utils \
+		bridge-utils \
 		xdg-user-dirs \
 		libglib2.0-bin \
 		wireguard-tools \
