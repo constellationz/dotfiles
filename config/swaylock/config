@@ -1,6 +1,5 @@
 line-uses-ring
-image=~/.config/sway/wallpapers/gemini.svg
-color=282828ff
+color=000000ff
 separator-color=00000000
 text-color=00000000
 text-clear-color=00000000
