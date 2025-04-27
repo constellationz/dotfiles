@@ -32,7 +32,7 @@ function pull_repo {
 	containingdir="$2"
 	repo=$(basename "$link")
 	if [ ! -d "$containingdir/$repo" ]; then
-		git clone "$link" "$containingdir/$repo" 
+		git clone --depth=1 "$link" "$containingdir/$repo" 
 	else
 		echo "Already pulled $repo"
 	fi
@@ -111,7 +111,7 @@ if [[ AUTO -eq 0 ]] && yes_or_no "Add neovim?"; then
 
 	# Only copy packer if it hasn't been initialized yet
 	if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
-		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+		pull_repo https://github.com/wbthomason/packer.nvim \
 			~/.local/share/nvim/site/pack/packer/start/packer.nvim
 	fi
 
