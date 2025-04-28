@@ -26,6 +26,8 @@ if [[ -x "$DOTFILES/bin" ]]; then
 	PATH=$PATH:$DOTFILES/bin
 fi
 
+# Comments in interactive mode
+setopt interactivecomments
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
