@@ -17,8 +17,8 @@ configure [--auto]
 ```
 
 - [x] Installs programs and copies configs
- - [x] Sources packages by operating system
- - [x] `auto` mode installs base programs automatically
+- [x] Sources packages by operating system
+- [x] `auto` mode installs base programs automatically
 - [x] Installs desktop environment
 
 ## Attribution
