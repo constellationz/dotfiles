@@ -14,14 +14,22 @@
 #
 # Additionally, each config option is also explained in detail
 # on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Adjust font for MacOS
 font-family = "SF Mono"
 font-style = "Regular"
 font-size = 12
 font-thicken = true
 font-thicken-strength = 64
+
+# MacOS theme
+theme = dark:Apple System Colors,light:Apple System Colors Light
+
+# Block cursor
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
-theme = dark:Apple System Colors,light:Apple System Colors Light
+
+# Stock window size
 window-height = 30
 window-width = 80
