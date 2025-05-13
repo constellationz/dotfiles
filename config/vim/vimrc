@@ -1,0 +1,41 @@
+"" Shortcuts
+" <C-s> to save
+nnoremap <C-s> <cmd>:w<CR>
+inoremap <C-s> <cmd>:w<CR>
+
+" <C-c> to copy entire buffer
+inoremap <C-c> <cmd>%y<CR>
+nnoremap <C-c> <cmd>%y<CR>
+
+"" Settings
+" Use system clipboard 
+set clipboard=unnamed
+
+" Use tabs of four
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" Use smart indent
+set smartindent
+set wrap
+
+" Searches are case insensitive until uppercase is used
+set ignorecase
+set smartcase
+
+" Use swapfile in its own directory
+set swapfile
+set nobackup
+set undofile
+set undodir=$HOME/.vim/undodir
+
+" Use incremental highlighting on search
+set incsearch
+
+" No status line
+set laststatus=0
+
+" Use low update time
+set updatetime=50
