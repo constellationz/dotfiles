@@ -94,14 +94,9 @@ do
     })
 end
 
--- Theme
+-- Themes
 do
-    -- Dark background, required by gruvbox
-    vim.o.background = 'dark'
-
-    -- Setup
-    local t = require('gruvbox')
-    t.setup({
+    require('gruvbox').setup {
         bold = false,
         italic = {
             strings = false,
@@ -110,6 +105,22 @@ do
             operators = false,
             folds = false
         },
-    })
-    t.load()
+    }
+    require('onedark').setup {
+        code_style = {
+            comments = 'none',
+            keywords = 'none',
+            functions = 'none',
+            strings = 'none',
+            variables = 'none',
+        },
+    }
+
+    -- Set local theme
+    pcall(function()
+        local theme = require('theme')
+        if theme then
+            vim.cmd('colors ' .. theme)
+        end
+    end)
 end
