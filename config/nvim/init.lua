@@ -1,5 +1,12 @@
 -- Shortcuts
 do
+    -- Space as leader
+    vim.g.mapleader = " "
+    vim.keymap.set("n", vim.g.mapleader, "<Nop>", {
+        silent = true,
+        remap = false,
+    })
+
     -- <C-s> to save
     vim.keymap.set("n", "<C-c>", "<cmd>%y<CR>")
     vim.keymap.set("i", "<C-c>", "<cmd>%y<CR>")
@@ -7,6 +14,11 @@ do
     -- <C-y> to copy entire buffer
     vim.keymap.set("n", "<C-y>", "<cmd>w<CR>")
     vim.keymap.set("i", "<C-y>", "<cmd>w<CR>")
+
+    -- View floating diagnostic
+    vim.keymap.set("n", "<leader>k", function()
+        vim.diagnostic.open_float()
+    end)
 end
 
 -- Settings
