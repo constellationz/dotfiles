@@ -45,6 +45,12 @@ alias pls='!!'
 alias rm='rm -i'
 alias su='su -l -c "cd $(pwd) && bash"'
 
+# Set nvim as vi
+if [ $(command -v nvim) ]; then
+	alias vi='nvim'
+	alias e='nvim'
+fi
+
 # On MacOS, c is pbcopy
 if [ $(command -v pbcopy) ]; then
 	alias c='pbcopy'
