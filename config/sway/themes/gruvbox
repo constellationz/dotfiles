@@ -16,3 +16,6 @@ client.urgent           #4F4343 #4F4343 #EAB2B2 #4F4343 #4F4343
 client.placeholder      #303030 #303030 #303030 #303030 #303030
 client.background       #303030
 # -------------------------------------------------------------
+
+# Set background
+output * bg #282828 solid_color
