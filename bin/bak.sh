@@ -13,15 +13,21 @@
 # - Change hopper.wg to hopper.local
 # - Optionally remove bandwidth limit
 
+dest="$1"
+if [ -z "$dest" ]; then
+  echo "usage: $(basename $0) hopper.wg0"
+  exit 1
+fi
+destdir="$(hostname -s)-bak"
+
+# log
+echo syncing to device $dest
+echo destination directory $destdir
+
 # For safe-keeping
 mkdir -p ~/Desktop/rsynclog
 
 # One-directional sync (using forward deletion)
 # Make sure to do dry-run before initiating actual transfer
-rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial --bwlimit=500 ~/Desktop/sync/ tyler@hopper.wg:/media/hdd/tyler/sync/ | tee -a ~/Desktop/rsynclog/sync-hopper-log.txt
+rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial --bwlimit=500 ~/Desktop/sync/ tyler@$dest:/media/hdd/tyler/$destdir/ | tee -a ~/Desktop/rsynclog/sync-hopper-log.txt
 echo Desktop/sync/ forward sync complete
-
-# One-directional lfs sync (no deletion)
-# rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --verbose --compress --progress --partial --bwlimit=500 ~/Desktop/lfs/ tyler@hopper.wg:/media/hdd/tyler/lfs/ | tee -a ~/Desktop/rsynclog/lfs-hopper-log.txt
-# echo Desktop/lfs/ forward backup complete
-
