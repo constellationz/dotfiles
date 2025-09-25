@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# Set up new xdg-user-dirs on linux
+
+MUSIC="$HOME/sync/music"
+DESKTOP="$HOME/desk"
+DOCUMENTS="$HOME/sync/documents"
+DOWNLOAD="$HOME/down"
+PICTURES="$HOME/sync/pictures"
+PUBLICSHARE="$HOME/pub"
+TEMPLATES="$HOME/sync/templates"
+VIDEOS="$HOME/sync/videos"
+
+OLD_DESKTOP=$(xdg-user-dir DESKTOP)
+OLD_DOCUMENTS=$(xdg-user-dir DOCUMENTS)
+OLD_DOWNLOAD=$(xdg-user-dir DOWNLOAD)
+OLD_MUSIC=$(xdg-user-dir MUSIC)
+OLD_PICTURES=$(xdg-user-dir PICTURES)
+OLD_PUBLICSHARE=$(xdg-user-dir PUBLICSHARE)
+OLD_TEMPLATES=$(xdg-user-dir TEMPLATES)
+OLD_VIDEOS=$(xdg-user-dir VIDEOS)
+
+# Make directories
+#
+echo "Making directories"
+mkdir -p \
+    $MUSIC \
+    $DESKTOP \
+    $DOCUMENTS \
+    $DOWNLOAD \
+    $PICTURES \
+    $PUBLICSHARE \
+    $TEMPLATES \
+    $VIDEOS
+
+# Move old files into new directories
+#
+echo "Moving old files into new directories"
+mv $OLD_DESKTOP/* $DESKTOP/
+mv $OLD_DOCUMENTS/* $DOCUMENTS/
+mv $OLD_DOWNLOAD/* $DOWNLOAD/
+mv $OLD_MUSIC/* $MUSIC/
+mv $OLD_PICTURES/* $PICTURES/
+mv $OLD_PUBLICSHARE/* $PUBLICSHARE/
+mv $OLD_TEMPLATES/* $TEMPLATES/
+mv $OLD_VIDEOS/* $VIDEOS/
+
+# Remove old directories if they're empty
+#
+echo "Removing old directories (if applicable)"
+if [ "dirname $DESKTOP" != "dirname $OLD_DESKTOP" ]; then
+    rmdir $OLD_DESKTOP
+fi
+if [ "dirname $DOCUMENTS" != "dirname $OLD_DOCUMENTS" ]; then
+    rmdir $OLD_DOCUMENTS
+fi
+if [ "dirname $DOWNLOAD" != "dirname $OLD_DOWNLOAD" ]; then
+    rmdir $OLD_DOWNLOAD
+fi
+if [ "dirname $MUSIC" != "dirname $OLD_MUSIC" ]; then
+    rmdir $OLD_MUSIC
+fi
+if [ "dirname $PICTURES" != "dirname $OLD_PICTURES" ]; then
+    rmdir $OLD_PICTURES
+fi
+if [ "dirname $PUBLICSHARE" != "dirname $OLD_PUBLICSHARE" ]; then
+    rmdir $OLD_PUBLICSHARE
+fi
+if [ "dirname $TEMPLATES" != "dirname $OLD_TEMPLATES" ]; then
+    rmdir $OLD_TEMPLATES
+fi
+if [ "dirname $VIDEOS" != "dirname $OLD_VIDEOS" ]; then
+    rmdir $OLD_VIDEOS
+fi
+
+# Setting xdg-user-dirs to new folders
+# 
+echo "Setting xdg-user-dirs"
+xdg-user-dirs-update --set MUSIC ~/sync/music
+xdg-user-dirs-update --set DESKTOP ~/desk
+xdg-user-dirs-update --set DOCUMENTS ~/sync/documents
+xdg-user-dirs-update --set DOWNLOAD ~/down
+xdg-user-dirs-update --set PICTURES ~/sync/pictures
+xdg-user-dirs-update --set PUBLICSHARE ~/pub
+xdg-user-dirs-update --set TEMPLATES ~/sync/templates
+xdg-user-dirs-update --set VIDEOS ~/sync/videos
