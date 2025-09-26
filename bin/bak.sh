@@ -21,13 +21,13 @@ fi
 destdir="$(hostname -s)-bak"
 
 # log
-echo syncing to device $dest
-echo destination directory $destdir
+echo "syncing to device $dest"
+echo "destination directory $destdir"
 
 # For safe-keeping
-mkdir -p ~/Desktop/rsynclog
+mkdir -p ~/rsynclog
 
 # One-directional sync (using forward deletion)
 # Make sure to do dry-run before initiating actual transfer
-rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial --bwlimit=500 ~/Desktop/sync/ tyler@$dest:/media/hdd/tyler/$destdir/ | tee -a ~/Desktop/rsynclog/sync-hopper-log.txt
-echo Desktop/sync/ forward sync complete
+rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial --bwlimit=500 ~/sync/ tyler@$dest:/media/hdd/tyler/$destdir/ | tee -a ~/rsynclog/sync-hopper-log.txt
+echo "~/sync/ forward sync complete"
