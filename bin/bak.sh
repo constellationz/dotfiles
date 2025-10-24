@@ -29,5 +29,5 @@ mkdir -p ~/rsynclog
 
 # One-directional sync (using forward deletion)
 # Make sure to do dry-run before initiating actual transfer
-rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial --bwlimit=500 ~/sync/ tyler@$dest:/media/hdd/tyler/$destdir/ | tee -a ~/rsynclog/sync-hopper-log.txt
+rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-before --verbose --compress --progress --partial ~/sync/ tyler@$dest:/media/hdd/tyler/$destdir/ | tee -a ~/rsynclog/sync-hopper-log.txt
 echo "~/sync/ forward sync complete"
