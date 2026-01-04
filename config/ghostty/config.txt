@@ -23,7 +23,10 @@ font-thicken = true
 font-thicken-strength = 64
 
 # MacOS theme
-theme = dark:Apple System Colors,light:Apple System Colors Light
+# theme = dark:Apple System Colors,light:Apple System Colors Light
+
+# Neovim theme
+theme = dark:Nvim Dark,light:Nvim Light
 
 # Block cursor
 cursor-style = block

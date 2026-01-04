@@ -105,34 +105,3 @@ do
         end,
     })
 end
-
--- Themes
-do
-    require('gruvbox').setup {
-        bold = false,
-        italic = {
-            strings = false,
-            emphasis = false,
-            comments = false,
-            operators = false,
-            folds = false
-        },
-    }
-    require('onedark').setup {
-        code_style = {
-            comments = 'none',
-            keywords = 'none',
-            functions = 'none',
-            strings = 'none',
-            variables = 'none',
-        },
-    }
-
-    -- Set local theme
-    pcall(function()
-        local theme = require('theme')
-        if theme then
-            vim.cmd('colors ' .. theme)
-        end
-    end)
-end
