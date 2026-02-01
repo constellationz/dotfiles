@@ -1,29 +1,41 @@
-# Dotfiles can either be in ~/.rep or ~/Repositories
-if [[ -x "$HOME/.rep/dotfiles" ]]; then 
-	DOTFILES="$HOME/.rep/dotfiles"
-fi
-if [[ -x "$HOME/Repositories/dotfiles" ]]; then
-	DOTFILES="$HOME/Repositories/dotfiles"
+# Repositories can be in any of these
+repdirs=(
+    "$HOME/.rep"
+    "$HOME/Desktop/Repositories"
+    "$HOME/Desktop/rep"
+    "$HOME/Repositories"
+    "$HOME/rep"
+)
+for rep in "${repdirs[@]}"; do
+    if [[ -x "$rep" ]]; then
+        REPDIR="$rep"
+        break
+    fi
+done
+
+# Get dotfiles
+if [[ -x "$REPDIR" && -x "$REPDIR/dotfiles" ]]; then
+    DOTFILES="$REPDIR/dotfiles"
 fi
 
 # Set PS1
 PS1="%n@%m %1~ %# "
 
 # Add paths
-PATH=$PATH:/usr/sbin
-PATH=$PATH:$HOME/.bin
-PATH=$PATH:$HOME/.cargo/bin
-PATH=$PATH:$HOME/.ghcup/bin
-PATH=$PATH:$HOME/.local/bin
-PATH=$PATH:$HOME/.nix-profile/bin
-PATH=$PATH:$DOTFILES/bin
+PATH="$PATH:/usr/sbin"
+PATH="$PATH:$HOME/.bin"
+PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:$HOME/.ghcup/bin"
+PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/.nix-profile/bin"
+PATH="$PATH:$DOTFILES/bin"
 
 # Add sbin
-PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
 
 # Add dotfiles bin
 if [[ -x "$DOTFILES/bin" ]]; then
-	PATH=$PATH:$DOTFILES/bin
+	PATH="$PATH:$DOTFILES/bin"
 fi
 
 # Comments in interactive mode
@@ -36,8 +48,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 [[ $- != *i* ]] && return
 
 # Generic aliases
-alias desk='cd $HOME/Desktop'
-alias dots='cd $DOTFILES' 
+alias desk='cd "$HOME/Desktop"'
+alias dots='cd "$DOTFILES"' 
 alias eza='eza --color=never'
 alias ls='ls --color=never'
 alias oh='o .'
@@ -46,23 +58,23 @@ alias rm='rm -i'
 alias su='su -l -c "cd $(pwd) && bash"'
 
 # Set nvim as vi
-if [ $(command -v nvim) ]; then
+if command -v nvim &>/dev/null; then
 	alias vi='nvim'
 	alias e='nvim'
 fi
 
 # On MacOS, c is pbcopy
-if [ $(command -v pbcopy) ]; then
+if command -v pbcopy &>/dev/null; then
 	alias c='pbcopy'
 fi
 
 # On MacOS, o is open
-if [ $(command -v open) ]; then
+if command -v open &>/dev/null; then
 	alias o='open'
 fi
 
 # Add zoxide if available
-if [ $(command -v zoxide) ]; then
+if command -v zoxide &>/dev/null; then
 	eval "$(zoxide init zsh)"
 fi
 
