@@ -30,7 +30,7 @@ export CARGO_TERM_COLOR=never
 [[ $- != *i* ]] && return
 
 # Set PS1 (bash specific)
-SYMBOL=$([ "$EUID" -eq 0 ] && printf '#' || SYMBOL='$')
+SYMBOL=$([ "$EUID" -eq 0 ] && printf '#' || printf '$')
 PS1="\u@\h:\w$SYMBOL "
 
 # Aliases
