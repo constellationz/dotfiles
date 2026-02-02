@@ -3,6 +3,7 @@
 	email = tyler@luna.local
 [core]
 	editor = nvim
+	excludesfile = /Users/tyler/.gitignore_global
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
