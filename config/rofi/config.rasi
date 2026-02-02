@@ -1,7 +1,0 @@
-@import "theme"
-configuration {
-	font: "Hack 14";
-	show-icons: true;
-	icon-theme: "Papirus";
-	terminal: "alacritty";
-}
