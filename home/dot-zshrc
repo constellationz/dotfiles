@@ -1,3 +1,6 @@
+# Set PS1 (zsh specific)
+PS1="%n@%m %1~ %# "
+
 # Repositories can be in any of these
 repdirs=(
     "$HOME/.rep"
@@ -18,9 +21,6 @@ if [[ -x "$REPDIR" && -x "$REPDIR/dotfiles" ]]; then
     DOTFILES="$REPDIR/dotfiles"
 fi
 
-# Set PS1
-PS1="%n@%m %1~ %# "
-
 # Add paths
 PATH="$PATH:/usr/sbin"
 PATH="$PATH:$HOME/.bin"
@@ -38,18 +38,15 @@ if [[ -x "$DOTFILES/bin" ]]; then
 	PATH="$PATH:$DOTFILES/bin"
 fi
 
-# Comments in interactive mode
-setopt interactivecomments
-
-# Don't show warning on MacOS
-export BASH_SILENCE_DEPRECATION_WARNING=1
+# Program settings
+export CARGO_TERM_COLOR=never
 
 # If not running interactively, don't set aliases
 [[ $- != *i* ]] && return
 
-# Generic aliases
+# Aliases
 alias desk='cd "$HOME/Desktop"'
-alias dots='cd "$DOTFILES"' 
+alias dots='cd "$DOTFILES"'
 alias eza='eza --color=never'
 alias ls='ls --color=never'
 alias oh='o .'
@@ -68,14 +65,12 @@ if command -v pbcopy &>/dev/null; then
 	alias c='pbcopy'
 fi
 
+# On Linux, o is xdg-open
 # On MacOS, o is open
-if command -v open &>/dev/null; then
+if command -v xdg-open &>/dev/null; then
+	alias o='xdg-open'
+elif command -v open &>/dev/null; then
 	alias o='open'
-fi
-
-# Add zoxide if available
-if command -v zoxide &>/dev/null; then
-	eval "$(zoxide init zsh)"
 fi
 
 # Set PATH, MANPATH, etc., for Homebrew.
@@ -83,10 +78,12 @@ if [ -x /opt/homebrew/bin/brew ]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Use zoxide
+if command -v zoxide &>/dev/null; then
+	eval "$(zoxide init zsh)"
+fi
+
 # Use cargo env
 if [ -x $HOME/.cargo/env ]; then
 	. "$HOME/.cargo/env"
 fi
-
-# Program settings
-export CARGO_TERM_COLOR=never

@@ -1,5 +1,5 @@
 # Dotfiles can either be in ~/.rep or ~/Repositories
-if [[ -x "$HOME/.rep/dotfiles" ]]; then 
+if [[ -x "$HOME/.rep/dotfiles" ]]; then
 	DOTFILES="$HOME/.rep/dotfiles"
 fi
 if [[ -x "$HOME/Repositories/dotfiles" ]]; then
@@ -7,15 +7,13 @@ if [[ -x "$HOME/Repositories/dotfiles" ]]; then
 fi
 
 # Add paths
-PATH=$PATH:/usr/sbin
 PATH=$PATH:$HOME/.bin
 PATH=$PATH:$HOME/.cargo/bin
 PATH=$PATH:$HOME/.ghcup/bin
 PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.nix-profile/bin
-
-# Add sbin
 PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+PATH=$PATH:/usr/sbin
 
 # Add dotfiles bin
 if [[ -x "$DOTFILES/bin" ]]; then
@@ -25,47 +23,19 @@ fi
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Program settings
+export CARGO_TERM_COLOR=never
+
 # If not running interactively, don't set aliases
 [[ $- != *i* ]] && return
 
-# Colors and bold colors
-RESET="\[\e[0m\]"
-GREEN="\[\e[0;32m\]"
-BLUE="\[\e[0;34m\]"
-RED="\[\e[0;31m\]"
-YELLOW="\[\e[0;33m\]"
-BGREEN="\[\e[1;32m\]"
-BBLUE="\[\e[1;34m\]"
-BRED="\[\e[1;31m\]"
-BYELLOW="\[\e[1;33m\]"
+# Set PS1 (bash specific)
+SYMBOL=$([ "$EUID" -eq 0 ] && printf '#' || SYMBOL='$')
+PS1="\u@\h:\w$SYMBOL "
 
-# Choose colors
-SYMBOL="$"
-USERCOLOR="$BGREEN"
-DIRCOLOR="$GREEN"
-
-# Root has no colors
-if [ "$EUID" = "0" ]; then
-	SYMBOL="#"
-	USERCOLOR=""
-	DIRCOLOR=""
-fi
-
-# Custom prompt
-PROMPT_COMMAND=__prompt_command
-__prompt_command() {
-	local EXIT="$?"
-	if [ $EXIT != 0 ]; then
-		PS1="$BRED[$EXIT] "
-	else
-		PS1=""
-	fi
-	PS1+="${USERCOLOR}\u${RESET}@\h:${DIRCOLOR}\w${RESET}$SYMBOL "
-}
-
-# Generic aliases
+# Aliases
 alias desk='cd $HOME/Desktop'
-alias dots='cd $DOTFILES' 
+alias dots='cd $DOTFILES'
 alias eza='eza --color=auto'
 alias ls='ls --color=auto'
 alias oh='o .'
@@ -74,23 +44,24 @@ alias rm='rm -i'
 alias su='su -l -c "cd $(pwd) && bash"'
 
 # Set nvim as vi
-if [ $(command -v nvim) ]; then
+if command -v nvim &>/dev/null; then
 	alias vi='nvim'
 	alias e='nvim'
 fi
 
-# Wayland clipboard pipes to wl-copy
-if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+# On Wayland, c is wl-copy
+# On MacOS, c is pbcopy
+if [ "$XDG_SESSION_TYPE" = "wayland" ] && command -v wl-copy &>/dev/null; then
 	alias c='wl-copy'
+elif command -v pbcopy &>/dev/null; then
+    alias c='pbcopy'
 fi
 
-# On linux, o is xdg-open
-if [ $(command -v xdg-open) ]; then
-	alias o='xdg-open'
-fi
-
+# On Linux, o is xdg-open
 # On MacOS, o is open
-if [ $(command -v open) ]; then
+if command -v xdg-open &>/dev/null; then
+	alias o='xdg-open'
+elif command -v open &>/dev/null; then
 	alias o='open'
 fi
 
@@ -99,12 +70,12 @@ if [ -x /opt/homebrew/bin/brew ]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Use zoxide
+if command -v zoxide &>/dev/null; then
+	eval "$(zoxide init bash)"
+fi
+
 # Use cargo env
 if [ -x $HOME/.cargo/env ]; then
 	. "$HOME/.cargo/env"
-fi
-
-# Use zoxide
-if [ $(command -v zoxide) ]; then
-	eval "$(zoxide init bash)"	
 fi
