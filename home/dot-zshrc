@@ -1,6 +1,3 @@
-# Set PS1 (zsh specific)
-PS1="%n@%m %1~ %# "
-
 # Repositories can be in any of these
 repdirs=(
     "$HOME/.rep"
@@ -22,16 +19,14 @@ if [[ -x "$REPDIR" && -x "$REPDIR/dotfiles" ]]; then
 fi
 
 # Add paths
-PATH="$PATH:/usr/sbin"
+PATH="$PATH:$DOTFILES/bin"
 PATH="$PATH:$HOME/.bin"
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/.ghcup/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.nix-profile/bin"
-PATH="$PATH:$DOTFILES/bin"
-
-# Add sbin
 PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+PATH="$PATH:/usr/sbin"
 
 # Add dotfiles bin
 if [[ -x "$DOTFILES/bin" ]]; then
@@ -43,6 +38,9 @@ export CARGO_TERM_COLOR=never
 
 # If not running interactively, don't set aliases
 [[ $- != *i* ]] && return
+
+# Set PS1 (zsh specific)
+PS1="%n@%m %1~ %# "
 
 # Aliases
 alias desk='cd "$HOME/Desktop"'
