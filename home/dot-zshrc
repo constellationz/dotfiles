@@ -28,11 +28,6 @@ PATH="$PATH:$HOME/.nix-profile/bin"
 PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
 PATH="$PATH:/usr/sbin"
 
-# Add dotfiles bin
-if [[ -x "$DOTFILES/bin" ]]; then
-	PATH="$PATH:$DOTFILES/bin"
-fi
-
 # Program settings
 export CARGO_TERM_COLOR=never
 

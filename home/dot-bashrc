@@ -1,24 +1,32 @@
-# Dotfiles can either be in ~/.rep or ~/Repositories
-if [[ -x "$HOME/.rep/dotfiles" ]]; then
-	DOTFILES="$HOME/.rep/dotfiles"
-fi
-if [[ -x "$HOME/Repositories/dotfiles" ]]; then
-	DOTFILES="$HOME/Repositories/dotfiles"
+# Repositories can be in any of these
+repdirs=(
+    "$HOME/.rep"
+    "$HOME/Desktop/Repositories"
+    "$HOME/Desktop/rep"
+    "$HOME/Repositories"
+    "$HOME/rep"
+)
+for rep in "${repdirs[@]}"; do
+    if [[ -x "$rep" ]]; then
+        REPDIR="$rep"
+        break
+    fi
+done
+
+# Get dotfiles
+if [[ -x "$REPDIR" && -x "$REPDIR/dotfiles" ]]; then
+    DOTFILES="$REPDIR/dotfiles"
 fi
 
 # Add paths
-PATH=$PATH:$HOME/.bin
-PATH=$PATH:$HOME/.cargo/bin
-PATH=$PATH:$HOME/.ghcup/bin
-PATH=$PATH:$HOME/.local/bin
-PATH=$PATH:$HOME/.nix-profile/bin
-PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
-PATH=$PATH:/usr/sbin
-
-# Add dotfiles bin
-if [[ -x "$DOTFILES/bin" ]]; then
-	PATH=$PATH:$DOTFILES/bin
-fi
+PATH="$PATH:$DOTFILES/bin"
+PATH="$PATH:$HOME/.bin"
+PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:$HOME/.ghcup/bin"
+PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/.nix-profile/bin"
+PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+PATH="$PATH:/usr/sbin"
 
 # Don't show warning on MacOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
