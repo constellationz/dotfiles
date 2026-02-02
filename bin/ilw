@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install librewolf
+# Install Librewolf on Debian
 
 sudo apt-get update -y
 sudo apt-get install extrepo -y

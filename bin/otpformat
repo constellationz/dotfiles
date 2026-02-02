@@ -3,6 +3,7 @@
 -- <key> # ...
 -- to be
 -- <otp> # ...
+
 for line in io.stdin:lines() do
 	print((line:gsub("(%w+)(%s+#.+)", function(s, rest)
 		return io.popen("oathtool -b --totp " .. s):read() .. rest

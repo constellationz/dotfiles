@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# Alias for xterm that opens alacritty or other terminals
 if [ -f "/usr/bin/alacritty" ]; then
   /usr/bin/alacritty $@
+elif [ -f "/usr/bin/foot" ]; then
+  /usr/bin/foot $@
 else
   /usr/bin/xterm $@
 fi

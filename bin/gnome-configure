@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Configure gnome inputs with gsettings
 
 gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
 gsettings set org.gnome.desktop.peripherals.keyboard delay 250

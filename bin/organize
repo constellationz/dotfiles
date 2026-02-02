@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Organize files on the desktop into their respective sync folders
 
 DESKTOP="$HOME/Desktop"
 SYNC="$DESKTOP/sync"
