@@ -48,6 +48,7 @@ alias eza='eza --color=auto'
 alias ls='ls --color=auto'
 alias oh='o .'
 alias pls='!!'
+alias rep='cd $REPDIR'
 alias rm='rm -i'
 alias su='su -l -c "cd $(pwd) && bash"'
 
