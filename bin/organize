@@ -12,7 +12,7 @@ elif [[ -d "$HOME/Desktop/sync" ]]; then
 elif [[ -d "$HOME/sync" ]]; then
   TO="$HOME/sync"
 else
-  echo "Nowhere to organize to, either \$SYNCDIR must be set and exist or ~/Desktop/sync or ~/sync must exist"
+  echo "Nowhere to organize to, either \$TO must be set and exist or ~/Desktop/sync or ~/sync must exist"
   exit 1
 fi
 

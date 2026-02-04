@@ -7,27 +7,52 @@
 # - progress
 # - partial sync
 # - 500 kb/s bandwidth limit
-# - write to /media/hdd/tyler/lfs
+# - write to /home/luna
 #
 # Note: These operations use wireguard
 # - Change hopper.wg to hopper.local
 # - Optionally remove bandwidth limit
 
-dest="$1"
-if [ -z "$dest" ]; then
-  echo "usage: $(basename $0) hopper.wg0"
+# Set SYNCDIR: Use $HOME/Desktop/sync or $HOME/sync
+if [[ -d "$HOME/Desktop/sync" ]]; then
+  SYNCDIR="$HOME/Desktop/sync"
+elif [[ -d "$HOME/sync" ]]; then
+  SYNCDIR="$HOME/sync"
+else
+  echo "Sync directory not found, either ~/Desktop/sync or ~/sync must exist"
   exit 1
 fi
-destdir="$(hostname -s)"
 
-# log
-echo "syncing to device $dest"
-echo "destination directory $destdir"
+# Set DEST
+REMOTE="$1"
+if [ -z "$REMOTE" ]; then
+  echo "Usage: $(basename $0) hopper.wg0"
+  exit 1
+fi
 
-# For safe-keeping
-mkdir -p ~/rsynclog
+# LOGDIR: Where to save rsync logs
+LOGDIR="$HOME/rsynclog"
 
-# One-directional sync (using forward deletion)
+# DESTDIR: The folder name which sync will be copied to on the remote
+DESTDIR="/home/$(hostname -s)"
+
+# Make log directory for tee command
+mkdir -p "$LOGDIR"
+LOGFILE="$LOGDIR/sync-$REMOTE-log.txt"
+
+# One-directional sync (with deletion)
 # Make sure to do dry-run before initiating actual transfer
-rsync --rsh="ssh -p 1183 -i ~/.ssh/hopper" --archive --delete-after --exclude=".hist" --verbose --compress --progress --partial ~/sync/ tyler@$dest:/home/$destdir/ | tee -a ~/rsynclog/sync-hopper-log.txt
-echo "~/sync/ forward sync complete"
+echo "syncing to remote $REMOTE:$DESTDIR"
+RSYNC_RSH="ssh -p 1183 -i ~/.ssh/hopper"
+TO="$(whoami)@$REMOTE:$DESTDIR"
+rsync \
+  --dry-run \
+  --archive \
+  --compress \
+  --delete-after \
+  --partial \
+  --progress \
+  --verbose \
+  --exclude '.hist' \
+  "$SYNCDIR/" "$TO/" | tee -a $LOGFILE
+echo "bak: rsync $SYNCDIR/ -> $TO/ complete"
