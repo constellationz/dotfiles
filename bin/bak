@@ -23,30 +23,32 @@ else
   exit 1
 fi
 
-# Set DEST
+# Set REMOTE
+# Exit if not defined
 REMOTE="$1"
 if [ -z "$REMOTE" ]; then
   echo "Usage: $(basename $0) hopper.wg0"
-  exit 1
+  exit 2
 fi
 
-# LOGDIR: Where to save rsync logs
-LOGDIR="$HOME/rsynclog"
-
-# DESTDIR: The folder name which sync will be copied to on the remote
+# The folder name which sync will be copied to on the remote
 DESTDIR="/home/$(hostname -s)"
+# Where to save rsync logs
+LOGDIR="$HOME/rsynclog"
+# Logfile to write to
+LOGFILE="$LOGDIR/sync-$REMOTE-log.txt"
+# ssh command to use for rsync
+RSYNC_RSH="ssh -p 1183 -i ~/.ssh/hopper"
+# The exact rsync destination (directory) to sync to
+TO="$(whoami)@$REMOTE:$DESTDIR"
 
 # Make log directory for tee command
 mkdir -p "$LOGDIR"
-LOGFILE="$LOGDIR/sync-$REMOTE-log.txt"
 
 # One-directional sync (with deletion)
 # Make sure to do dry-run before initiating actual transfer
-echo "syncing to remote $REMOTE:$DESTDIR"
-RSYNC_RSH="ssh -p 1183 -i ~/.ssh/hopper"
-TO="$(whoami)@$REMOTE:$DESTDIR"
+echo "syncing $SYNCDIR/ -> $TO/"
 rsync \
-  --dry-run \
   --archive \
   --compress \
   --delete-after \
