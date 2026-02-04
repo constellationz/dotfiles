@@ -4,10 +4,10 @@
 # Directory to organize files from
 FROM="$HOME/Desktop"
 
-# Set TO: use $SYNCDIR if set; otherwise prefer ~/Desktop/sync, else ~/sync, otherwise exit
-if [[ -n "${SYNCDIR:-}" ]] && [[ -d "${SYNCDIR:-}" ]]; then
-  TO="$SYNCDIR"
-if [[ -d "$HOME/Desktop/sync" ]]; then
+# Set TO: use $TO if set; otherwise prefer ~/Desktop/sync, else ~/sync, otherwise exit
+if [[ -n "${TO:-}" ]]; then
+  echo "Using TO=$TO"
+elif [[ -d "$HOME/Desktop/sync" ]]; then
   TO="$HOME/Desktop/sync"
 elif [[ -d "$HOME/sync" ]]; then
   TO="$HOME/sync"
@@ -35,11 +35,10 @@ move_exts() {
 
     # Only make directories for files being moved
     mkdir -p "$TO/$dest"
-    echo "mv $file -> $TO/$dest/"
 
     # -n flag prevents overwriting
     # Echo on failure
-    if ! mv -n -- "$file" "$TO/$dest/"; then
+    if ! mv -v -n -- "$file" "$TO/$dest/"; then
       echo "Failed to move $file" >&2
     fi
   done
