@@ -1,12 +1,55 @@
 #!/usr/bin/env bash
 # Organize files on the desktop into their respective sync folders
 
-DESKTOP="$HOME/Desktop"
-SYNC="$DESKTOP/sync"
+# Directory to organize files from
+FROM="$HOME/Desktop"
 
-mv "$DESKTOP"/*.dmg "$SYNC"/dmg
-mv "$DESKTOP"/*.jpeg "$SYNC"/pictures
-mv "$DESKTOP"/*.mov "$SYNC"/pictures
-mv "$DESKTOP"/*.mp4 "$SYNC"/pictures
-mv "$DESKTOP"/*.png "$SYNC"/pictures
-mv "$DESKTOP"/*.pdf "$SYNC"/pdf
+# Set TO: use $SYNCDIR if set; otherwise prefer ~/Desktop/sync, else ~/sync, otherwise exit
+if [[ -n "${SYNCDIR:-}" ]] && [[ -d "${SYNCDIR:-}" ]]; then
+  TO="$SYNCDIR"
+if [[ -d "$HOME/Desktop/sync" ]]; then
+  TO="$HOME/Desktop/sync"
+elif [[ -d "$HOME/sync" ]]; then
+  TO="$HOME/sync"
+else
+  echo "Nowhere to organize to, either \$SYNCDIR must be set and exist or ~/Desktop/sync or ~/sync must exist"
+  exit 1
+fi
+
+echo "Organizing into $TO"
+mkdir -p "$TO" || { echo "Cannot create $TO"; exit 1; }
+
+# Globs expand to empty list if no match
+# Uses no case glob
+shopt -s nullglob
+shopt -s nocaseglob
+
+# Move files in $FROM with extension $1 to $TO/$2
+move_exts() {
+  local ext dest file
+  ext=$1
+  dest=$2
+  for file in "$FROM"/*."$ext"; do
+    # Guard against unmatched globs yielding the literal pattern
+    [[ -f "$file" ]] || continue
+
+    # Only make directories for files being moved
+    mkdir -p "$TO/$dest"
+    echo "mv $file -> $TO/$dest/"
+
+    # -n flag prevents overwriting
+    # Echo on failure
+    if ! mv -n -- "$file" "$TO/$dest/"; then
+      echo "Failed to move $file" >&2
+    fi
+  done
+}
+
+move_exts dmg dmg
+move_exts jpeg pictures
+move_exts jpg pictures
+move_exts mov pictures
+move_exts mp4 pictures
+move_exts png pictures
+move_exts pdf pdf
+move_exts zip zip
