@@ -1,3 +1,4 @@
+# Adjust font for GNOME
 font-family = Adwaita Mono
 font-family-bold = Adwaita Mono
 font-family-italic = Adwaita Mono
@@ -6,7 +7,31 @@ font-style = Regular
 font-size = 10
 font-thicken = true
 font-thicken-strength = 64
+
+# Launch
+command = /bin/bash
+
+# Window style
+window-padding-x = 4
+window-padding-y = 4
+window-theme = system
+window-height = 30
+window-width = 80
+
+# Behavior
+shell-integration-features = no-cursor,no-sudo,title
+auto-update-channel = tip
+
+# Cursor
+cursor-style-blink = false
+click-repeat-interval = 500
+
+# Theme
 theme = light:Adwaita,dark:Adwaita Dark
+
+# Theme colors
+cursor-color = #000000
+cursor-text = #ffffff
 background = #ffffff
 foreground = #000000
 selection-foreground = #000000
@@ -267,15 +292,3 @@ palette = 252=#d0d0d0
 palette = 253=#dadada
 palette = 254=#e4e4e4
 palette = 255=#eeeeee
-cursor-color = #000000
-cursor-style-blink = false
-cursor-text = #ffffff
-command = /bin/bash
-window-padding-x = 4
-window-padding-y = 4
-window-theme = system
-window-height = 30
-window-width = 80
-click-repeat-interval = 500
-shell-integration-features = no-cursor,no-sudo,title
-auto-update-channel = tip
