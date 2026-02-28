@@ -52,6 +52,11 @@ alias rep='cd $REPDIR'
 alias rm='rm -i'
 alias su='su -l -c "cd $(pwd) && bash"'
 
+# Alias venv
+if  [[ -f "$HOME/.venv/bin/activate" ]]; then
+    alias venv='source $HOME/.venv/bin/activate'
+fi
+
 # Set nvim as vi
 if command -v nvim &>/dev/null; then
 	alias vi='nvim'
@@ -60,7 +65,7 @@ fi
 
 # On Wayland, c is wl-copy
 # On MacOS, c is pbcopy
-if [ "$XDG_SESSION_TYPE" = "wayland" ] && command -v wl-copy &>/dev/null; then
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]] && command -v wl-copy &>/dev/null; then
 	alias c='wl-copy'
 elif command -v pbcopy &>/dev/null; then
     alias c='pbcopy'
@@ -75,7 +80,7 @@ elif command -v open &>/dev/null; then
 fi
 
 # Set PATH, MANPATH, etc., for Homebrew.
-if [ -x /opt/homebrew/bin/brew ]; then
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -85,6 +90,6 @@ if command -v zoxide &>/dev/null; then
 fi
 
 # Use cargo env
-if [ -x $HOME/.cargo/env ]; then
+if [[ -x "$HOME/.cargo/env" ]]; then
 	. "$HOME/.cargo/env"
 fi
