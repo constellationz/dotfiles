@@ -56,3 +56,4 @@ move_exts zip zip
 move_exts icns icons
 move_exts hexproj imhex
 move_exts kra krita
+move_exts webarchive webarchive
