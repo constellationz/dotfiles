@@ -1,3 +1,5 @@
+moved to codeberg https://codeberg.org/t51820/dotfiles
+
 # dotfiles
 
 My configs and some Bash scripts
