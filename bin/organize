@@ -59,3 +59,4 @@ move_exts kra krita
 move_exts webarchive webarchive
 move_exts graphite graphite
 move_exts svg svg
+move_exts org org
