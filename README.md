@@ -1,5 +1,4 @@
-This repository has moved to codeberg.org
-https://codeberg.org/t51820/dotfiles
+This repository has moved to [codeberg.org/t51820/dotfiles](https://codeberg.org/t51820/dotfiles)
 
 # dotfiles
 
